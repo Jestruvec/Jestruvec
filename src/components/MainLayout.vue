@@ -2,40 +2,23 @@
   <v-layout>
     <v-app-bar title="Jestruvec web site" color="primary" />
 
-    <v-navigation-drawer
-      v-model="showSidebar"
-      color="secondary"
-      elevation="10"
-      permanent
-    >
-      <v-list>
-        <v-list-item
-          prepend-avatar="https://i.pinimg.com/736x/e0/4d/a0/e04da00017705cf64203acf6f166d717.jpg"
-          subtitle="jestruvec@gmail.com"
-          title="Jhonny Estruve"
-        ></v-list-item>
-      </v-list>
-
-      <v-divider></v-divider>
-
-      <v-list density="compact" nav>
+    <v-navigation-drawer v-model="showSidebar" elevation="10" permanent>
+      <div>
         <RouterLink
           v-for="(item, itemIdx) in navItems"
           :key="itemIdx"
           :to="item.path"
         >
-          <v-list-item
-            :prepend-icon="item.icon"
-            :title="item.title"
-            :value="item.value"
-          >
-          </v-list-item>
+          <div class="flex items-center pa-4 hover:bg-gray-100">
+            <v-icon :icon="item.icon" class="mr-2" color="primary" />
+            <span>{{ item.title }}</span>
+          </div>
         </RouterLink>
-      </v-list>
+      </div>
 
       <div
         @click="showSidebar = !showSidebar"
-        class="absolute w-6 h-12 bg-primary flex items-center hover:cursor-pointer hover:opacity-75"
+        class="absolute w-3 h-12 bg-primary flex items-center hover:cursor-pointer hover:opacity-75"
         style="
           z-index: 1000;
           top: 50%;
@@ -45,12 +28,13 @@
       >
         <v-icon
           :icon="`mdi-chevron-${showSidebar ? 'left' : 'right'}`"
+          size="12"
         ></v-icon>
       </div>
     </v-navigation-drawer>
 
     <v-main>
-      <div class="bg-gray-200 h-full">
+      <div class="bg-gray-200 h-full pa-4">
         <slot> </slot>
       </div>
     </v-main>
@@ -70,14 +54,24 @@ interface NavItem {
 
 const showSidebar = ref(true);
 const navItems = ref<NavItem[]>([
-  { title: "Home", value: "Home", path: "/", icon: "mdi-home" },
+  { title: "Home", value: "Home", path: "/", icon: "mdi-home-outline" },
   {
     title: "Projects",
     value: "Projects",
     path: "/projects",
-    icon: "mdi-folder",
+    icon: "mdi-folder-outline",
   },
-  { title: "About", value: "About", path: "/about", icon: "mdi-information" },
-  { title: "Contact", value: "Contact", path: "/contact", icon: "mdi-email" },
+  {
+    title: "About",
+    value: "About",
+    path: "/about",
+    icon: "mdi-information-outline",
+  },
+  {
+    title: "Contact",
+    value: "Contact",
+    path: "/contact",
+    icon: "mdi-email-outline",
+  },
 ]);
 </script>
