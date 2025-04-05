@@ -5,7 +5,7 @@
 
 ### 👨‍💻 Sobre mí
 
-- 🧠 Actualmente no estoy trabajando 
+- 🧠 Actualmente no estoy trabajando
 - 🛠️ Stack principal: **React, Vue, TypeScript, Vite, TailwindCSS**
 - 🌐 También uso: **Next.js, Nuxt, WebSockets, Bootstrap**
 - 🎯 Siempre enfocado en la experiencia de usuario, rendimiento y buenas prácticas
@@ -41,7 +41,6 @@
 
 - ✉️ Email: [jhonnyestruve@gmail.com](mailto:jhonnyestruve@gmail.com)
 - 💼 LinkedIn: [https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/](https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/)
-
 
 ---
 
