@@ -2,11 +2,16 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 
 export const useThreeGeometry = () => {
+  const defaultMaterial = new THREE.MeshLambertMaterial({
+    color: "white",
+    flatShading: true,
+  });
+
   const createBox = (
     x: number,
     y: number,
     z: number,
-    material: THREE.MeshLambertMaterial
+    material: THREE.MeshLambertMaterial = defaultMaterial
   ) => {
     return new THREE.Mesh(new THREE.BoxGeometry(x, y, z), material);
   };
@@ -53,7 +58,7 @@ export const useThreeGeometry = () => {
     height: number,
     widthSegments: number,
     heightSegments: number,
-    material: THREE.MeshLambertMaterial
+    material: THREE.MeshLambertMaterial = defaultMaterial
   ) => {
     return new THREE.Mesh(
       new THREE.PlaneGeometry(width, height, widthSegments, heightSegments),
