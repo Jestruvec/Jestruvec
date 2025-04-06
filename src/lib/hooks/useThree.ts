@@ -22,12 +22,11 @@ export const useThree = () => {
   };
 
   const createCamera = () => {
-    const { fov, aspectRatio, near, far, lookAt, position } = CAMERA_SETTINGS;
+    const { fov, aspectRatio, near, far, position } = CAMERA_SETTINGS;
 
     const camera = new THREE.PerspectiveCamera(fov, aspectRatio, near, far);
 
     camera.position.set(position.x, position.y, position.z);
-    camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
 
     return camera;
   };

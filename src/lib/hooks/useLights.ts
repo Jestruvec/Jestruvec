@@ -14,7 +14,7 @@ export const useLights = () => {
   const createSpotLight = () => {
     const spotlight = new THREE.SpotLight(
       0xffffff, // Color blanco puro
-      10, // Intensidad fuerte (valor alto, por defecto es 1)
+      5, // Intensidad fuerte (valor alto, por defecto es 1)
       20, // Distancia grande para cubrir más área
       Math.PI / 2, // Ángulo más abierto (60 grados en radianes)
       0.2, // Penumbra más pequeña (bordes más definidos)

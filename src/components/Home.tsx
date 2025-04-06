@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLights, useThree, useThreeGeometry } from "@/lib/hooks";
 import * as THREE from "three";
 
 export const Home = () => {
+  const [hasStarted, setHasStarted] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const {
     scene,
     clock,
@@ -106,7 +108,6 @@ export const Home = () => {
       man.model.scale.set(0.5, 0.5, 0.5);
       man.model.rotation.y = Math.PI;
       man.model.position.set(0, 0, 5);
-      man.model.add(camera);
 
       scene.add(man.model);
     };
@@ -124,6 +125,15 @@ export const Home = () => {
         man.mixer.update(delta);
       }
 
+      if (hasStarted) {
+        if (camera.position.z >= 10) {
+          camera.position.z -= 0.01;
+        }
+        if (camera.position.y >= 5) {
+          camera.position.y -= 0.01;
+        }
+      }
+
       renderer.render(scene, camera);
     }
 
@@ -136,5 +146,31 @@ export const Home = () => {
     };
   });
 
-  return <canvas ref={canvasRef} />;
+  const handleClick = () => {
+    setHasStarted(true);
+    if (audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => console.log("Audio iniciado"))
+        .catch((error) => console.error("Error al reproducir:", error));
+    }
+  };
+
+  return (
+    <>
+      {!hasStarted && (
+        <div className="fixed top-0 left-0 h-full w-full bg-white opacity-50 flex items-center justify-center flex-col gap-4">
+          <span>Este sitio se encuentra en construccion</span>
+          <button
+            onClick={handleClick}
+            className="border p-2 rounded-md border-gray-400 color-gray-400 cursor-pointer"
+          >
+            Iniciar
+          </button>
+        </div>
+      )}
+      <audio ref={audioRef} src="/songs/Piano_1.mp3" />
+      <canvas ref={canvasRef} onClick={handleClick} />
+    </>
+  );
 };
