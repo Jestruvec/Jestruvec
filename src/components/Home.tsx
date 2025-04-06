@@ -49,32 +49,32 @@ export const Home = () => {
       rightWall.rotation.y = -Math.PI / 2;
       rightWall.position.set(5, 5, 4);
 
-      const desk = await createModel("/glbs/Desk.glb");
+      const desk = await createModel("Jestruvec/glbs/Desk.glb");
       desk.model.scale.set(1.25, 1.25, 1.25);
       desk.model.rotation.y = -(Math.PI / 2);
 
-      const laptop = await createModel("/glbs/Laptop.glb");
+      const laptop = await createModel("Jestruvec/glbs/Laptop.glb");
       laptop.model.scale.set(0.2, 0.2, 0.2);
       laptop.model.position.y = 1.2;
 
-      const sofa = await createModel("/glbs/Sofa.glb");
+      const sofa = await createModel("Jestruvec/glbs/Sofa.glb");
       sofa.model.rotation.y = Math.PI / 2;
       sofa.model.position.set(-4.25, 0, 1);
 
-      const door = await createModel("/glbs/Door.glb");
+      const door = await createModel("Jestruvec/glbs/Door.glb");
       door.model.position.set(4, 0, -0.85);
 
-      const chair = await createModel("/glbs/Chair.glb");
+      const chair = await createModel("Jestruvec/glbs/Chair.glb");
       chair.model.scale.set(1.25, 1.25, 1.25);
       chair.model.position.set(0, 0.45, 1);
       chair.model.rotation.y = Math.PI;
 
-      const bed = await createModel("/glbs/Bed.glb");
+      const bed = await createModel("Jestruvec/glbs/Bed.glb");
       bed.model.scale.set(0.3, 0.3, 0.3);
       bed.model.position.set(-3.3, 0.5, 5);
       bed.model.rotation.y = Math.PI / 2;
 
-      const tv = await createModel("/glbs/Tv.glb");
+      const tv = await createModel("Jestruvec/glbs/Tv.glb");
       tv.model.scale.set(0.75, 0.75, 0.75);
       tv.model.position.set(4.85, 2.5, 5);
       tv.model.rotation.y = -Math.PI / 2;
@@ -104,7 +104,7 @@ export const Home = () => {
     };
 
     const initMan = async () => {
-      man = await createModel("/glbs/Man.glb");
+      man = await createModel("Jestruvec/glbs/Man.glb");
       man.model.scale.set(0.5, 0.5, 0.5);
       man.model.rotation.y = Math.PI;
       man.model.position.set(0, 0, 5);
@@ -169,7 +169,7 @@ export const Home = () => {
           </button>
         </div>
       )}
-      <audio ref={audioRef} src="/songs/Piano_1.mp3" />
+      <audio ref={audioRef} src="Jestruvec/songs/Piano_1.mp3" />
       <canvas ref={canvasRef} onClick={handleClick} />
     </>
   );

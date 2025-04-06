@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/Jestruvec" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
