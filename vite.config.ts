@@ -4,8 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/Jestruvec",
+  base: "/Jestruvec/",
   plugins: [react(), tailwindcss()],
+  assetsInclude: ["**/*.glb", "**/*.gltf"],
   resolve: {
     alias: {
       "@": "/src",

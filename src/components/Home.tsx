@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLights, useThree, useThreeGeometry } from "@/lib/hooks";
 import * as THREE from "three";
+import { Bed, Chair, Desk, Door, Laptop, Man, Sofa, Tv } from "@/assets/glbs";
+import Piano_1 from "@/assets/songs/Piano_1.mp3";
 
 export const Home = () => {
   const [hasStarted, setHasStarted] = useState(false);
@@ -49,32 +51,32 @@ export const Home = () => {
       rightWall.rotation.y = -Math.PI / 2;
       rightWall.position.set(5, 5, 4);
 
-      const desk = await createModel("Jestruvec/glbs/Desk.glb");
+      const desk = await createModel(Desk);
       desk.model.scale.set(1.25, 1.25, 1.25);
       desk.model.rotation.y = -(Math.PI / 2);
 
-      const laptop = await createModel("Jestruvec/glbs/Laptop.glb");
+      const laptop = await createModel(Laptop);
       laptop.model.scale.set(0.2, 0.2, 0.2);
       laptop.model.position.y = 1.2;
 
-      const sofa = await createModel("Jestruvec/glbs/Sofa.glb");
+      const sofa = await createModel(Sofa);
       sofa.model.rotation.y = Math.PI / 2;
       sofa.model.position.set(-4.25, 0, 1);
 
-      const door = await createModel("Jestruvec/glbs/Door.glb");
+      const door = await createModel(Door);
       door.model.position.set(4, 0, -0.85);
 
-      const chair = await createModel("Jestruvec/glbs/Chair.glb");
+      const chair = await createModel(Chair);
       chair.model.scale.set(1.25, 1.25, 1.25);
       chair.model.position.set(0, 0.45, 1);
       chair.model.rotation.y = Math.PI;
 
-      const bed = await createModel("Jestruvec/glbs/Bed.glb");
+      const bed = await createModel(Bed);
       bed.model.scale.set(0.3, 0.3, 0.3);
       bed.model.position.set(-3.3, 0.5, 5);
       bed.model.rotation.y = Math.PI / 2;
 
-      const tv = await createModel("Jestruvec/glbs/Tv.glb");
+      const tv = await createModel(Tv);
       tv.model.scale.set(0.75, 0.75, 0.75);
       tv.model.position.set(4.85, 2.5, 5);
       tv.model.rotation.y = -Math.PI / 2;
@@ -104,7 +106,7 @@ export const Home = () => {
     };
 
     const initMan = async () => {
-      man = await createModel("Jestruvec/glbs/Man.glb");
+      man = await createModel(Man);
       man.model.scale.set(0.5, 0.5, 0.5);
       man.model.rotation.y = Math.PI;
       man.model.position.set(0, 0, 5);
@@ -169,7 +171,7 @@ export const Home = () => {
           </button>
         </div>
       )}
-      <audio ref={audioRef} src="Jestruvec/songs/Piano_1.mp3" />
+      <audio ref={audioRef} src={Piano_1} />
       <canvas ref={canvasRef} onClick={handleClick} />
     </>
   );
