@@ -119,6 +119,22 @@ export const Home = () => {
 
     scene.add(ambientLight);
 
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        man.model.position.z -= 0.1;
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        man.model.position.z += 0.1;
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        man.model.position.x -= 0.1;
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        man.model.position.x += 0.1;
+      }
+    });
+
     function animate() {
       controls.update();
       const delta = clock.getDelta();
