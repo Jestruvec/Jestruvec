@@ -3,6 +3,8 @@ const CAMERA_SETTINGS = {
   near: 0.1,
   far: 1000,
   aspectRatio: window.innerWidth / window.innerHeight,
+  position: { x: -10, y: 10, z: 15 },
+  lookAt: { x: 0, y: 10, z: 0 },
 };
 
 const ANIMAL_MODELS = [
