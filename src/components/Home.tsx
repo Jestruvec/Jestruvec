@@ -168,14 +168,19 @@ export const Home = () => {
 
       if (man) {
         man.mixer.update(delta);
+        cameraRef.current.lookAt(
+          man.model.position.x,
+          man.model.position.y,
+          man.model.position.z
+        );
       }
 
       if (hasStarted && !cameraReady) {
         if (cameraRef.current.position.z > 10) {
-          cameraRef.current.position.z -= 0.1;
+          cameraRef.current.position.z -= 0.01;
         }
         if (cameraRef.current.position.y > 5) {
-          cameraRef.current.position.y -= 0.1;
+          cameraRef.current.position.y -= 0.01;
         }
 
         if (
@@ -183,7 +188,16 @@ export const Home = () => {
           cameraRef.current.position.y <= 5
         ) {
           cameraReady = true;
+          controlsRef.current.enabled = true;
         }
+      } else if (cameraReady) {
+        const targetCameraPos = new THREE.Vector3(
+          man.model.position.x,
+          man.model.position.y + 5,
+          man.model.position.z + 5
+        );
+
+        cameraRef.current.position.lerp(targetCameraPos, 0.01);
       }
 
       rendererRef.current?.render(scene, cameraRef.current);
