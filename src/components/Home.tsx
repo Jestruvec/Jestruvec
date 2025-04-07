@@ -3,11 +3,15 @@ import { useLights, useThree, useThreeGeometry } from "@/lib/hooks";
 import * as THREE from "three";
 import { Bed, Chair, Desk, Door, Laptop, Man, Sofa, Tv } from "@/assets/glbs";
 import Piano_1 from "@/assets/songs/Piano_1.mp3";
+import { OrbitControls } from "three-stdlib";
 
 export const Home = () => {
   const [hasStarted, setHasStarted] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const controlsRef = useRef<OrbitControls>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer>(null);
   const {
     scene,
     clock,
@@ -22,9 +26,13 @@ export const Home = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    const renderer = createRenderer(canvasRef.current);
-    const camera = createCamera();
-    const controls = createOrbitControls(camera, renderer.domElement);
+    rendererRef.current = createRenderer(canvasRef.current);
+    cameraRef.current = createCamera();
+    controlsRef.current = createOrbitControls(
+      cameraRef.current,
+      rendererRef.current.domElement
+    );
+    controlsRef.current.enabled = false;
     const ceilingLight = createSpotLight();
     scene.add(ceilingLight);
 
@@ -120,47 +128,74 @@ export const Home = () => {
     scene.add(ambientLight);
 
     window.addEventListener("keydown", (event) => {
+      if (!cameraReady) return;
+
+      console.log(man.animations);
+      const walkClip = man.animations.find(
+        (clip) => clip.name === "HumanArmature|Man_Walk"
+      );
+      if (walkClip) {
+        const action = man.mixer.clipAction(walkClip);
+        action.play();
+      }
+
       if (event.key === "ArrowUp") {
         event.preventDefault();
         man.model.position.z -= 0.1;
+        man.model.rotation.y = Math.PI;
       } else if (event.key === "ArrowDown") {
         event.preventDefault();
         man.model.position.z += 0.1;
+        man.model.rotation.y = 0;
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         man.model.position.x -= 0.1;
+        man.model.rotation.y = -(Math.PI / 2);
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
         man.model.position.x += 0.1;
+        man.model.rotation.y = Math.PI / 2;
       }
     });
 
+    let cameraReady = false;
+
     function animate() {
-      controls.update();
+      if (!cameraRef.current || !controlsRef.current) return;
+
+      controlsRef.current.update();
       const delta = clock.getDelta();
 
       if (man) {
         man.mixer.update(delta);
       }
 
-      if (hasStarted) {
-        if (camera.position.z >= 10) {
-          camera.position.z -= 0.01;
+      if (hasStarted && !cameraReady) {
+        if (cameraRef.current.position.z > 10) {
+          cameraRef.current.position.z -= 0.1;
         }
-        if (camera.position.y >= 5) {
-          camera.position.y -= 0.01;
+        if (cameraRef.current.position.y > 5) {
+          cameraRef.current.position.y -= 0.1;
+        }
+
+        if (
+          cameraRef.current.position.z <= 10 &&
+          cameraRef.current.position.y <= 5
+        ) {
+          cameraReady = true;
         }
       }
 
-      renderer.render(scene, camera);
+      rendererRef.current?.render(scene, cameraRef.current);
     }
 
-    renderer.setAnimationLoop(animate);
+    rendererRef.current.setAnimationLoop(animate);
 
     return () => {
-      if (renderer) {
-        renderer.dispose();
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
       }
+      window.removeEventListener("keydown", () => {});
     };
   });
 
