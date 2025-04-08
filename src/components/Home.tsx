@@ -1,9 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { useLights, useThree, useThreeGeometry } from "@/lib/hooks";
 import * as THREE from "three";
-import { Bed, Chair, Desk, Door, Laptop, Man, Sofa, Tv } from "@/assets/glbs";
+import {
+  Bed,
+  Chair,
+  Desk,
+  Door,
+  Laptop,
+  Man,
+  Sofa,
+  Tv,
+  Husky,
+  Dog_Bed,
+} from "@/assets/glbs";
 import Piano_1 from "@/assets/songs/Piano_1.mp3";
 import { OrbitControls } from "three-stdlib";
+
+interface AnimatedModel {
+  model: THREE.Group;
+  animations: THREE.AnimationClip[];
+  mixer: THREE.AnimationMixer;
+  update: (delta: number) => void;
+}
 
 export const Home = () => {
   const [hasStarted, setHasStarted] = useState(false);
@@ -12,6 +30,9 @@ export const Home = () => {
   const controlsRef = useRef<OrbitControls>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
+  const ceilingLightRef = useRef<THREE.SpotLight>(null);
+  const manRef = useRef<AnimatedModel>(null);
+  const huskyRef = useRef<AnimatedModel>(null);
   const {
     scene,
     clock,
@@ -33,7 +54,94 @@ export const Home = () => {
       rendererRef.current.domElement
     );
     controlsRef.current.enabled = false;
-    const ceilingLight = createSpotLight();
+    ceilingLightRef.current = createSpotLight();
+
+    const validateMovement = (eventKey: string) => {
+      if (!manRef.current) return false;
+
+      let isValid = true;
+
+      const { x, z } = manRef.current.model.position;
+
+      switch (eventKey) {
+        case "ArrowUp":
+          if (z - 0.1 < 0) {
+            isValid = false;
+          }
+          break;
+        case "ArrowDown":
+          if (z + 0.1 > 8.5) {
+            isValid = false;
+          }
+          break;
+        case "ArrowLeft":
+          if (x - 0.1 < -4.5) {
+            isValid = false;
+          }
+          break;
+        case "ArrowRight":
+          if (x + 0.1 > 4.5) {
+            isValid = false;
+          }
+          break;
+        default:
+          break;
+      }
+
+      return isValid;
+    };
+
+    window.addEventListener("keydown", (event) => {
+      if (!cameraReady || !manRef.current || !validateMovement(event.key))
+        return;
+
+      const walkClip = manRef.current.animations.find(
+        (clip) => clip.name === "HumanArmature|Man_Walk"
+      );
+      const walkAction = walkClip
+        ? manRef.current.mixer.clipAction(walkClip)
+        : null;
+      const startAnimation = () => {
+        // Evita reiniciar la animación si ya está corriendo
+        if (!walkAction?.isRunning()) {
+          walkAction?.reset().play();
+        }
+      };
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        manRef.current.model.position.z -= 0.1;
+        manRef.current.model.rotation.y = Math.PI;
+        startAnimation();
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        manRef.current.model.position.z += 0.1;
+        manRef.current.model.rotation.y = 0;
+        startAnimation();
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        manRef.current.model.position.x -= 0.1;
+        manRef.current.model.rotation.y = -(Math.PI / 2);
+        startAnimation();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        manRef.current.model.position.x += 0.1;
+        manRef.current.model.rotation.y = Math.PI / 2;
+        startAnimation();
+      }
+    });
+
+    window.addEventListener("keyup", () => {
+      const walkClip = manRef.current?.animations.find(
+        (clip) => clip.name === "HumanArmature|Man_Walk"
+      );
+      const walkAction = walkClip
+        ? manRef.current?.mixer.clipAction(walkClip)
+        : null;
+
+      if (!cameraReady || !walkAction) return;
+      walkAction.stop();
+    });
 
     const initRoom = async () => {
       const room = new THREE.Group();
@@ -88,6 +196,10 @@ export const Home = () => {
       tv.model.position.set(4.85, 2.5, 5);
       tv.model.rotation.y = -Math.PI / 2;
 
+      const dogBed = await createModel(Dog_Bed);
+      dogBed.model.position.set(2.25, 0, 0);
+      dogBed.model.rotation.y = -Math.PI / 2;
+
       room.add(
         frontWall,
         leftWall,
@@ -99,70 +211,48 @@ export const Home = () => {
         sofa.model,
         chair.model,
         bed.model,
-        tv.model
+        tv.model,
+        dogBed.model
       );
 
       scene.add(room);
     };
 
-    let man: {
-      model: THREE.Group;
-      animations: THREE.AnimationClip[];
-      mixer: THREE.AnimationMixer;
-      update: (delta: number) => void;
+    const initHusky = async () => {
+      huskyRef.current = await createModel(Husky);
+      huskyRef.current.model.rotation.y = Math.PI / 2;
+      huskyRef.current.model.scale.set(0.3, 0.3, 0.3);
+      huskyRef.current.model.position.set(4, 0, 3);
+
+      const deathClip = huskyRef.current.animations.find(
+        (clip) => clip.name === "Eating"
+      );
+      const walkAction = deathClip
+        ? huskyRef.current.mixer.clipAction(deathClip)
+        : null;
+
+      if (!walkAction?.isRunning()) {
+        walkAction?.reset().play();
+      }
+
+      scene.add(huskyRef.current.model);
     };
 
     const initMan = async () => {
-      man = await createModel(Man);
-      man.model.scale.set(0.5, 0.5, 0.5);
-      man.model.rotation.y = Math.PI;
-      man.model.position.set(0, 0, 5);
+      manRef.current = await createModel(Man);
+      manRef.current.model.scale.set(0.5, 0.5, 0.5);
+      manRef.current.model.rotation.y = Math.PI;
+      manRef.current.model.position.set(0, 0, 5);
 
-      const walkClip = man.animations.find(
-        (clip) => clip.name === "HumanArmature|Man_Walk"
-      );
-      const walkAction = walkClip ? man.mixer.clipAction(walkClip) : null;
-
-      window.addEventListener("keydown", (event) => {
-        if (!cameraReady || !walkAction) return;
-
-        // Evita reiniciar la animación si ya está corriendo
-        if (!walkAction.isRunning()) {
-          walkAction.reset().play();
-        }
-
-        if (event.key === "ArrowUp") {
-          event.preventDefault();
-          man.model.position.z -= 0.1;
-          man.model.rotation.y = Math.PI;
-        } else if (event.key === "ArrowDown") {
-          event.preventDefault();
-          man.model.position.z += 0.1;
-          man.model.rotation.y = 0;
-        } else if (event.key === "ArrowLeft") {
-          event.preventDefault();
-          man.model.position.x -= 0.1;
-          man.model.rotation.y = -(Math.PI / 2);
-        } else if (event.key === "ArrowRight") {
-          event.preventDefault();
-          man.model.position.x += 0.1;
-          man.model.rotation.y = Math.PI / 2;
-        }
-      });
-
-      window.addEventListener("keyup", () => {
-        if (!cameraReady || !walkAction) return;
-        walkAction.stop();
-      });
-
-      scene.add(man.model);
+      scene.add(manRef.current.model);
     };
 
     initRoom();
     initMan();
+    initHusky();
 
-    ceilingLight.position.set(0, 5, 5);
-    scene.add(ambientLight, ceilingLight);
+    ceilingLightRef.current.position.set(0, 5, 5);
+    scene.add(ambientLight, ceilingLightRef.current);
 
     let cameraReady = false;
 
@@ -188,18 +278,21 @@ export const Home = () => {
           cameraReady = true;
           controlsRef.current.enabled = true;
         }
-      } else {
-        if (man) {
-          man.update(delta);
+      } else if (cameraReady) {
+        if (huskyRef.current) {
+          huskyRef.current.update(delta);
+        }
+        if (manRef.current) {
+          manRef.current.update(delta);
 
           const targetCameraPos = new THREE.Vector3(
-            man.model.position.x,
-            man.model.position.y + 7,
-            man.model.position.z + 7
+            manRef.current.model.position.x,
+            manRef.current.model.position.y + 7,
+            manRef.current.model.position.z + 7
           );
 
           cameraRef.current.position.lerp(targetCameraPos, 0.1); // 0.1 = suavidad
-          cameraRef.current.lookAt(man.model.position);
+          // cameraRef.current.lookAt(manRef.current.model.position);
         }
       }
 
@@ -216,7 +309,7 @@ export const Home = () => {
     };
   });
 
-  const handleClick = () => {
+  const startAnimation = () => {
     setHasStarted(true);
     if (audioRef.current) {
       audioRef.current
@@ -232,7 +325,7 @@ export const Home = () => {
         <div className="fixed top-0 left-0 h-full w-full bg-white opacity-50 flex items-center justify-center flex-col gap-4">
           <span>Este sitio se encuentra en construccion</span>
           <button
-            onClick={handleClick}
+            onClick={startAnimation}
             className="border p-2 rounded-md border-gray-400 color-gray-400 cursor-pointer"
           >
             Iniciar
@@ -240,7 +333,7 @@ export const Home = () => {
         </div>
       )}
       <audio ref={audioRef} src={Piano_1} />
-      <canvas ref={canvasRef} onClick={handleClick} />
+      <canvas ref={canvasRef} />
     </>
   );
 };

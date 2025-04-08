@@ -13,9 +13,9 @@ export const useLights = () => {
   const createSpotLight = () => {
     const spotlight = new THREE.SpotLight(
       0xffffff, // Color blanco
-      1, // Intensidad  (por defecto es 1)
+      10, // Intensidad  (por defecto es 1)
       20, // Distancia para cubrir más área
-      Math.PI / 2, // Ángulo
+      Math.PI, // Ángulo
       0.2, // Penumbra
       1 // Decay (atenúa la luz con la distancia)
     );
