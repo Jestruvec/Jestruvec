@@ -1,19 +1,19 @@
-<h1 align="center">¡Hola! 👋 Soy Jhonny</h1>
-<p align="center">Frontend Developer | Me gusta la tecnología y la creación de interfaces web 🚀</p>
+<h1 align="center">¡Hi! 👋 Im Jhonny</h1>
+<p align="center">Frontend Developer 🚀</p>
 
 ---
 
-### 👨‍💻 Sobre mí
+### 👨‍💻 About me
 
-- 🧠 Actualmente no estoy trabajando
-- 🛠️ Stack principal: **React, Vue, TypeScript, Vite, TailwindCSS**
-- 🌐 También uso: **Next.js, Nuxt, WebSockets, Bootstrap**
-- 🎯 Siempre enfocado en la experiencia de usuario, rendimiento y buenas prácticas
-- 💬 Pregúntame sobre **desarrollo frontend, animaciones, integración con APIs o diseño responsivo**
+- 🧠 Currently not working
+- 🛠️ Main stack: **React, Vue, TypeScript, Vite, TailwindCSS**
+- 🌐 Also: **Next.js, Nuxt, WebSockets, Bootstrap**
+- 🎯 Always focused on user experience, performance and good practices
+- 💬 Ask me about **frontend development**
 
 ---
 
-### ⚙️ Tecnologías y herramientas
+### ⚙️ Techs and tools
 
 ![Vue](https://img.shields.io/badge/-Vue-41B883?style=flat&logo=vue.js&logoColor=white)
 ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)
@@ -26,7 +26,7 @@
 
 ---
 
-### 📈 Estadísticas
+### 📈 Stadistics
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Jestruvec&show_icons=true&theme=tokyonight" alt="GitHub stats" />
@@ -37,11 +37,9 @@
 
 ---
 
-### 📫 Cómo contactarme
+### 📫 Contact me
 
 - ✉️ Email: [jhonnyestruve@gmail.com](mailto:jhonnyestruve@gmail.com)
 - 💼 LinkedIn: [https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/](https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/)
 
 ---
-
-<p align="center">Gracias por visitar mi perfil 😄 ¡Estoy abierto a colaborar y crear cosas geniales juntos!</p>
