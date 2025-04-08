@@ -3,7 +3,7 @@
 
 ---
 
-### 👨‍💻 Sobre mí
+### 👨‍💻 About me
 
 - 🧠 Currently not working
 - 🛠️ Main stack: **React, Vue, TypeScript, Vite, TailwindCSS**
