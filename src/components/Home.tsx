@@ -34,7 +34,6 @@ export const Home = () => {
     );
     controlsRef.current.enabled = false;
     const ceilingLight = createSpotLight();
-    scene.add(ceilingLight);
 
     const initRoom = async () => {
       const room = new THREE.Group();
@@ -119,44 +118,51 @@ export const Home = () => {
       man.model.rotation.y = Math.PI;
       man.model.position.set(0, 0, 5);
 
+      const walkClip = man.animations.find(
+        (clip) => clip.name === "HumanArmature|Man_Walk"
+      );
+      const walkAction = walkClip ? man.mixer.clipAction(walkClip) : null;
+
+      window.addEventListener("keydown", (event) => {
+        if (!cameraReady || !walkAction) return;
+
+        // Evita reiniciar la animación si ya está corriendo
+        if (!walkAction.isRunning()) {
+          walkAction.reset().play();
+        }
+
+        if (event.key === "ArrowUp") {
+          event.preventDefault();
+          man.model.position.z -= 0.1;
+          man.model.rotation.y = Math.PI;
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          man.model.position.z += 0.1;
+          man.model.rotation.y = 0;
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          man.model.position.x -= 0.1;
+          man.model.rotation.y = -(Math.PI / 2);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          man.model.position.x += 0.1;
+          man.model.rotation.y = Math.PI / 2;
+        }
+      });
+
+      window.addEventListener("keyup", () => {
+        if (!cameraReady || !walkAction) return;
+        walkAction.stop();
+      });
+
       scene.add(man.model);
     };
 
     initRoom();
     initMan();
 
-    scene.add(ambientLight);
-
-    window.addEventListener("keydown", (event) => {
-      if (!cameraReady) return;
-
-      console.log(man.animations);
-      const walkClip = man.animations.find(
-        (clip) => clip.name === "HumanArmature|Man_Walk"
-      );
-      if (walkClip) {
-        const action = man.mixer.clipAction(walkClip);
-        action.play();
-      }
-
-      if (event.key === "ArrowUp") {
-        event.preventDefault();
-        man.model.position.z -= 0.1;
-        man.model.rotation.y = Math.PI;
-      } else if (event.key === "ArrowDown") {
-        event.preventDefault();
-        man.model.position.z += 0.1;
-        man.model.rotation.y = 0;
-      } else if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        man.model.position.x -= 0.1;
-        man.model.rotation.y = -(Math.PI / 2);
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        man.model.position.x += 0.1;
-        man.model.rotation.y = Math.PI / 2;
-      }
-    });
+    ceilingLight.position.set(0, 5, 5);
+    scene.add(ambientLight, ceilingLight);
 
     let cameraReady = false;
 
@@ -166,38 +172,35 @@ export const Home = () => {
       controlsRef.current.update();
       const delta = clock.getDelta();
 
-      if (man) {
-        man.mixer.update(delta);
-        cameraRef.current.lookAt(
-          man.model.position.x,
-          man.model.position.y,
-          man.model.position.z
-        );
-      }
-
+      //animacion inicial
       if (hasStarted && !cameraReady) {
-        if (cameraRef.current.position.z > 10) {
-          cameraRef.current.position.z -= 0.01;
+        if (cameraRef.current.position.z > 12) {
+          cameraRef.current.position.z -= 0.1;
         }
-        if (cameraRef.current.position.y > 5) {
-          cameraRef.current.position.y -= 0.01;
+        if (cameraRef.current.position.y > 7) {
+          cameraRef.current.position.y -= 0.1;
         }
 
         if (
-          cameraRef.current.position.z <= 10 &&
-          cameraRef.current.position.y <= 5
+          cameraRef.current.position.z <= 12 &&
+          cameraRef.current.position.y <= 7
         ) {
           cameraReady = true;
           controlsRef.current.enabled = true;
         }
-      } else if (cameraReady) {
-        const targetCameraPos = new THREE.Vector3(
-          man.model.position.x,
-          man.model.position.y + 5,
-          man.model.position.z + 5
-        );
+      } else {
+        if (man) {
+          man.update(delta);
 
-        cameraRef.current.position.lerp(targetCameraPos, 0.01);
+          const targetCameraPos = new THREE.Vector3(
+            man.model.position.x,
+            man.model.position.y + 7,
+            man.model.position.z + 7
+          );
+
+          cameraRef.current.position.lerp(targetCameraPos, 0.1); // 0.1 = suavidad
+          cameraRef.current.lookAt(man.model.position);
+        }
       }
 
       rendererRef.current?.render(scene, cameraRef.current);
