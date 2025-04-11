@@ -1,11 +1,10 @@
 import * as THREE from "three";
 import { CAMERA_SETTINGS } from "@/lib/constants/Constants";
-import { GLTF, GLTFLoader, OrbitControls } from "three-stdlib";
+import { OrbitControls } from "three-stdlib";
 
 export const useThree = () => {
   const scene = new THREE.Scene();
   const clock = new THREE.Clock();
-  const loader = new GLTFLoader();
 
   const createRenderer = (canvas: HTMLCanvasElement) => {
     const renderer = new THREE.WebGLRenderer({
@@ -42,56 +41,11 @@ export const useThree = () => {
     return controls;
   };
 
-  const createModel = async (
-    modelPath: string
-  ): Promise<{
-    model: THREE.Group;
-    animations: THREE.AnimationClip[];
-    mixer: THREE.AnimationMixer;
-    update: (delta: number) => void;
-  }> => {
-    return new Promise((resolve, reject) => {
-      loader.load(
-        modelPath,
-        (gltf: GLTF) => {
-          const model = gltf.scene as THREE.Group;
-          const animations = gltf.animations;
-          const mixer = new THREE.AnimationMixer(model);
-
-          model.traverse((child) => {
-            if ((child as THREE.Mesh).isMesh) {
-              const mesh = child as THREE.Mesh;
-              mesh.castShadow = true;
-              mesh.receiveShadow = true;
-            }
-          });
-
-          resolve({
-            model,
-            animations,
-            mixer,
-            update: (delta: number) => {
-              if (mixer) {
-                mixer.update(delta);
-              }
-            },
-          });
-        },
-        undefined,
-        (error: ErrorEvent) => {
-          console.error("Error al cargar el modelo:", error.message);
-          reject(error);
-        }
-      );
-    });
-  };
-
   return {
     scene,
     clock,
     createRenderer,
     createCamera,
     createOrbitControls,
-    createModel,
   };
 };

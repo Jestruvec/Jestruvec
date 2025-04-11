@@ -1,11 +1,56 @@
 import * as THREE from "three";
-import { RoundedBoxGeometry } from "three-stdlib";
+import { RoundedBoxGeometry, GLTF, GLTFLoader } from "three-stdlib";
 
-export const useThreeGeometry = () => {
+export const useMesh = () => {
+  const loader = new GLTFLoader();
   const defaultMaterial = new THREE.MeshLambertMaterial({
     color: "white",
     flatShading: true,
   });
+
+  const createModel = async (
+    modelPath: string
+  ): Promise<{
+    model: THREE.Group;
+    animations: THREE.AnimationClip[];
+    mixer: THREE.AnimationMixer;
+    update: (delta: number) => void;
+  }> => {
+    return new Promise((resolve, reject) => {
+      loader.load(
+        modelPath,
+        (gltf: GLTF) => {
+          const model = gltf.scene as THREE.Group;
+          const animations = gltf.animations;
+          const mixer = new THREE.AnimationMixer(model);
+
+          model.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.castShadow = true;
+              mesh.receiveShadow = true;
+            }
+          });
+
+          resolve({
+            model,
+            animations,
+            mixer,
+            update: (delta: number) => {
+              if (mixer) {
+                mixer.update(delta);
+              }
+            },
+          });
+        },
+        undefined,
+        (error: ErrorEvent) => {
+          console.error("Error al cargar el modelo:", error.message);
+          reject(error);
+        }
+      );
+    });
+  };
 
   const createBox = (
     x: number,
@@ -92,6 +137,7 @@ export const useThreeGeometry = () => {
   };
 
   return {
+    createModel,
     createBox,
     createRoundedBox,
     createCilinder,

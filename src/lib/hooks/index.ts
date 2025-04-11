@@ -1,6 +1,6 @@
-import { useAnimal } from "./useAnimal";
-import { useThreeGeometry } from "./useThreeGeometry";
+import { useMesh } from "./useMesh";
 import { useThree } from "./useThree";
 import { useLights } from "./useLights";
+import { useMeshAnimations } from "./useMeshAnimations";
 
-export { useAnimal, useThree, useThreeGeometry, useLights };
+export { useThree, useMesh, useLights, useMeshAnimations };
