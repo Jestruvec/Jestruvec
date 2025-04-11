@@ -226,8 +226,6 @@ export const Home = () => {
     };
 
     const handleManMovement = (event: KeyboardEvent) => {
-      event.preventDefault();
-
       const movementIsValid = validateMovement(event.key);
 
       if (!cameraReady || !manRef.current || !movementIsValid) {
@@ -241,27 +239,39 @@ export const Home = () => {
 
       switch (event.key) {
         case "ArrowUp":
+          event.preventDefault();
           manRef.current.model.position.z -= 0.1;
           manRef.current.model.rotation.y = Math.PI;
+          if (walkAction) {
+            startAnimation(walkAction);
+          }
           break;
         case "ArrowDown":
+          event.preventDefault();
           manRef.current.model.position.z += 0.1;
           manRef.current.model.rotation.y = 0;
+          if (walkAction) {
+            startAnimation(walkAction);
+          }
           break;
         case "ArrowLeft":
+          event.preventDefault();
           manRef.current.model.position.x -= 0.1;
           manRef.current.model.rotation.y = -(Math.PI / 2);
+          if (walkAction) {
+            startAnimation(walkAction);
+          }
           break;
         case "ArrowRight":
+          event.preventDefault();
           manRef.current.model.position.x += 0.1;
           manRef.current.model.rotation.y = Math.PI / 2;
+          if (walkAction) {
+            startAnimation(walkAction);
+          }
           break;
         default:
           break;
-      }
-
-      if (walkAction) {
-        startAnimation(walkAction);
       }
     };
 
