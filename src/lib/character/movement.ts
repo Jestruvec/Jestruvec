@@ -5,7 +5,7 @@ import { AnimatedModel } from "../types/AnimatedModel";
 type Direction = "up" | "down" | "left" | "right";
 
 const tileSize = 1;
-// let isMoving = false;
+let isMoving = false;
 
 export function animateMovement(player: AnimatedModel, scene: THREE.Scene) {
   const walkClip = player.animations.find((clip) =>
@@ -67,7 +67,7 @@ export function animateMovement(player: AnimatedModel, scene: THREE.Scene) {
 }
 
 async function movePlayer(player: THREE.Object3D, direction: Direction) {
-  // isMoving = true;
+  isMoving = true;
 
   const from = player.position.clone();
   const to = from.clone();
@@ -104,5 +104,5 @@ async function movePlayer(player: THREE.Object3D, direction: Direction) {
     });
   }
 
-  // isMoving = false;
+  isMoving = false;
 }

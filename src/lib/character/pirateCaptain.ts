@@ -7,7 +7,5 @@ export async function initPirateCaptain(scene: THREE.Scene) {
   const pirate = await Model(Pirate_Captain);
   scene.add(pirate.model);
 
-  console.log(pirate.animations);
-
   return pirate;
 }

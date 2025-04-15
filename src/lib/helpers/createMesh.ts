@@ -56,7 +56,7 @@ export const createMesh = () => {
     x: number,
     y: number,
     z: number,
-    material: THREE.MeshLambertMaterial = defaultMaterial
+    material: any = defaultMaterial
   ) => {
     return new THREE.Mesh(new THREE.BoxGeometry(x, y, z), material);
   };
