@@ -11,12 +11,12 @@ export function animateMovement(player: AnimatedModel, scene: THREE.Scene) {
   const walkClip = player.animations.find((clip) =>
     clip.name.toLowerCase().includes("walk")
   );
-  const jumpClip = player.animations.find((clip) => {
-    return clip.name.toLowerCase().includes("jump");
-  });
+  // const jumpClip = player.animations.find((clip) => {
+  //   return clip.name.toLowerCase().includes("jump");
+  // });
 
   const walkAction = player.mixer.clipAction(walkClip);
-  const jumpAction = player.mixer.clipAction(jumpClip);
+  // const jumpAction = player.mixer.clipAction(jumpClip);
 
   const keysPressed: Set<string> = new Set();
 
@@ -26,11 +26,11 @@ export function animateMovement(player: AnimatedModel, scene: THREE.Scene) {
     // if (isMoving) return;
 
     // Salto: ejecutarlo aunque esté moviéndose
-    if (e.key === " " && !jumpAction.isRunning()) {
-      jumpAction.reset();
-      jumpAction.setLoop(THREE.LoopOnce, 1);
-      jumpAction.play();
-    }
+    // if (e.key === " " && !jumpAction.isRunning()) {
+    //   jumpAction.reset();
+    //   jumpAction.setLoop(THREE.LoopOnce, 1);
+    //   jumpAction.play();
+    // }
 
     // Movimiento direccional
     let direction: Direction | null = null;
@@ -64,6 +64,53 @@ export function animateMovement(player: AnimatedModel, scene: THREE.Scene) {
       walkAction.stop();
     }
   });
+
+  const buttons = {
+    forward: startContinuousMovement(player, scene, "up", walkAction),
+    backward: startContinuousMovement(player, scene, "down", walkAction),
+    left: startContinuousMovement(player, scene, "left", walkAction),
+    right: startContinuousMovement(player, scene, "right", walkAction),
+  };
+
+  document
+    .getElementById("forward")
+    ?.addEventListener("mousedown", buttons.forward.start);
+  document
+    .getElementById("forward")
+    ?.addEventListener("mouseup", buttons.forward.stop);
+  document
+    .getElementById("forward")
+    ?.addEventListener("mouseleave", buttons.forward.stop);
+
+  document
+    .getElementById("backward")
+    ?.addEventListener("mousedown", buttons.backward.start);
+  document
+    .getElementById("backward")
+    ?.addEventListener("mouseup", buttons.backward.stop);
+  document
+    .getElementById("backward")
+    ?.addEventListener("mouseleave", buttons.backward.stop);
+
+  document
+    .getElementById("left")
+    ?.addEventListener("mousedown", buttons.left.start);
+  document
+    .getElementById("left")
+    ?.addEventListener("mouseup", buttons.left.stop);
+  document
+    .getElementById("left")
+    ?.addEventListener("mouseleave", buttons.left.stop);
+
+  document
+    .getElementById("right")
+    ?.addEventListener("mousedown", buttons.right.start);
+  document
+    .getElementById("right")
+    ?.addEventListener("mouseup", buttons.right.stop);
+  document
+    .getElementById("right")
+    ?.addEventListener("mouseleave", buttons.right.stop);
 }
 
 async function movePlayer(player: THREE.Object3D, direction: Direction) {
@@ -105,4 +152,34 @@ async function movePlayer(player: THREE.Object3D, direction: Direction) {
   }
 
   // isMoving = false;
+}
+
+function startContinuousMovement(
+  player: AnimatedModel,
+  scene: THREE.Scene,
+  direction: Direction,
+  walkAction: THREE.AnimationAction
+) {
+  let intervalId: number | null = null;
+
+  const start = () => {
+    if (intervalId !== null) return;
+
+    if (!walkAction.isRunning()) walkAction.play();
+
+    intervalId = window.setInterval(async () => {
+      await movePlayer(player.model, direction);
+      updateMapOnMove(scene, player.model);
+    }, 200); // cada 200ms
+  };
+
+  const stop = () => {
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+      intervalId = null;
+      walkAction.stop();
+    }
+  };
+
+  return { start, stop };
 }

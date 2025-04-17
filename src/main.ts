@@ -4,6 +4,7 @@ import { initMap } from "@/lib/scene";
 import { initPirateCaptain, animateMovement } from "@/lib/character";
 import { followPirate } from "@/lib/camera";
 import * as THREE from "three";
+import { animateAttack } from "./lib/character/attack";
 
 const main = async () => {
   const canvas = document.querySelector("canvas")!;
@@ -18,6 +19,7 @@ const main = async () => {
 
   // Lógica de movimiento del personaje
   animateMovement(pirateCaptain, scene);
+  animateAttack(pirateCaptain);
 
   const animate = () => {
     const delta = clock.getDelta();

@@ -14,6 +14,10 @@ import Rock_1 from "./Rock_1.glb";
 import Rock_2 from "./Rock_2.glb";
 import Rock_3 from "./Rock_3.glb";
 
+import Large_Bone from "./Large_Bone.glb";
+import Chest_Gold from "./Chest_Gold.glb";
+import Gold_Bag from "./Gold_Bag.glb";
+
 export {
   Pirate_Captain,
   Ship,
@@ -26,4 +30,7 @@ export {
   Rock_1,
   Rock_2,
   Rock_3,
+  Large_Bone,
+  Chest_Gold,
+  Gold_Bag,
 };
