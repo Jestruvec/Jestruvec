@@ -13,11 +13,21 @@ export function animateAttack(player: AnimatedModel) {
   swordAction.setLoop(THREE.LoopOnce, 1);
   swordAction.clampWhenFinished = true;
 
+  function triggerAttack() {
+    if (!swordAction.isRunning()) {
+      swordAction.reset().play();
+    }
+  }
+
   window.addEventListener("keydown", (e) => {
     if (e.key === " ") {
-      if (!swordAction.isRunning()) {
-        swordAction.reset().play();
-      }
+      triggerAttack();
     }
   });
+
+  const attackButton = document.getElementById("space");
+
+  if (attackButton) {
+    attackButton.addEventListener("click", triggerAttack);
+  }
 }
