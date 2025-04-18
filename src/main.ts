@@ -5,17 +5,24 @@ import { initPirateCaptain, animateMovement } from "@/lib/character";
 import { followPirate } from "@/lib/camera";
 import * as THREE from "three";
 import { animateAttack } from "./lib/character/attack";
+import { initSkeleton } from "./lib/mobs/skeleton";
 
 const main = async () => {
   const canvas = document.querySelector("canvas")!;
   const { scene, camera, renderer } = setupScene(canvas);
   const clock = new THREE.Clock();
+  const targetPoint = new THREE.Vector3(0, 0, -15);
+  const pirateCaptain = await initPirateCaptain(scene);
+  const skeletons: { model: THREE.Object3D; update: (dt: number) => void }[] =
+    [];
 
-  // Inicializa el mapa
   await initMap(scene);
 
-  // Inicializa el pirata
-  const pirateCaptain = await initPirateCaptain(scene);
+  // Generación progresiva cada 3 segundos
+  setInterval(async () => {
+    const skeleton = await initSkeleton(scene);
+    skeletons.push(skeleton);
+  }, 5000);
 
   // Lógica de movimiento del personaje
   animateMovement(pirateCaptain, scene);
@@ -23,7 +30,22 @@ const main = async () => {
 
   const animate = () => {
     const delta = clock.getDelta();
+    //actualizar pirata
     pirateCaptain.update(delta);
+
+    // Actualizar esqueletos y eliminar los que ya llegaron
+    for (let i = skeletons.length - 1; i >= 0; i--) {
+      const skeleton = skeletons[i];
+      skeleton.update(delta);
+
+      const distance = skeleton.model.position.distanceTo(targetPoint);
+
+      if (distance < 0.5) {
+        scene.remove(skeleton.model);
+        skeletons.splice(i, 1);
+        console.log("💀 Skeleton eliminado");
+      }
+    }
 
     // Cámara sigue al pirata
     followPirate(camera, pirateCaptain.model);

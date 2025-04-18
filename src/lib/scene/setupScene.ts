@@ -16,20 +16,9 @@ export function setupScene(canvasDOM: HTMLCanvasElement) {
 
   //Iluminacion
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(10, 20, 10); // dirección desde la cual "pega el sol"
+  directionalLight.position.set(10, 20, 10);
   directionalLight.castShadow = true;
 
-  // Configuración de sombras (opcional pero útil)
-  directionalLight.shadow.mapSize.width = 2048;
-  directionalLight.shadow.mapSize.height = 2048;
-  directionalLight.shadow.camera.near = 0.5;
-  directionalLight.shadow.camera.far = 100;
-  directionalLight.shadow.camera.left = -50;
-  directionalLight.shadow.camera.right = 50;
-  directionalLight.shadow.camera.top = 50;
-  directionalLight.shadow.camera.bottom = -50;
-
-  // Luz ambiental suave para relleno
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 
   const handleResize = () => {
@@ -42,7 +31,6 @@ export function setupScene(canvasDOM: HTMLCanvasElement) {
     renderer.setSize(width, height);
   };
 
-  // Puedes agregar el listener directamente aquí o exportar la función
   window.addEventListener("resize", handleResize);
 
   scene.add(ambientLight, directionalLight);
