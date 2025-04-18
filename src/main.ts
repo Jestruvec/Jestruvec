@@ -8,6 +8,12 @@ import { animateAttack } from "./lib/character/attack";
 import { initSkeleton } from "./lib/mobs/skeleton";
 
 const main = async () => {
+  const chestLifeEl = document.querySelector(
+    "#chestlife progress"
+  ) as HTMLProgressElement;
+  let chestLife = 100;
+  chestLifeEl.value = chestLife;
+
   const canvas = document.querySelector("canvas")!;
   const { scene, camera, renderer } = setupScene(canvas);
   const clock = new THREE.Clock();
@@ -41,10 +47,17 @@ const main = async () => {
       const distance = skeleton.model.position.distanceTo(targetPoint);
 
       if (distance < 0.5) {
+        chestLife = Math.max(0, chestLife - 1);
+        chestLifeEl.value = chestLife;
+
         scene.remove(skeleton.model);
         skeletons.splice(i, 1);
-        console.log("💀 Skeleton eliminado");
       }
+    }
+
+    if (chestLife <= 0) {
+      alert("¡Juego terminado! El cofre ha sido destruido.");
+      renderer.setAnimationLoop(null);
     }
 
     // Cámara sigue al pirata
