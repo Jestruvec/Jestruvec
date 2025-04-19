@@ -21,6 +21,7 @@ export function setupScene(canvasDOM: HTMLCanvasElement) {
 
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 
+  //Redimenzionamiento
   const handleResize = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;

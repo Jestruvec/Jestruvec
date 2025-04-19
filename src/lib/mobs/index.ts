@@ -1,4 +1,4 @@
 import { animateSkeletons } from "./movement";
-import { initSkeleton } from "./skeleton";
+import { initMob } from "./skeleton";
 
-export { initSkeleton, animateSkeletons };
+export { initMob, animateSkeletons };

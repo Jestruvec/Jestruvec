@@ -31,7 +31,8 @@ export const animateSkeletons = (
   renderer: THREE.WebGLRenderer,
   chestLife: { value: number },
   skeletons: { model: THREE.Object3D; update: (dt: number) => void }[],
-  character: AnimatedModel
+  character: AnimatedModel,
+  swordSound: THREE.Audio
 ) => {
   for (let i = skeletons.length - 1; i >= 0; i--) {
     const skeleton = skeletons[i];
@@ -57,6 +58,9 @@ export const animateSkeletons = (
       swordAction.setLoop(THREE.LoopOnce, 1);
       swordAction.clampWhenFinished = true;
       swordAction.reset().play();
+
+      if (swordSound.isPlaying) swordSound.stop();
+      swordSound.play();
 
       removeSkeleton(scene, skeleton, skeletons, i);
     }

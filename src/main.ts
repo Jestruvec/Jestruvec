@@ -5,7 +5,8 @@ import { initPirateCaptain, animateMovement } from "@/lib/character";
 import { followPirate } from "@/lib/camera";
 import * as THREE from "three";
 import { animateAttack } from "./lib/character/attack";
-import { initSkeleton, animateSkeletons } from "./lib/mobs/";
+import { initMob, animateSkeletons } from "./lib/mobs/";
+import { setupAudio } from "@/lib/scene/setupAudio";
 
 const main = async () => {
   let chestlife = { value: 10 };
@@ -56,6 +57,7 @@ const main = async () => {
 
   const canvas = document.querySelector("canvas")!;
   const { scene, camera, renderer } = setupScene(canvas);
+  const { swordSound } = setupAudio(camera);
   const clock = new THREE.Clock();
   const pirateCaptain = await initPirateCaptain(scene);
   const skeletons: { model: THREE.Object3D; update: (dt: number) => void }[] =
@@ -64,9 +66,9 @@ const main = async () => {
   await initMap(scene);
 
   setInterval(async () => {
-    const skeleton = await initSkeleton(scene);
+    const skeleton = await initMob(scene);
     skeletons.push(skeleton);
-  }, 5000);
+  }, 2000);
 
   animateMovement(pirateCaptain, scene);
   animateAttack(pirateCaptain);
@@ -84,7 +86,8 @@ const main = async () => {
       renderer,
       chestlife,
       skeletons,
-      pirateCaptain
+      pirateCaptain,
+      swordSound
     );
 
     // Cámara sigue al pirata

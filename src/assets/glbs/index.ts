@@ -18,9 +18,13 @@ import Large_Bone from "./Large_Bone.glb";
 import Chest_Gold from "./Chest_Gold.glb";
 import Gold_Bag from "./Gold_Bag.glb";
 
+import Skeleton_1 from "./Skeleton_1.glb";
 import Skeleton_2 from "./Skeleton_2.glb";
+import Sharky from "./Sharky.glb";
 
 export {
+  Sharky,
+  Skeleton_1,
   Skeleton_2,
   Pirate_Captain,
   Ship,

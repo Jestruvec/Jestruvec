@@ -1,32 +1,34 @@
 import * as THREE from "three";
 import { createMesh } from "@/lib/helpers/createMesh";
-import { Skeleton_2 } from "@/assets/glbs";
+import { Skeleton_1, Skeleton_2, Sharky } from "@/assets/glbs";
 import { GetRandomPosition } from "@/lib/helpers/GetRandomPosition";
 
-export async function initSkeleton(scene: THREE.Scene) {
+export async function initMob(scene: THREE.Scene) {
   const { inRange } = GetRandomPosition();
   const { Model } = createMesh();
-  const skeleton = await Model(Skeleton_2);
+
+  const mobOptions = [Skeleton_1, Skeleton_2, Sharky];
+  const randomIndex = Math.floor(Math.random() * mobOptions.length);
+  const selectedMob = mobOptions[randomIndex];
+
+  const mob = await Model(selectedMob);
 
   const x = inRange(-25, 25);
   const z = inRange(10, 25);
 
-  // const scale = Math.random() < 0.7 ? 1 : 2;
-  // skeleton.model.scale.set(scale, scale, scale);
+  mob.model.position.set(x, 0, z);
+  mob.model.rotation.y = Math.PI;
 
-  skeleton.model.position.set(x, 0, z);
-  skeleton.model.rotation.y = Math.PI;
-
-  const walkClip = skeleton.animations.find((clip) =>
+  const walkClip = mob.animations.find((clip) =>
     clip.name.toLowerCase().includes("walk")
   );
 
   if (walkClip) {
-    const walkAction = skeleton.mixer.clipAction(walkClip);
+    const walkAction = mob.mixer.clipAction(walkClip);
     walkAction.play();
   }
 
-  scene.add(skeleton.model);
+  scene.add(mob.model);
 
-  return skeleton;
+  return mob;
 }
