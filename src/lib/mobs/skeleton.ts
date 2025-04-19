@@ -28,18 +28,5 @@ export async function initSkeleton(scene: THREE.Scene) {
 
   scene.add(skeleton.model);
 
-  const speed = inRange(1, 2);
-
-  const update = (delta: number) => {
-    const direction = new THREE.Vector3(0, 0, -15).sub(skeleton.model.position);
-    direction.y = 0;
-    direction.normalize();
-    skeleton.model.position.add(direction.multiplyScalar(speed * delta));
-
-    if (skeleton.mixer) {
-      skeleton.mixer.update(delta);
-    }
-  };
-
-  return { ...skeleton, update };
+  return skeleton;
 }
