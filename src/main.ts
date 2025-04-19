@@ -11,8 +11,51 @@ const main = async () => {
   const chestLifeEl = document.querySelector(
     "#chestlife progress"
   ) as HTMLProgressElement;
-  let chestLife = 100;
+  const resultScreenEl = document.querySelector(
+    "#result-screen"
+  ) as HTMLDivElement;
+  const restartButtonEl = document.querySelector(
+    "#result-screen button"
+  ) as HTMLButtonElement;
+
+  let chestLife = 10;
   chestLifeEl.value = chestLife;
+
+  const restartGame = () => {
+    pirateCaptain.model.position.set(0, 0, -20);
+    chestLife = 10;
+    chestLifeEl.value = chestLife;
+
+    for (let i = skeletons.length - 1; i >= 0; i--) {
+      const skeleton = skeletons[i];
+      scene.remove(skeleton.model);
+      skeletons.splice(i, 1);
+    }
+
+    const deathClip = pirateCaptain.animations.find((clip) =>
+      clip.name.toLowerCase().includes("death")
+    );
+    const idleClip = pirateCaptain.animations.find((clip) =>
+      clip.name.toLowerCase().includes("idle")
+    );
+
+    if (deathClip) {
+      const deathAction = pirateCaptain.mixer.clipAction(deathClip);
+      deathAction.stop();
+    }
+
+    if (idleClip) {
+      const idleAction = pirateCaptain.mixer.clipAction(idleClip);
+      idleAction.reset().play();
+    }
+
+    resultScreenEl.style.visibility = "hidden";
+    renderer.setAnimationLoop(animate);
+  };
+
+  if (restartButtonEl) {
+    restartButtonEl.addEventListener("click", restartGame);
+  }
 
   const canvas = document.querySelector("canvas")!;
   const { scene, camera, renderer } = setupScene(canvas);
@@ -24,13 +67,11 @@ const main = async () => {
 
   await initMap(scene);
 
-  // Generación progresiva cada 3 segundos
   setInterval(async () => {
     const skeleton = await initSkeleton(scene);
     skeletons.push(skeleton);
   }, 5000);
 
-  // Lógica de movimiento del personaje
   animateMovement(pirateCaptain, scene);
   animateAttack(pirateCaptain);
 
@@ -56,8 +97,21 @@ const main = async () => {
     }
 
     if (chestLife <= 0) {
-      alert("¡Juego terminado! El cofre ha sido destruido.");
-      renderer.setAnimationLoop(null);
+      const deathClip = pirateCaptain.animations.find((clip) =>
+        clip.name.toLocaleLowerCase().includes("death")
+      );
+
+      if (deathClip) {
+        const deathAction = pirateCaptain.mixer.clipAction(deathClip);
+        deathAction.setLoop(THREE.LoopOnce, 1);
+        deathAction.clampWhenFinished = true;
+        deathAction.play();
+      }
+
+      setTimeout(() => {
+        resultScreenEl.style.visibility = "visible";
+        renderer.setAnimationLoop(null);
+      }, 1000);
     }
 
     // Cámara sigue al pirata

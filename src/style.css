@@ -8,6 +8,36 @@ body {
   position: relative;
 }
 
+#result-screen {
+  background-color: #c49a6c;
+  width: 20rem;
+  height: 10rem;
+  visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 1rem;
+}
+
+#result-screen button {
+  height: 40px;
+  background-color: white;
+  border: 1px solid lightgray;
+  box-shadow: 3px 5px 0px 0px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  outline: none;
+}
+
 #chestlife {
   position: absolute;
   top: 2rem;
@@ -29,13 +59,13 @@ body {
 }
 
 #chestlife progress::-webkit-progress-value {
-  background-color: #ff4444;
+  background-color: #44ff44;
   transition: width 0.2s ease;
 }
 
 /* Para Firefox */
 #chestlife progress::-moz-progress-bar {
-  background-color: #ff4444;
+  background-color: #44ff44;
 }
 
 #controls {
