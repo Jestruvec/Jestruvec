@@ -1,2 +1,2 @@
 export * from "./movement";
-export * from "./pirateCaptain";
+export * from "./character";

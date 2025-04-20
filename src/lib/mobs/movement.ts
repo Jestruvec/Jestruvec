@@ -1,93 +1,101 @@
 import * as THREE from "three";
 import { AnimatedModel } from "../types/AnimatedModel";
 
-interface Mob {
-  model: THREE.Object3D;
-  update: (dt: number) => void;
-}
-
 const speed = 1;
 const targetPoint: THREE.Vector3 = new THREE.Vector3(0, 0, -15);
 const chestLifeEl = document.querySelector(
   "#chestlife progress"
 ) as HTMLProgressElement;
-const resultScreenEl = document.querySelector(
-  "#result-screen"
-) as HTMLDivElement;
 
-const removeSkeleton = (
-  scene: THREE.Scene,
-  skeleton: Mob,
-  skeletons: Mob[],
-  i: number
-) => {
-  scene.remove(skeleton.model);
-  skeletons.splice(i, 1);
-};
-
-export const animateSkeletons = (
+export const animateMobs = (
   delta: number,
   scene: THREE.Scene,
-  renderer: THREE.WebGLRenderer,
   chestLife: { value: number },
-  skeletons: { model: THREE.Object3D; update: (dt: number) => void }[],
+  mobs: AnimatedModel[],
   character: AnimatedModel,
-  swordSound: THREE.Audio
+  swordSound: THREE.Audio,
+  hitSound: THREE.Audio
 ) => {
-  for (let i = skeletons.length - 1; i >= 0; i--) {
-    const skeleton = skeletons[i];
+  for (let i = mobs.length - 1; i >= 0; i--) {
+    const mob = mobs[i];
+
+    if (mob.isDying) {
+      mob.update(delta);
+
+      continue;
+    }
 
     const characterPosition: THREE.Vector3 = character.model.position.clone();
 
-    const direction = targetPoint.clone().sub(skeleton.model.position);
+    const direction = targetPoint.clone().sub(mob.model.position);
     direction.y = 0;
     direction.normalize();
-    skeleton.model.position.add(direction.multiplyScalar(speed * delta));
+    mob.model.position.add(direction.multiplyScalar(speed * delta));
 
-    skeleton.update(delta);
-
-    const distance = skeleton.model.position.distanceTo(targetPoint);
+    const distance = mob.model.position.distanceTo(targetPoint);
     const distanceToCharacter =
-      skeleton.model.position.distanceTo(characterPosition);
+      mob.model.position.distanceTo(characterPosition);
 
-    if (distanceToCharacter < 0.5) {
-      const swordClip = character.animations.find((clip) =>
-        clip.name.toLowerCase().includes("sword")
-      );
-      const swordAction = character.mixer.clipAction(swordClip);
-      swordAction.setLoop(THREE.LoopOnce, 1);
-      swordAction.clampWhenFinished = true;
-      swordAction.reset().play();
-
-      if (swordSound.isPlaying) swordSound.stop();
-      swordSound.play();
-
-      removeSkeleton(scene, skeleton, skeletons, i);
+    if (distanceToCharacter < 1) {
+      attackMob(character, swordSound);
+      removeMob(scene, mob, mobs);
     }
 
     if (distance < 0.5) {
       chestLife.value = Math.max(0, chestLife.value - 1);
       chestLifeEl.value = chestLife.value;
 
-      removeSkeleton(scene, skeleton, skeletons, i);
-    }
-  }
+      if (hitSound.isPlaying) hitSound.stop();
+      hitSound.play();
 
-  if (chestLife.value <= 0) {
-    const deathClip = character.animations.find((clip) =>
-      clip.name.toLowerCase().includes("death")
-    );
-
-    if (deathClip) {
-      const deathAction = character.mixer.clipAction(deathClip);
-      deathAction.setLoop(THREE.LoopOnce, 1);
-      deathAction.clampWhenFinished = true;
-      deathAction.play();
+      removeMob(scene, mob, mobs);
     }
 
-    setTimeout(() => {
-      resultScreenEl.style.visibility = "visible";
-      renderer.setAnimationLoop(null);
-    }, 2000);
+    mob.update(delta);
   }
+};
+
+const attackMob = (character: AnimatedModel, swordSound: THREE.Audio) => {
+  const swordClip = character.animations.find((clip) =>
+    clip.name.toLowerCase().includes("sword")
+  );
+  const swordAction = character.mixer.clipAction(swordClip);
+  swordAction.setLoop(THREE.LoopOnce, 1);
+  swordAction.clampWhenFinished = true;
+  swordAction.reset().play();
+
+  if (swordSound.isPlaying) swordSound.stop();
+  swordSound.play();
+};
+
+const removeMob = (
+  scene: THREE.Scene,
+  mob: AnimatedModel,
+  mobs: AnimatedModel[]
+) => {
+  if (mob.isDying) return;
+
+  mob.isDying = true;
+
+  const deathClip = mob.animations.find((clip) =>
+    clip.name.toLowerCase().includes("death")
+  );
+
+  if (!deathClip) {
+    scene.remove(mob.model);
+    const index = mobs.indexOf(mob);
+    if (index !== -1) mobs.splice(index, 1);
+    return;
+  }
+
+  const deathAction = mob.mixer.clipAction(deathClip);
+  deathAction.setLoop(THREE.LoopOnce, 1);
+  deathAction.clampWhenFinished = true;
+  deathAction.reset().play();
+
+  setTimeout(() => {
+    scene.remove(mob.model);
+    const index = mobs.indexOf(mob);
+    if (index !== -1) mobs.splice(index, 1);
+  }, 2000);
 };

@@ -8,6 +8,7 @@ import {
   House_1,
   Chest_Gold,
   Gold_Bag,
+  Tentacle,
 } from "@/assets/glbs";
 const { Box, Model } = createMesh();
 
@@ -52,6 +53,9 @@ export const initMap = async (scene: THREE.Scene) => {
 
   const ship = await Model(Ship);
   ship.model.position.set(0, 0, 15);
+
+  const tentacle = await Model(Tentacle);
+  tentacle.model.position.set(5, 0, 15);
 
   const palmModel = await Model(Palm_1);
   const rocksModel = await Model(Rock_1);

@@ -3,4 +3,5 @@ export interface AnimatedModel {
   animations: THREE.AnimationClip[];
   mixer: THREE.AnimationMixer;
   update: (delta: number) => void;
+  isDying?: boolean;
 }

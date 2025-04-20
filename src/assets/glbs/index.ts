@@ -1,4 +1,5 @@
 import Pirate_Captain from "./Pirate_Captain.glb";
+import Mako from "./Mako.glb";
 
 import Ship from "./Ship.glb";
 
@@ -18,15 +19,19 @@ import Large_Bone from "./Large_Bone.glb";
 import Chest_Gold from "./Chest_Gold.glb";
 import Gold_Bag from "./Gold_Bag.glb";
 
+import Tentacle from "./Tentacle.glb";
+
 import Skeleton_1 from "./Skeleton_1.glb";
 import Skeleton_2 from "./Skeleton_2.glb";
 import Sharky from "./Sharky.glb";
 
 export {
   Sharky,
+  Tentacle,
   Skeleton_1,
   Skeleton_2,
   Pirate_Captain,
+  Mako,
   Ship,
   House_1,
   House_2,

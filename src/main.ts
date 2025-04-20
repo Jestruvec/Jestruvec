@@ -5,10 +5,22 @@ import { initPirateCaptain, animateMovement } from "@/lib/character";
 import { followPirate } from "@/lib/camera";
 import * as THREE from "three";
 import { animateAttack } from "./lib/character/attack";
-import { initMob, animateSkeletons } from "./lib/mobs/";
+import { initMob, animateMobs } from "./lib/mobs/";
 import { setupAudio } from "@/lib/scene/setupAudio";
+import { AnimatedModel } from "./lib/types/AnimatedModel";
 
 const main = async () => {
+  const canvas = document.querySelector("canvas")!;
+  const { scene, camera, renderer } = setupScene(canvas);
+  const {
+    swordSound,
+    hitSound,
+    deathSound,
+    oceanSound: backgroundSound,
+  } = setupAudio(camera);
+  const clock = new THREE.Clock();
+  const character = await initPirateCaptain(scene);
+  const skeletons: AnimatedModel[] = [];
   let chestlife = { value: 10 };
 
   const resultScreenEl = document.querySelector(
@@ -22,7 +34,7 @@ const main = async () => {
     chestlife.value = 10;
     chestLifeEl.value = chestlife.value;
 
-    pirateCaptain.model.position.set(0, 0, -20);
+    character.model.position.set(0, 0, -20);
 
     for (let i = skeletons.length - 1; i >= 0; i--) {
       const skeleton = skeletons[i];
@@ -30,20 +42,20 @@ const main = async () => {
       skeletons.splice(i, 1);
     }
 
-    const deathClip = pirateCaptain.animations.find((clip) =>
+    const deathClip = character.animations.find((clip) =>
       clip.name.toLowerCase().includes("death")
     );
-    const idleClip = pirateCaptain.animations.find((clip) =>
+    const idleClip = character.animations.find((clip) =>
       clip.name.toLowerCase().includes("idle")
     );
 
     if (deathClip) {
-      const deathAction = pirateCaptain.mixer.clipAction(deathClip);
+      const deathAction = character.mixer.clipAction(deathClip);
       deathAction.stop();
     }
 
     if (idleClip) {
-      const idleAction = pirateCaptain.mixer.clipAction(idleClip);
+      const idleAction = character.mixer.clipAction(idleClip);
       idleAction.reset().play();
     }
 
@@ -51,17 +63,30 @@ const main = async () => {
     renderer.setAnimationLoop(animate);
   };
 
+  const finishGame = () => {
+    const deathClip = character.animations.find((clip) =>
+      clip.name.toLowerCase().includes("death")
+    );
+
+    if (deathClip) {
+      const deathAction = character.mixer.clipAction(deathClip);
+      deathAction.setLoop(THREE.LoopOnce, 1);
+      deathAction.clampWhenFinished = true;
+      deathAction.play();
+      deathSound.play();
+    }
+
+    backgroundSound.stop();
+
+    setTimeout(() => {
+      resultScreenEl.style.visibility = "visible";
+      renderer.setAnimationLoop(null);
+    }, 2000);
+  };
+
   document
     .querySelector("#result-screen button")
     ?.addEventListener("click", restartGame);
-
-  const canvas = document.querySelector("canvas")!;
-  const { scene, camera, renderer } = setupScene(canvas);
-  const { swordSound } = setupAudio(camera);
-  const clock = new THREE.Clock();
-  const pirateCaptain = await initPirateCaptain(scene);
-  const skeletons: { model: THREE.Object3D; update: (dt: number) => void }[] =
-    [];
 
   await initMap(scene);
 
@@ -70,28 +95,32 @@ const main = async () => {
     skeletons.push(skeleton);
   }, 2000);
 
-  animateMovement(pirateCaptain, scene);
-  animateAttack(pirateCaptain);
+  animateMovement(character, scene);
+  animateAttack(character);
 
   const animate = () => {
     const delta = clock.getDelta();
 
     //actualizar pirata
-    pirateCaptain.update(delta);
+    character.update(delta);
 
     // Actualizar esqueletos
-    animateSkeletons(
+    animateMobs(
       delta,
       scene,
-      renderer,
       chestlife,
       skeletons,
-      pirateCaptain,
-      swordSound
+      character,
+      swordSound,
+      hitSound
     );
 
+    if (chestlife.value <= 0) {
+      finishGame();
+    }
+
     // Cámara sigue al pirata
-    followPirate(camera, pirateCaptain.model);
+    followPirate(camera, character.model);
 
     // Renderizado
     renderer.render(scene, camera);
