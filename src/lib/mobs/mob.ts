@@ -13,8 +13,15 @@ export async function initMob(scene: THREE.Scene) {
 
   const mob = await Model(selectedMob);
 
-  const x = inRange(-25, 25);
-  const z = inRange(10, 25);
+  // Intentar hasta encontrar una posición en el agua
+  let x: number, z: number, distanceFromCenter: number;
+  const half = 100 / 2; // o el mismo valor que usas en el generador de terreno
+
+  do {
+    x = inRange(-half, half);
+    z = inRange(-half, half);
+    distanceFromCenter = Math.sqrt(x * x + z * z);
+  } while (distanceFromCenter <= half * 0.5); // si es <=, está en tierra
 
   mob.model.position.set(x, 0, z);
   mob.model.rotation.y = Math.PI;

@@ -5,7 +5,7 @@ import { Pirate_Captain } from "@/assets/glbs";
 export async function initPirateCaptain(scene: THREE.Scene) {
   const { Model } = createMesh();
   const pirate = await Model(Pirate_Captain);
-  pirate.model.position.set(0, 0, -20);
+  pirate.model.position.set(0, 0, -3);
 
   const idleClip = pirate.animations.find((clip) =>
     clip.name.toLowerCase().includes("idle")

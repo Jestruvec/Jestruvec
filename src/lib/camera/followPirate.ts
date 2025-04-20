@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export function followPirate(camera: THREE.Camera, target: THREE.Object3D) {
-  const offset = new THREE.Vector3(0, 7.5, -7.5);
+  const offset = new THREE.Vector3(0, 7, -7);
   const targetPosition = target.position.clone().add(offset);
 
   camera.position.lerp(targetPosition, 0.1);

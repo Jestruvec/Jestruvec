@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { AnimatedModel } from "../types/AnimatedModel";
 
 const speed = 1;
-const targetPoint: THREE.Vector3 = new THREE.Vector3(0, 0, -15);
+const targetPoint: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
 const chestLifeEl = document.querySelector(
   "#chestlife progress"
 ) as HTMLProgressElement;
@@ -21,26 +21,33 @@ export const animateMobs = (
 
     if (mob.isDying) {
       mob.update(delta);
-
       continue;
     }
 
     const characterPosition: THREE.Vector3 = character.model.position.clone();
 
+    //movimiento
     const direction = targetPoint.clone().sub(mob.model.position);
     direction.y = 0;
     direction.normalize();
+
     mob.model.position.add(direction.multiplyScalar(speed * delta));
 
+    //rotacion
+    const angle = Math.atan2(direction.x, direction.z); // ojo: x y z invertidos respecto al clásico atan2
+    mob.model.rotation.y = angle;
+
+    //colisiones
     const distance = mob.model.position.distanceTo(targetPoint);
     const distanceToCharacter =
       mob.model.position.distanceTo(characterPosition);
 
+    //contra character
     if (distanceToCharacter < 1) {
       attackMob(character, swordSound);
       removeMob(scene, mob, mobs);
     }
-
+    // contra el target (cofre)
     if (distance < 0.5) {
       chestLife.value = Math.max(0, chestLife.value - 1);
       chestLifeEl.value = chestLife.value;
