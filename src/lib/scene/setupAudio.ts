@@ -15,14 +15,6 @@ export const setupAudio = () => {
     backgroundSound.play();
   });
 
-  const audioContext = THREE.AudioContext.getContext();
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume().then(() => {
-      console.log("AudioContext resumed successfully.");
-    });
-  }
-
   return {
     backgroundSound,
     listener,
