@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { sceneSetup } from "@/lib/scene/sceneSetup";
 import { getDOMElements } from "@/utils";
 import { validateContactForm } from "@/lib/helpers/formHelper";
@@ -22,6 +23,7 @@ export const keysPressed = new Set<string>();
 export let mouseDeltaX = 0;
 export let mouseDeltaY = 0;
 let mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
+const audioContext = THREE.AudioContext.getContext();
 
 export const handleResize = () => {
   const width = window.innerWidth;
@@ -130,4 +132,12 @@ export const handleEmailSend = async (e: SubmitEvent) => {
   }
 
   form.reset();
+};
+
+export const handleAudioResume = () => {
+  if (audioContext.state === "suspended") {
+    audioContext.resume().then(() => {
+      console.log("AudioContext resumed successfully.");
+    });
+  }
 };

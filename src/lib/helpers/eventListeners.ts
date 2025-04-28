@@ -6,6 +6,7 @@ import {
   handleDialogContent,
   handleDialogClose,
   handleEmailSend,
+  handleAudioResume,
 } from "@/lib/helpers";
 import { getDOMElements } from "@/utils";
 
@@ -31,4 +32,6 @@ export const initEventListeners = () => {
       element.addEventListener("click", handleDialogContent);
     }
   );
+
+  window.addEventListener("click", handleAudioResume);
 };
