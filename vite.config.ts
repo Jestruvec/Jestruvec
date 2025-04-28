@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/jestruvec/",
+  base: "/Jestruvec/",
   plugins: [tailwindcss()],
   assetsInclude: ["**/*.glb", "**/*.gltf"],
   resolve: {
