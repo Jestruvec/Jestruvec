@@ -1,13 +1,350 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Jestruvec</title>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <style>
+      body {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      body.loaded {
+        opacity: 1;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="h-screen w-full relative overflow-hidden">
+      <header class="fixed top-0 w-full">
+        <nav class="flex items-center justify-between py-3 px-6 z-50">
+          <h1 class="text-xl font-bold text-gray-800">Jestruvec</h1>
+
+          <ul class="flex gap-4 text-gray-600">
+            <li>
+              <button
+                id="home-button"
+                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
+              >
+                Play
+              </button>
+            </li>
+            <li>
+              <button
+                id="about-button"
+                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
+              >
+                About
+              </button>
+            </li>
+            <li>
+              <button
+                id="projects-button"
+                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
+              >
+                Projects
+              </button>
+            </li>
+            <li>
+              <button
+                id="contact-button"
+                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
+              >
+                Contact
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <canvas id="canvas"></canvas>
+
+      <div
+        id="dialog"
+        class="flex flex-col justify-between items-center text-white w-96 h-[75%] text-center p-6 fixed inset-0 m-auto rounded-lg transition-all ease-in-out duration-300 show"
+      >
+        <section id="about-section" class="flex flex-col gap-6 mb-4">
+          <h2 class="text-2xl font-bold mb-4">About</h2>
+
+          <img
+            src="/public/images/selfie-circle.png"
+            alt="Photo of Jhonny"
+            class="rounded-full m-auto w-32 h-32 object-cover shadow-md"
+          />
+
+          <p>
+            Hi, I'm Jhonny, a frontend developer, i like to create great web
+            experiences. I enjoy bringing ideas to life by building intuitive
+            digital products.
+          </p>
+          <p>
+            I have over 3 years of experience building cool user interfaces
+            using some of the most famouse javascript frameworks and libraries.
+          </p>
+          <p>
+            Outside of coding, you will usually find me playing video games,
+            doing exercise, diving into new technologies, or spending time
+            outdoors with my family.
+          </p>
+
+          <a
+            href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cursor-pointer transition-all ease-in-out duration-500 hover:scale-110"
+          >
+            View my resume
+          </a>
+        </section>
+
+        <section
+          id="projects-section"
+          class="hidden flex-col gap-4 mb-4 flex-grow overflow-auto"
+        >
+          <h2 class="text-2xl font-bold mb-4">Projects</h2>
+
+          <span>
+            These are a few of my personal projects. I've also worked on private
+            corporate projects that I can't showcase, but I'd be happy to
+            discuss them.
+          </span>
+
+          <div class="flex flex-col gap-8 h-full overflow-auto">
+            <!-- Project 1 -->
+            <div class="flex flex-col gap-4">
+              <h3 class="text-xl font-semibold">Cursed waters</h3>
+              <img
+                src="./src/assets/images/cursed-waters.png"
+                alt="cursed waters game"
+              />
+              <p>
+                A 3D game where you defend a floating gem on a tropical island
+                from waves of enemies. The game increases in difficulty with
+                each raid, and you can heal and upgrade by collecting loot.
+              </p>
+
+              <div class="flex flex-col gap-4 mt-2">
+                <span class="text-sm font-medium">
+                  Technologies: TypeScript, Three.js
+                </span>
+                <a
+                  href="https://github.com/Jestruvec/cursed-waters/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                >
+                  https://github.com/Jestruvec/cursed-waters/
+                </a>
+                <a
+                  href="https://jestruvec.github.io/cursed-waters/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                >
+                  https://jestruvec.github.io/cursed-waters/
+                </a>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="flex flex-col gap-4">
+              <h3 class="text-xl font-semibold">Strength lab</h3>
+              <img
+                src="./src/assets/images/strength-lab.png"
+                alt="cursed waters game"
+              />
+              <p class="">
+                A web app where users can create their account, log in, add
+                friends, post, react to their friends' posts, create and edit
+                their profile, and most importantly, create their gym workout
+                routines.
+              </p>
+
+              <div class="flex flex-col gap-4 mt-2">
+                <span class="text-sm font-medium"
+                  >Technologies: React, Supabase, Tailwind</span
+                >
+                <a
+                  href="https://github.com/Jestruvec/strength-lab/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://github.com/Jestruvec/strength-lab/</a
+                >
+                <a
+                  href="https://jestruvec.github.io/strength-lab/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://jestruvec.github.io/strength-lab/</a
+                >
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="flex flex-col gap-4">
+              <h3 class="text-xl font-semibold">My crossy road game</h3>
+              <img
+                src="./src/assets/images/my-crossy-road-game.png"
+                alt="cursed waters game"
+              />
+              <p>
+                In this game, the goal is to cross roads without getting hit,
+                earning points for each successful move. Inspired by the classic
+                Crossy Road, developed following Hunor Marton Borbely's
+                tutorial.
+              </p>
+
+              <div class="flex flex-col gap-4 mt-2">
+                <span class="text-sm font-medium"
+                  >Technologies: React, Three.js</span
+                >
+                <a
+                  href="https://github.com/Jestruvec/my-crossy-road-game/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://github.com/Jestruvec/my-crossy-road-game/</a
+                >
+                <a
+                  href="https://jestruvec.github.io/my-crossy-road-game/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://jestruvec.github.io/my-crossy-road-game/</a
+                >
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="flex flex-col gap-4">
+              <h3 class="text-xl font-semibold">Pokemon app</h3>
+              <img
+                src="./src/assets/images/pokemons.png"
+                alt="cursed waters game"
+              />
+              <p>
+                The classic Pokémon web app where you can search for Pokémon by
+                name and also filter them by type.
+              </p>
+
+              <div class="flex flex-col gap-4 mt-2">
+                <span class="text-sm font-medium"
+                  >Technologies: React, Redux toolkit, Tailwind</span
+                >
+                <a
+                  href="https://github.com/Jestruvec/pokemons/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://github.com/Jestruvec/pokemons/</a
+                >
+                <a
+                  href="https://jestruvec.github.io/pokemons/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-gray-300 hover:underline"
+                  >https://jestruvec.github.io/pokemons/</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="contact-section"
+          class="hidden flex-col justify-between items-center gap-6 mb-4 h-full"
+        >
+          <h2 class="text-2xl font-bold mb-4">Contact</h2>
+
+          <p>Interested in working together ? Contact me!</p>
+
+          <form
+            id="contact-form"
+            class="flex flex-col gap-4 mt-4 w-full text-left"
+          >
+            <span
+              id="form-contact-success-message"
+              class="text-green-500 font-bold hidden text-center transition-all ease-in-out duration-300"
+              >Message sent!</span
+            >
+            <div class="w-full flex flex-col">
+              <input
+                name="user_name"
+                type="text"
+                placeholder="Your Name"
+                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
+              />
+              <span
+                id="form-contact-name-error"
+                class="text-red-500 text-sm hidden"
+                >Please enter your name</span
+              >
+            </div>
+
+            <div class="w-full flex flex-col">
+              <input
+                name="user_email"
+                type="text"
+                placeholder="Your Email"
+                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
+              />
+              <span
+                id="form-contact-email-error"
+                class="text-red-500 text-sm hidden"
+                >Please enter a valid email</span
+              >
+            </div>
+
+            <div class="w-full flex flex-col">
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                rows="4"
+                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
+              ></textarea>
+              <span
+                id="form-contact-message-error"
+                class="text-red-500 text-sm hidden"
+                >Please enter a message</span
+              >
+            </div>
+
+            <span id="form-contact-error" class="text-red-500 text-sm hidden">
+              Something went wrong, please try again later.
+            </span>
+
+            <button
+              id="form-contact-submit-btn"
+              type="submit"
+              class="bg-gray-600 cursor-pointer hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition-all"
+            >
+              Send Message
+            </button>
+          </form>
+
+          <div class="text-sm mt-4">
+            Or email me directly at
+            <a href="mailto:jhonnyestruve@gmail.com" class="underline">
+              jhonnyestruve@gmail.com
+            </a>
+          </div>
+        </section>
+
+        <button
+          id="close-dialog-button"
+          class="cursor-pointer text-white py-2 px-4 transition-all ease-in-out duration-500 hover:text-red-500 focus:outline-none"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
   </body>
 </html>
