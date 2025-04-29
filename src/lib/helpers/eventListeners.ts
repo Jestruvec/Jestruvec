@@ -7,6 +7,9 @@ import {
   handleDialogClose,
   handleEmailSend,
   handleAudioResume,
+  handleTouchStart,
+  handleTouchMove,
+  handleTouchEnd,
 } from "@/lib/helpers";
 import { getDOMElements } from "@/utils";
 
@@ -34,4 +37,8 @@ export const initEventListeners = () => {
   );
 
   window.addEventListener("click", handleAudioResume);
+
+  document.addEventListener("touchstart", handleTouchStart, { passive: true });
+  document.addEventListener("touchmove", handleTouchMove, { passive: true });
+  document.addEventListener("touchend", handleTouchEnd);
 };
