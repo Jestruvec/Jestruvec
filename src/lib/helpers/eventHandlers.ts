@@ -18,6 +18,7 @@ const {
   formErrorDOM,
   successMessageDOM,
   joystickDOM,
+  joystickContainerDOM,
 } = getDOMElements();
 
 const audioContext = THREE.AudioContext.getContext();
@@ -32,10 +33,12 @@ export let mouseDeltaY = 0;
 let mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
 
 //Moviles
+// let cameraTouchId: number | null = null;
 let isTouching = false;
 let lastTouchX = 0;
 let lastTouchY = 0;
 
+// let joystickTouchId: number | null = null;
 let joystickTouchStartX = 0;
 let joystickTouchStartY = 0;
 const keysToSimulate = new Set<string>();
@@ -48,27 +51,6 @@ export const handleResize = () => {
   camera.updateProjectionMatrix();
 
   renderer.setSize(width, height);
-};
-
-export const handleMouseMove = (e: MouseEvent) => {
-  if (document.pointerLockElement === renderer.domElement) {
-    mouseDeltaX = e.movementX;
-    mouseDeltaY = e.movementY;
-
-    if (mouseMoveTimeout) clearTimeout(mouseMoveTimeout);
-    mouseMoveTimeout = setTimeout(() => {
-      mouseDeltaX = 0;
-      mouseDeltaY = 0;
-    }, 50);
-  }
-};
-
-export const handleKeydown = (e: KeyboardEvent) => {
-  keysPressed.add(e.key.toLowerCase());
-};
-
-export const handleKeyup = (e: KeyboardEvent) => {
-  keysPressed.delete(e.key.toLowerCase());
 };
 
 export const handleDialogContent = (event: MouseEvent) => {
@@ -157,11 +139,51 @@ export const handleAudioResume = () => {
   }
 };
 
+//Movimiento y camara
+
+//Escritorio
+
+export const handleMouseMove = (e: MouseEvent) => {
+  if (document.pointerLockElement === renderer.domElement) {
+    mouseDeltaX = e.movementX;
+    mouseDeltaY = e.movementY;
+
+    if (mouseMoveTimeout) clearTimeout(mouseMoveTimeout);
+    mouseMoveTimeout = setTimeout(() => {
+      mouseDeltaX = 0;
+      mouseDeltaY = 0;
+    }, 50);
+  }
+};
+
+export const handleKeydown = (e: KeyboardEvent) => {
+  keysPressed.add(e.key.toLowerCase());
+};
+
+export const handleKeyup = (e: KeyboardEvent) => {
+  keysPressed.delete(e.key.toLowerCase());
+};
+
+//Moviles
+
 export const handleTouchStart = (e: TouchEvent) => {
-  if (e.touches.length === 1) {
-    isTouching = true;
-    lastTouchX = e.touches[0].clientX;
-    lastTouchY = e.touches[0].clientY;
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const touch = e.changedTouches[i];
+    const touchTarget = document.elementFromPoint(
+      touch.clientX,
+      touch.clientY
+    ) as HTMLElement;
+
+    if (touchTarget && joystickContainerDOM.contains(touchTarget)) {
+      // joystickTouchId = touch.identifier;
+      joystickTouchStartX = touch.clientX;
+      joystickTouchStartY = touch.clientY;
+    } else {
+      // cameraTouchId = touch.identifier;
+      isTouching = true;
+      lastTouchX = touch.clientX;
+      lastTouchY = touch.clientY;
+    }
   }
 };
 
@@ -185,12 +207,6 @@ export const handleTouchMove = (e: TouchEvent) => {
 
 export const handleTouchEnd = () => {
   isTouching = false;
-};
-
-export const handleJoystickTouchStar = (e: TouchEvent) => {
-  const touch = e.touches[0];
-  joystickTouchStartX = touch.clientX;
-  joystickTouchStartY = touch.clientY;
 };
 
 export const handleJoystickTouchMove = (e: TouchEvent) => {

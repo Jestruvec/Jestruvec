@@ -10,7 +10,6 @@ import {
   handleTouchStart,
   handleTouchMove,
   handleTouchEnd,
-  handleJoystickTouchStar,
   handleJoystickTouchMove,
   handleJoystickTouchEnd,
 } from "@/lib/helpers";
@@ -46,7 +45,7 @@ export const initEventListeners = () => {
   document.addEventListener("touchstart", handleTouchStart, { passive: true });
   document.addEventListener("touchmove", handleTouchMove, { passive: true });
   document.addEventListener("touchend", handleTouchEnd);
-  joystickContainerDOM.addEventListener("touchstart", handleJoystickTouchStar);
+  joystickContainerDOM.addEventListener("touchstart", handleTouchStart);
   joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove);
   joystickContainerDOM.addEventListener("touchend", handleJoystickTouchEnd);
 
