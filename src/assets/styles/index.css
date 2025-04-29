@@ -24,3 +24,26 @@
   visibility: visible;
   opacity: 1;
 }
+
+#joystick-container {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  touch-action: none;
+  z-index: 10;
+}
+
+#joystick {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  transition: 0.1s;
+}

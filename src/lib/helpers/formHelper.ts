@@ -1,7 +1,12 @@
 import { getDOMElements } from "@/utils";
 
-const { nameError, emailError, messageError, formError, successMessage } =
-  getDOMElements();
+const {
+  nameErrorDOM,
+  emailErrorDOM,
+  messageErrorDOM,
+  formErrorDOM,
+  successMessageDOM,
+} = getDOMElements();
 
 export const validateContactForm = (form: HTMLFormElement): boolean => {
   let isValid = true;
@@ -10,21 +15,21 @@ export const validateContactForm = (form: HTMLFormElement): boolean => {
   const message = form.message.value.trim();
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-  successMessage.classList.add("hidden");
+  successMessageDOM.classList.add("hidden");
   hideErrors();
 
   if (!name) {
-    showError(nameError);
+    showError(nameErrorDOM);
     isValid = false;
   }
 
   if (!email || !emailRegex.test(email)) {
-    showError(emailError);
+    showError(emailErrorDOM);
     isValid = false;
   }
 
   if (!message) {
-    showError(messageError);
+    showError(messageErrorDOM);
     isValid = false;
   }
 
@@ -32,13 +37,16 @@ export const validateContactForm = (form: HTMLFormElement): boolean => {
 };
 
 const hideErrors = () => {
-  [nameError, emailError, messageError, formError].forEach((element) => {
-    element.classList.add("hidden");
+  [nameErrorDOM, emailErrorDOM, messageErrorDOM, formErrorDOM].forEach(
+    (element) => {
+      element.classList.add("hidden");
 
-    if (element === formError) {
-      formError.innerText = "Something went wrong, please try again later.";
+      if (element === formErrorDOM) {
+        formErrorDOM.innerText =
+          "Something went wrong, please try again later.";
+      }
     }
-  });
+  );
 };
 
 const showError = (element: HTMLElement) => {

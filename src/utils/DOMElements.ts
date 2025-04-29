@@ -19,17 +19,23 @@ export const getDOMElements = () => ({
   submitBtnDOM: document.getElementById(
     "form-contact-submit-btn"
   ) as HTMLButtonElement,
-  nameError: document.getElementById(
+  nameErrorDOM: document.getElementById(
     "form-contact-name-error"
   ) as HTMLSpanElement,
-  emailError: document.getElementById(
+  emailErrorDOM: document.getElementById(
     "form-contact-email-error"
   ) as HTMLSpanElement,
-  messageError: document.getElementById(
+  messageErrorDOM: document.getElementById(
     "form-contact-message-error"
   ) as HTMLSpanElement,
-  formError: document.getElementById("form-contact-error") as HTMLSpanElement,
-  successMessage: document.getElementById(
+  formErrorDOM: document.getElementById(
+    "form-contact-error"
+  ) as HTMLSpanElement,
+  successMessageDOM: document.getElementById(
     "form-contact-success-message"
   ) as HTMLSpanElement,
+  joystickDOM: document.getElementById("joystick") as HTMLDivElement,
+  joystickContainerDOM: document.getElementById(
+    "joystick-container"
+  ) as HTMLDivElement,
 });

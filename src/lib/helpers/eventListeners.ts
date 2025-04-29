@@ -10,6 +10,9 @@ import {
   handleTouchStart,
   handleTouchMove,
   handleTouchEnd,
+  handleJoystickTouchStar,
+  handleJoystickTouchMove,
+  handleJoystickTouchEnd,
 } from "@/lib/helpers";
 import { getDOMElements } from "@/utils";
 
@@ -20,6 +23,8 @@ const {
   contactBtnDOM,
   closeDialogBtnDOM,
   contactFormDOM,
+  joystickContainerDOM,
+  dialogDOM,
 } = getDOMElements();
 
 export const initEventListeners = () => {
@@ -41,4 +46,31 @@ export const initEventListeners = () => {
   document.addEventListener("touchstart", handleTouchStart, { passive: true });
   document.addEventListener("touchmove", handleTouchMove, { passive: true });
   document.addEventListener("touchend", handleTouchEnd);
+  joystickContainerDOM.addEventListener("touchstart", handleJoystickTouchStar);
+  joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove);
+  joystickContainerDOM.addEventListener("touchend", handleJoystickTouchEnd);
+
+  dialogDOM.addEventListener(
+    "touchstart",
+    (e) => {
+      e.stopPropagation();
+    },
+    { passive: false }
+  );
+
+  dialogDOM.addEventListener(
+    "touchmove",
+    (e) => {
+      e.stopPropagation();
+    },
+    { passive: false }
+  );
+
+  dialogDOM.addEventListener(
+    "touchend",
+    (e) => {
+      e.stopPropagation();
+    },
+    { passive: false }
+  );
 };

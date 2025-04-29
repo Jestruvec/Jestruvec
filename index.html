@@ -64,32 +64,31 @@
         id="dialog"
         class="w-96 h-[75vh] max-h-[90vh] flex flex-col justify-between items-center text-white text-center p-6 fixed top-1/2 left-1/2 rounded-lg transition-all ease-in-out duration-300 show transform translate-x-[-50%] translate-y-[-50%]"
       >
-        <section
-          id="about-section"
-          class="flex flex-col gap-6 mb-4 overflow-auto"
-        >
+        <section id="about-section" class="flex flex-col flex-grow mb-4">
           <h2 class="text-2xl font-bold mb-4">About</h2>
 
           <img
             src="/src/assets/images/selfie-circle.png"
             alt="Photo of Jhonny"
-            class="rounded-full m-auto w-32 h-32 object-cover shadow-md"
+            class="rounded-full m-auto w-36 h-36 object-cover shadow-md"
           />
 
-          <p>
-            Hi, I'm Jhonny, a frontend developer, i like to create great web
-            experiences. I enjoy bringing ideas to life by building intuitive
-            digital products.
-          </p>
-          <p>
-            I have over 3 years of experience building cool user interfaces
-            using some of the most famous javascript frameworks and libraries.
-          </p>
-          <p>
-            Outside of coding, you will usually find me playing video games,
-            doing exercise, diving into new technologies, or spending time
-            outdoors with my family.
-          </p>
+          <div class="flex flex-col gap-4 overflow-auto mb-4">
+            <p>
+              Hi, I'm Jhonny, a frontend developer, i like to create great web
+              experiences. I enjoy bringing ideas to life by building intuitive
+              digital products.
+            </p>
+            <p>
+              I have over 3 years of experience building cool user interfaces
+              using some of the most famous javascript frameworks and libraries.
+            </p>
+            <p>
+              Outside of coding, you will usually find me playing video games,
+              doing exercise, diving into new technologies, or spending time
+              outdoors with my family.
+            </p>
+          </div>
 
           <a
             href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
@@ -341,6 +340,10 @@
         >
           Close
         </button>
+      </div>
+
+      <div id="joystick-container" class="sm:hidden">
+        <div id="joystick"></div>
       </div>
     </div>
 

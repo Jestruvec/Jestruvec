@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { getModel, ModelKey, keysPressed } from "@/lib/helpers";
+import { getModel, ModelKey, getEffectiveKeys } from "@/lib/helpers";
 import { sceneSetup } from "@/lib/scene/sceneSetup";
 import { CHARACTER_SPEED } from "../constants/character";
 
@@ -123,6 +123,7 @@ export class Character {
     this.forward.normalize();
 
     this.right.crossVectors(this.forward, this.up).normalize();
+    const keysPressed = getEffectiveKeys();
 
     if (keysPressed.has("w") || keysPressed.has("arrowup"))
       this.direction.add(this.forward);
