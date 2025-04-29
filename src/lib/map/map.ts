@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Water } from "three/examples/jsm/objects/Water.js";
 import { SUN_ROTATION_SPEED } from "@/lib/constants";
-import WaterNormalTexture from "@/assets/textures/water.jpg";
+import WaterNormalTexture from "@/assets/textures/water.webp";
 import { sceneSetup } from "@/lib/scene/sceneSetup";
 import { getModel } from "../helpers";
 

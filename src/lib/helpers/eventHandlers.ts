@@ -174,6 +174,7 @@ export const handleTouchStart = (e: TouchEvent) => {
       touch.clientY
     ) as HTMLElement;
 
+    console.log(touchTarget);
     if (touchTarget && joystickContainerDOM.contains(touchTarget)) {
       // joystickTouchId = touch.identifier;
       joystickTouchStartX = touch.clientX;
