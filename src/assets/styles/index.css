@@ -9,12 +9,6 @@
   scrollbar-width: none;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  overflow: hidden;
-}
-
 #dialog {
   background-color: rgba(0, 0, 0, 0.4);
 }

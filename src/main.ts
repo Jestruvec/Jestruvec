@@ -1,4 +1,4 @@
-import "./style.css";
+import "@/assets/styles/index.css";
 import { sceneSetup, setupAudio } from "@/lib/scene/";
 import { loadModels, initEventListeners, updateCamera } from "@/lib/helpers";
 import { Character } from "@/lib/character";
