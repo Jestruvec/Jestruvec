@@ -4,15 +4,7 @@ import { GLTF, GLTFLoader } from "three-stdlib";
 import { AnimatedModel } from "@/lib/types";
 import * as Models from "@/assets/models";
 
-export type ModelKey =
-  | "Astronaut"
-  | "Outer_Space"
-  | "Astronaut_Reptile"
-  | "Lander"
-  | "Lander_2"
-  | "Cargo_Depot"
-  | "Black_Hole"
-  | "Spaceship";
+export type ModelKey = "Astronaut" | "Spaceship";
 
 const loader = new GLTFLoader();
 const models: Record<string, AnimatedModel> = {};
@@ -79,12 +71,6 @@ export const getModel = (key: ModelKey): AnimatedModel => {
 export const loadModels = async () => {
   const entries: [ModelKey, string][] = [
     ["Astronaut", Models.Astronaut],
-    ["Outer_Space", Models.Outer_Space],
-    ["Astronaut_Reptile", Models.Astronaut_Reptile],
-    ["Lander", Models.Lander],
-    ["Lander_2", Models.Lander_2],
-    ["Cargo_Depot", Models.Cargo_Depot],
-    ["Black_Hole", Models.Black_Hole],
     ["Spaceship", Models.Spaceship],
   ];
 
