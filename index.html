@@ -15,19 +15,31 @@
         opacity: 1;
       }
     </style>
-    <script type="module" crossorigin src="/Jestruvec/assets/index-6EKDArrW.js"></script>
-    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-C2XE5Khp.css">
+    <script type="module" crossorigin src="/Jestruvec/assets/index-BHWvGUHP.js"></script>
+    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-BwVZ4PPb.css">
   </head>
   <body>
     <div id="app" class="h-screen w-full relative overflow-hidden">
       <header class="fixed top-0 w-full">
         <nav class="flex items-center justify-between py-3 px-6">
-          <h1 class="font-bold text-gray-800 text-2xl">Jestruvec</h1>
+          <div class="flex gap-2 items-center">
+            <h1 data-i18n="title" class="font-bold text-gray-800 text-2xl">
+              Jestruvec
+            </h1>
+            <button
+              id="lang-switcher"
+              class="px-2 py-1 cursor-pointer uppercase font-bold"
+              aria-label="Change lang"
+            >
+              🌐 <span data-i18n="lang">EN</span>
+            </button>
+          </div>
 
           <ul class="flex gap-4 text-gray-600">
             <li class="hidden sm:block">
               <button
-                id="home-button"
+                id="play-button"
+                data-i18n="nav.play"
                 class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
               >
                 Play
@@ -36,7 +48,8 @@
             <li>
               <button
                 id="about-button"
-                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
+                data-i18n="nav.about"
+                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none font-bold"
               >
                 About
               </button>
@@ -44,6 +57,7 @@
             <li>
               <button
                 id="projects-button"
+                data-i18n="nav.projects"
                 class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
               >
                 Projects
@@ -52,6 +66,7 @@
             <li>
               <button
                 id="contact-button"
+                data-i18n="nav.contact"
                 class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
               >
                 Contact
@@ -65,28 +80,29 @@
 
       <div
         id="dialog"
-        class="w-96 h-[75vh] flex flex-col justify-between items-center text-white text-center p-6 fixed top-1/2 left-1/2 rounded-lg transition-all ease-in-out duration-300 show transform translate-x-[-50%] translate-y-[-50%]"
+        class="w-96 sm:w-120 h-[75vh] flex flex-col justify-between items-center text-white text-center p-6 fixed top-1/2 left-1/2 rounded-lg transition-all ease-in-out duration-300 show transform translate-x-[-50%] translate-y-[-50%]"
       >
         <section id="about-section" class="flex flex-col flex-grow mb-4">
-          <h2 class="text-2xl font-bold">About</h2>
+          <h2 class="text-2xl font-bold" data-i18n="about.title">About</h2>
 
           <img
             src="/Jestruvec/assets/selfie-circle-CDUW5FK5.webp"
             alt="Photo of Jhonny"
+            data-i18n="about.imgAlt"
             class="rounded-full m-auto w-32 h-32 object-cover shadow-md"
           />
 
           <div class="flex flex-col gap-4 overflow-auto mb-4 h-[50%]">
-            <p>
+            <p data-i18n="about.p1">
               Hi, I'm Jhonny, a frontend developer, i like to create great web
               experiences. I enjoy bringing ideas to life by building intuitive
               digital products.
             </p>
-            <p>
+            <p data-i18n="about.p2">
               I have over 3 years of experience building cool user interfaces
               using some of the most famous javascript frameworks and libraries.
             </p>
-            <p>
+            <p data-i18n="about.p3">
               Outside of coding, you will usually find me playing video games,
               doing exercise, diving into new technologies, or spending time
               outdoors with my family.
@@ -97,6 +113,7 @@
             href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
+            data-i18n="about.resume"
             class="cursor-pointer"
           >
             View my resume
@@ -107,9 +124,11 @@
           id="projects-section"
           class="hidden flex-col gap-4 mb-4 flex-grow overflow-auto"
         >
-          <h2 class="text-2xl font-bold mb-4">Projects</h2>
+          <h2 class="text-2xl font-bold mb-4" data-i18n="projects.title">
+            Projects
+          </h2>
 
-          <span>
+          <span data-i18n="projects.description">
             These are a few of my personal projects. I've also worked on private
             corporate projects that I can't showcase, but I'd be happy to
             discuss them.
@@ -117,19 +136,28 @@
 
           <div class="flex flex-col gap-8 h-full overflow-auto">
             <article class="flex flex-col gap-4">
-              <h3 class="text-xl font-semibold">Cursed waters</h3>
+              <h3
+                class="text-xl font-semibold"
+                data-i18n="projects.cursed_waters.title"
+              >
+                Cursed waters
+              </h3>
               <img
                 src="/Jestruvec/assets/cursed-waters-KtYRdsxT.webp"
                 alt="cursed waters game"
+                data-i18n="projects.cursed_waters.imgAlt"
               />
-              <p>
+              <p data-i18n="projects.cursed_waters.description">
                 A 3D game where you defend a floating gem on a tropical island
                 from waves of enemies. The game increases in difficulty with
                 each raid, and you can heal and upgrade by collecting loot.
               </p>
 
               <div class="flex flex-col gap-4 mt-2">
-                <span class="text-sm font-medium">
+                <span
+                  data-i18n="projects.cursed_waters.technologies"
+                  class="text-sm font-medium"
+                >
                   Technologies: TypeScript, Three.js
                 </span>
                 <a
@@ -152,12 +180,18 @@
             </article>
 
             <article class="flex flex-col gap-4">
-              <h3 class="text-xl font-semibold">Strength lab</h3>
+              <h3
+                class="text-xl font-semibold"
+                data-i18n="projects.strength_lab.title"
+              >
+                Strength lab
+              </h3>
               <img
                 src="/Jestruvec/assets/strength-lab-ByRlyEVZ.webp"
                 alt="strength lab page"
+                data-i18n="projects.strength_lab.imgAlt"
               />
-              <p class="">
+              <p data-i18n="projects.strength_lab.description">
                 A web app where users can create their account, log in, add
                 friends, post, react to their friends' posts, create and edit
                 their profile, and most importantly, create their gym workout
@@ -165,9 +199,12 @@
               </p>
 
               <div class="flex flex-col gap-4 mt-2">
-                <span class="text-sm font-medium"
-                  >Technologies: React, Supabase, Tailwind</span
+                <span
+                  data-i18n="projects.strength_lab.technologies"
+                  class="text-sm font-medium"
                 >
+                  Technologies: React, Supabase, Tailwind
+                </span>
                 <a
                   href="https://github.com/Jestruvec/strength-lab/"
                   target="_blank"
@@ -186,12 +223,18 @@
             </article>
 
             <article class="flex flex-col gap-4">
-              <h3 class="text-xl font-semibold">My crossy road game</h3>
+              <h3
+                class="text-xl font-semibold"
+                data-i18n="projects.my_crossy_road.title"
+              >
+                My crossy road game
+              </h3>
               <img
                 src="/Jestruvec/assets/my-crossy-road-game-BhXS5jAN.webp"
                 alt="my crossy road game"
+                data-i18n="projects.my_crossy_road.imgAlt"
               />
-              <p>
+              <p data-i18n="projects.my_crossy_road.description">
                 In this game, the goal is to cross roads without getting hit,
                 earning points for each successful move. Inspired by the classic
                 Crossy Road, developed following Hunor Marton Borbely's
@@ -199,7 +242,9 @@
               </p>
 
               <div class="flex flex-col gap-4 mt-2">
-                <span class="text-sm font-medium"
+                <span
+                  data-i18n="projects.my_crossy_road.technologies"
+                  class="text-sm font-medium"
                   >Technologies: React, Three.js</span
                 >
                 <a
@@ -220,18 +265,26 @@
             </article>
 
             <article class="flex flex-col gap-4">
-              <h3 class="text-xl font-semibold">Pokemon app</h3>
+              <h3
+                class="text-xl font-semibold"
+                data-i18n="projects.pokemons.title"
+              >
+                Pokemon app
+              </h3>
               <img
                 src="/Jestruvec/assets/pokemons-proDKzD8.webp"
                 alt="pokemon app page"
+                data-i18n="projects.pokemons.imgAlt"
               />
-              <p>
+              <p data-i18n="projects.pokemons.description">
                 The classic Pokémon web app where you can search for Pokémon by
                 name and also filter them by type.
               </p>
 
               <div class="flex flex-col gap-4 mt-2">
-                <span class="text-sm font-medium"
+                <span
+                  data-i18n="projects.pokemons.technologies"
+                  class="text-sm font-medium"
                   >Technologies: React, Redux toolkit, Tailwind</span
                 >
                 <a
@@ -257,16 +310,21 @@
           id="contact-section"
           class="hidden flex-col justify-between items-center gap-6 mb-4 h-full"
         >
-          <h2 class="text-2xl font-bold mb-4">Contact</h2>
+          <h2 class="text-2xl font-bold mb-4" data-i18n="contact.title">
+            Contact
+          </h2>
 
-          <p>Interested in working together ? Contact me!</p>
+          <p data-i18n="contact.description">
+            Interested in working together ? Contact me!
+          </p>
 
           <form
             id="contact-form"
-            class="flex flex-col gap-4 mt-4 w-full text-left"
+            class="flex flex-col gap-4 mt-4 w-full text-left h-full overflow-auto"
           >
             <span
               id="form-contact-success-message"
+              data-i18n="contact.success"
               class="text-green-500 font-bold hidden text-center transition-all ease-in-out duration-300"
               >Message sent!</span
             >
@@ -275,10 +333,12 @@
                 name="user_name"
                 type="text"
                 placeholder="Your Name"
+                data-i18n="contact.placeholder.name"
                 class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
               />
               <span
                 id="form-contact-name-error"
+                data-i18n="contact.error.name"
                 class="text-red-500 text-sm hidden"
                 >Please enter your name</span
               >
@@ -289,10 +349,12 @@
                 name="user_email"
                 type="text"
                 placeholder="Your Email"
+                data-i18n="contact.placeholder.email"
                 class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
               />
               <span
                 id="form-contact-email-error"
+                data-i18n="contact.error.email"
                 class="text-red-500 text-sm hidden"
                 >Please enter a valid email</span
               >
@@ -302,22 +364,29 @@
               <textarea
                 name="message"
                 placeholder="Your Message"
+                data-i18n="contact.placeholder.message"
                 rows="4"
                 class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
               ></textarea>
               <span
                 id="form-contact-message-error"
+                data-i18n="contact.error.message"
                 class="text-red-500 text-sm hidden"
                 >Please enter a message</span
               >
             </div>
 
-            <span id="form-contact-error" class="text-red-500 text-sm hidden">
+            <span
+              id="form-contact-error"
+              data-i18n="contact.error.form"
+              class="text-red-500 text-sm hidden"
+            >
               Something went wrong, please try again later.
             </span>
 
             <button
               id="form-contact-submit-btn"
+              data-i18n="contact.submit"
               type="submit"
               class="bg-gray-600 cursor-pointer hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition-all"
             >
@@ -326,7 +395,7 @@
           </form>
 
           <div class="text-sm mt-4">
-            Or email me directly at
+            <span data-i18n="contact.directly"> Or email me directly at </span>
             <a href="mailto:jhonnyestruve@gmail.com" class="underline">
               jhonnyestruve@gmail.com
             </a>
@@ -336,6 +405,7 @@
         <footer>
           <button
             id="close-dialog-button"
+            data-i18n="close"
             class="cursor-pointer text-white py-2 px-4 transition-all ease-in-out duration-500 hover:text-red-500 focus:outline-none"
           >
             Close

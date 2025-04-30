@@ -1,0 +1,65 @@
+{
+  "title": "Jestruvec",
+  "lang": "ES",
+  "close": "Cerrar",
+  "nav": {
+    "play": "Jugar",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "imgAlt": "Foto de Jhonny",
+    "p1": "Hola, soy Jhonny, un desarrollador frontend. Me gusta crear excelentes experiencias web. Disfruto dar vida a las ideas construyendo productos digitales intuitivos.",
+    "p2": "Tengo más de 3 años de experiencia creando interfaces de usuario geniales usando algunos de los frameworks y bibliotecas de JavaScript más populares.",
+    "p3": "Fuera del código, normalmente me encontrarás jugando videojuegos, haciendo ejercicio, explorando nuevas tecnologías o pasando tiempo al aire libre con mi familia.",
+    "resume": "Ver mi currículum"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "description": "Estos son algunos de mis proyectos personales. También he trabajado en proyectos corporativos privados que no puedo mostrar, pero estaré encantado de hablar sobre ellos.",
+    "cursed_waters": {
+      "title": "Cursed waters",
+      "imgAlt": "Foto de Cursed waters",
+      "description": "Un juego 3D donde defiendes una gema flotante en una isla tropical de oleadas de enemigos. El juego aumenta de dificultad con cada oleada, y puedes curarte y mejorar recogiendo botín.",
+      "technologies": "Tecnologías: TypeScript, Three.js"
+    },
+    "strength_lab": {
+      "title": "Strength lab",
+      "imgAlt": "Foto de Strength lab",
+      "description": "Una aplicación web donde los usuarios pueden crear su cuenta, iniciar sesión, agregar amigos, publicar, reaccionar a las publicaciones de sus amigos, crear y editar su perfil, y lo más importante, crear sus rutinas de entrenamiento en el gimnasio.",
+      "technologies": "Tecnologías: React, Supabase, Tailwind"
+    },
+    "my_crossy_road": {
+      "title": "My Crossy Road",
+      "imgAlt": "Foto de My crossy road",
+      "description": "En este juego, el objetivo es cruzar carreteras sin ser atropellado, ganando puntos por cada movimiento exitoso. Inspirado en el clásico Crossy Road, desarrollado siguiendo el tutorial de Hunor Marton Borbely.",
+      "technologies": "Tecnologías: React, Three.js"
+    },
+    "pokemons": {
+      "title": "Pokémon app",
+      "imgAlt": "Foto de pokemon app",
+      "description": "La clásica aplicación web de Pokémon donde puedes buscar Pokémon por nombre y también filtrarlos por tipo.",
+      "technologies": "Tecnologías: React, Redux toolkit, Tailwind"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "¿Interesado en trabajar juntos? ¡Contáctame!",
+    "success": "¡Mensaje enviado!",
+    "submit": "Enviar mensaje",
+    "directly": "O envíame un correo directamente a",
+    "error": {
+      "name": "Por favor ingresa tu nombre",
+      "email": "Por favor ingresa un correo válido",
+      "message": "Por favor ingresa un mensaje",
+      "form": "Algo salió mal, por favor intenta de nuevo más tarde."
+    },
+    "placeholder": {
+      "name": "Tu nombre",
+      "email": "Tu correo",
+      "message": "Tu mensaje"
+    }
+  }
+}
