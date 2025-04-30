@@ -1,10 +1,11 @@
 import { sceneSetup, setupAudio } from "@/lib/scene";
 import { getDOMElements } from "@/utils";
 import { validateContactForm } from "@/lib/helpers/formHelper";
-import { sendEmail } from "@/lib/services/emailService";
+import { sendEmail } from "@/lib/services/email";
+import { loadLanguage, getCurrentLang } from "@/lib/services";
 
 const {
-  homeBtnDOM,
+  playBtnDOM,
   aboutBtnDOM,
   projectsBtnDOM,
   contactBtnDOM,
@@ -23,7 +24,7 @@ const {
 const { camera, renderer } = sceneSetup();
 const { backgroundSound } = setupAudio();
 
-//Variables de movimiento y camara
+//Movimiento y camara
 const keysPressed = new Set<string>();
 
 //Escritorio
@@ -32,12 +33,10 @@ export let mouseDeltaY = 0;
 let mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
 
 //Moviles
-// let cameraTouchId: number | null = null;
 let isTouching = false;
 let lastTouchX = 0;
 let lastTouchY = 0;
 
-// let joystickTouchId: number | null = null;
 let joystickTouchStartX = 0;
 let joystickTouchStartY = 0;
 const keysToSimulate = new Set<string>();
@@ -51,6 +50,11 @@ export const handleResize = () => {
 
   renderer.setSize(width, height);
 };
+
+export function handleLangSwitch() {
+  const newLang = getCurrentLang() === "en" ? "es" : "en";
+  loadLanguage(newLang);
+}
 
 export const handleDialogContent = (event: MouseEvent) => {
   const clickedButton = event.target as HTMLElement;
@@ -70,26 +74,33 @@ export const handleDialogContent = (event: MouseEvent) => {
 
   hideAllSections();
 
-  if (clickedButton === homeBtnDOM) {
-    canvasDOM.requestPointerLock();
-    homeBtnDOM.blur();
-    dialogDOM.classList.remove("show");
-    return;
-  }
+  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
+    button.classList.remove("font-bold");
+  });
 
-  if (clickedButton === aboutBtnDOM) {
+  if (clickedButton === playBtnDOM) {
+    canvasDOM.requestPointerLock();
+    playBtnDOM.blur();
+    handleDialogClose();
+    return;
+  } else if (clickedButton === aboutBtnDOM) {
+    aboutBtnDOM.classList.add("font-bold");
     showSection(aboutSectionDOM);
   } else if (clickedButton === projectsBtnDOM) {
+    projectsBtnDOM.classList.add("font-bold");
     showSection(projectsSectionDOM);
   } else if (clickedButton === contactBtnDOM) {
+    contactBtnDOM.classList.add("font-bold");
     showSection(contactSectionDOM);
   }
 
+  joystickContainerDOM.classList.remove("show");
   dialogDOM.classList.add("show");
 };
 
 export const handleDialogClose = () => {
   dialogDOM.classList.remove("show");
+  joystickContainerDOM.classList.add("show");
 };
 
 export const handleEmailSend = async (e: SubmitEvent) => {

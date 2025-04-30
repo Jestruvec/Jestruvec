@@ -20,7 +20,8 @@
 }
 
 #form-contact-success-message.show,
-#dialog.show {
+#dialog.show,
+#joystick-container.show {
   visibility: visible;
   opacity: 1;
 }
@@ -35,6 +36,9 @@
   border-radius: 50%;
   touch-action: none;
   z-index: 10;
+  transition: all 0.3s ease-in-out 0s;
+  visibility: hidden;
+  opacity: 0;
 }
 
 #joystick {

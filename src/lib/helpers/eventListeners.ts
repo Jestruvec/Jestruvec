@@ -12,11 +12,12 @@ import {
   handleTouchEnd,
   handleJoystickTouchMove,
   handleJoystickTouchEnd,
+  handleLangSwitch,
 } from "@/lib/helpers";
 import { getDOMElements } from "@/utils";
 
 const {
-  homeBtnDOM,
+  playBtnDOM,
   aboutBtnDOM,
   projectsBtnDOM,
   contactBtnDOM,
@@ -24,24 +25,31 @@ const {
   contactFormDOM,
   joystickContainerDOM,
   dialogDOM,
+  langSwitcherDOM,
 } = getDOMElements();
 
 export const initEventListeners = () => {
-  document.addEventListener("keydown", handleKeydown);
-  document.addEventListener("keyup", handleKeyup);
-  document.addEventListener("mousemove", handleMouseMove);
+  //redimensionar
   window.addEventListener("resize", handleResize);
+
+  //idioma
+  langSwitcherDOM.addEventListener("click", handleLangSwitch);
+
+  //dialog
   closeDialogBtnDOM.addEventListener("click", handleDialogClose);
   contactFormDOM.addEventListener("submit", handleEmailSend);
 
-  [homeBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach(
+  //navegacion
+  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach(
     (element) => {
       element.addEventListener("click", handleDialogContent);
     }
   );
 
+  //reanudar audio
   window.addEventListener("click", handleAudioResume);
 
+  //movimiento y camara en moviles
   document.addEventListener("touchstart", handleTouchStart, { passive: true });
   document.addEventListener("touchmove", handleTouchMove, { passive: true });
   document.addEventListener("touchend", handleTouchEnd);
@@ -49,6 +57,12 @@ export const initEventListeners = () => {
   joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove);
   joystickContainerDOM.addEventListener("touchend", handleJoystickTouchEnd);
 
+  //movimiento y camara en escritorio
+  document.addEventListener("keydown", handleKeydown);
+  document.addEventListener("keyup", handleKeyup);
+  document.addEventListener("mousemove", handleMouseMove);
+
+  //no interactuar con el juego dentro del dialog
   dialogDOM.addEventListener(
     "touchstart",
     (e) => {

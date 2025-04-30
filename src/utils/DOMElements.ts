@@ -1,6 +1,6 @@
 export const getDOMElements = () => ({
   canvasDOM: document.querySelector("canvas") as HTMLCanvasElement,
-  homeBtnDOM: document.getElementById("home-button") as HTMLButtonElement,
+  playBtnDOM: document.getElementById("play-button") as HTMLButtonElement,
   aboutBtnDOM: document.getElementById("about-button") as HTMLButtonElement,
   projectsBtnDOM: document.getElementById(
     "projects-button"
@@ -38,4 +38,8 @@ export const getDOMElements = () => ({
   joystickContainerDOM: document.getElementById(
     "joystick-container"
   ) as HTMLDivElement,
+  langSwitcherDOM: document.getElementById(
+    "lang-switcher"
+  ) as HTMLButtonElement,
+  i18nDOM: document.querySelectorAll<HTMLElement>("[data-i18n]"),
 });
