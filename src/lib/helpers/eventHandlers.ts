@@ -1,5 +1,4 @@
-import * as THREE from "three";
-import { sceneSetup } from "@/lib/scene/sceneSetup";
+import { sceneSetup, setupAudio } from "@/lib/scene";
 import { getDOMElements } from "@/utils";
 import { validateContactForm } from "@/lib/helpers/formHelper";
 import { sendEmail } from "@/lib/services/emailService";
@@ -21,8 +20,8 @@ const {
   joystickContainerDOM,
 } = getDOMElements();
 
-const audioContext = THREE.AudioContext.getContext();
 const { camera, renderer } = sceneSetup();
+const { backgroundSound } = setupAudio();
 
 //Variables de movimiento y camara
 const keysPressed = new Set<string>();
@@ -73,6 +72,7 @@ export const handleDialogContent = (event: MouseEvent) => {
 
   if (clickedButton === homeBtnDOM) {
     canvasDOM.requestPointerLock();
+    homeBtnDOM.blur();
     dialogDOM.classList.remove("show");
     return;
   }
@@ -132,14 +132,16 @@ export const handleEmailSend = async (e: SubmitEvent) => {
 };
 
 export const handleAudioResume = () => {
-  if (audioContext.state === "suspended") {
-    audioContext.resume().then(() => {
-      console.log("AudioContext resumed successfully.");
-    });
+  if (!backgroundSound.isPlaying) {
+    backgroundSound.play();
   }
 };
 
 //Movimiento y camara
+
+export const getEffectiveKeys = () => {
+  return new Set([...keysPressed, ...keysToSimulate]);
+};
 
 //Escritorio
 
@@ -174,7 +176,6 @@ export const handleTouchStart = (e: TouchEvent) => {
       touch.clientY
     ) as HTMLElement;
 
-    console.log(touchTarget);
     if (touchTarget && joystickContainerDOM.contains(touchTarget)) {
       // joystickTouchId = touch.identifier;
       joystickTouchStartX = touch.clientX;
@@ -254,8 +255,4 @@ const resetJoystick = () => {
   joystickDOM.style.left = `40px`;
   joystickDOM.style.top = `40px`;
   keysToSimulate.clear();
-};
-
-export const getEffectiveKeys = () => {
-  return new Set([...keysPressed, ...keysToSimulate]);
 };

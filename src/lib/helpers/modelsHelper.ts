@@ -1,8 +1,8 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
-import { GLTF, GLTFLoader } from "three-stdlib";
 import { AnimatedModel } from "@/lib/types";
-import * as Models from "@/assets/models";
+import { getPublicUrl } from "@/lib/services";
 
 export type ModelKey = "Astronaut" | "Spaceship";
 
@@ -20,7 +20,7 @@ const Model = async (
   return new Promise((resolve, reject) => {
     loader.load(
       modelPath,
-      (gltf: GLTF) => {
+      (gltf) => {
         const model = gltf.scene as THREE.Group;
         const animations = gltf.animations;
         const mixer = new THREE.AnimationMixer(model);
@@ -37,11 +37,7 @@ const Model = async (
           model,
           animations,
           mixer,
-          update: (delta: number) => {
-            if (mixer) {
-              mixer.update(delta);
-            }
-          },
+          update: (delta: number) => mixer.update(delta),
         });
       },
       undefined,
@@ -57,7 +53,7 @@ export const getModel = (key: ModelKey): AnimatedModel => {
   const original = models[key];
   if (!original) throw new Error(`Model "${key}" not loaded`);
 
-  const modelClone = clone(original.model);
+  const modelClone = clone(original.model); // Mantiene esqueleto y animaciones
   const mixer = new THREE.AnimationMixer(modelClone);
 
   return {
@@ -69,9 +65,13 @@ export const getModel = (key: ModelKey): AnimatedModel => {
 };
 
 export const loadModels = async () => {
+  const astronautUrl = getPublicUrl("models", "Astronaut.glb");
+  const spaceshipUrl = getPublicUrl("models", "Spaceship.glb");
+
+  //nota: arreglar el uso de "!"
   const entries: [ModelKey, string][] = [
-    ["Astronaut", Models.Astronaut],
-    ["Spaceship", Models.Spaceship],
+    ["Astronaut", astronautUrl!],
+    ["Spaceship", spaceshipUrl!],
   ];
 
   for (const [key, path] of entries) {

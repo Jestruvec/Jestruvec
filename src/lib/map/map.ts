@@ -4,7 +4,6 @@ import { Water } from "three/examples/jsm/objects/Water.js";
 import { SUN_ROTATION_SPEED } from "@/lib/constants";
 import WaterNormalTexture from "@/assets/textures/water.webp";
 import { sceneSetup } from "@/lib/scene/sceneSetup";
-import { getModel } from "../helpers";
 
 const createMap = () => {
   const { scene } = sceneSetup();
@@ -61,13 +60,9 @@ const createMap = () => {
 
   const radius = 200;
 
-  const spaceship = getModel("Spaceship");
-  spaceship.model.rotation.y = Math.PI;
-  spaceship.model.position.set(10, 5, 40);
+  scene.add(ambientLight, sunLight, sky, water);
 
-  scene.add(ambientLight, sunLight, sky, water, spaceship.model);
-
-  const update = (elapsed: number, delta: number) => {
+  const update = (elapsed: number) => {
     const angle = elapsed * SUN_ROTATION_SPEED;
 
     const x = Math.cos(angle) * radius;
@@ -77,7 +72,6 @@ const createMap = () => {
     sunLight.position.set(x, y, z);
     uniforms["sunPosition"].value.set(x, y, z);
     sun.set(x, y, z);
-    spaceship.update(delta);
 
     const waterSpeed = 0.25;
     water.material.uniforms["time"].value = elapsed * waterSpeed;
