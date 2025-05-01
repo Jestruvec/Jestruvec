@@ -99,6 +99,9 @@ export const handleDialogContent = (event: MouseEvent) => {
 };
 
 export const handleDialogClose = () => {
+  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
+    button.classList.remove("font-bold");
+  });
   dialogDOM.classList.remove("show");
   joystickContainerDOM.classList.add("show");
 };
