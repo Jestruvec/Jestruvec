@@ -16,6 +16,9 @@ const {
   contactSectionDOM,
   submitBtnDOM,
   formErrorDOM,
+  nameErrorDOM,
+  emailErrorDOM,
+  messageErrorDOM,
   successMessageDOM,
   joystickDOM,
   joystickContainerDOM,
@@ -102,6 +105,11 @@ export const handleDialogClose = () => {
   [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
     button.classList.remove("font-bold");
   });
+
+  [formErrorDOM, nameErrorDOM, emailErrorDOM, messageErrorDOM].forEach((elem) =>
+    elem.classList.add("hidden")
+  );
+
   dialogDOM.classList.remove("show");
   joystickContainerDOM.classList.add("show");
 };
