@@ -1,9 +1,10 @@
 import * as THREE from "three";
 import { getDOMElements } from "@/utils";
+import { CustomCamera } from "./camera";
 
 let instance: {
   scene: THREE.Scene;
-  camera: THREE.PerspectiveCamera;
+  camera: CustomCamera;
   renderer: THREE.WebGLRenderer;
   clock: THREE.Clock;
 } | null = null;
@@ -13,7 +14,6 @@ export const sceneSetup = () => {
     return instance;
   }
 
-  const { canvasDOM } = getDOMElements();
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
   const clock = new THREE.Clock();
@@ -21,8 +21,9 @@ export const sceneSetup = () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
-  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const camera = new CustomCamera(75, width / height, 0.1, 1000);
 
+  const { canvasDOM } = getDOMElements();
   const renderer = new THREE.WebGLRenderer({ canvas: canvasDOM });
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;

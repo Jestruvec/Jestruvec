@@ -1,45 +1,35 @@
 import "@/assets/styles/index.css";
-import { sceneSetup } from "@/lib/scene/";
-import {
-  loadModels,
-  initEventListeners,
-  updateCamera,
-  getModel,
-} from "@/lib/helpers";
-import { Character } from "@/lib/character";
-import { map, initMap } from "@/lib/map/map";
+import { loadModels } from "@/lib/helpers";
+import { initEventListeners } from "@/lib/events";
+import { Astronaut, Spaceship, sceneSetup, createMap } from "@/lib/game/";
 
 export const main = async () => {
   const { renderer, scene, camera, clock } = sceneSetup();
-  initMap();
-  let modelsReady = false;
+  const { map } = createMap();
 
   const animate = () => {
     const delta = clock.getDelta();
     const elapsed = clock.getElapsedTime();
+    const characterPosition = character.model.position;
 
     map.update(elapsed);
-
-    if (modelsReady) {
-      updateCamera(character.model.position, camera);
-      character.update(delta);
-      spaceship.update(delta);
-    }
+    camera.update(characterPosition);
+    character.update(delta);
+    spaceship.update(delta);
 
     renderer.render(scene, camera);
   };
 
-  renderer.setAnimationLoop(animate);
   await loadModels();
-  initEventListeners();
-
-  const character = await Character.create("Astronaut");
-  const spaceship = getModel("Spaceship");
+  const character = new Astronaut();
+  const spaceship = new Spaceship();
   spaceship.model.rotation.y = Math.PI;
   spaceship.model.position.set(10, 5, 40);
 
   scene.add(character.model, spaceship.model);
-  modelsReady = true;
+
+  renderer.setAnimationLoop(animate);
+  initEventListeners();
 };
 
 main();

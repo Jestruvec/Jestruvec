@@ -13,7 +13,8 @@ import {
   handleJoystickTouchMove,
   handleJoystickTouchEnd,
   handleLangSwitch,
-} from "@/lib/helpers";
+  handleJoystickTouchStart,
+} from "@/lib/events";
 import { getDOMElements } from "@/utils";
 
 const {
@@ -53,8 +54,14 @@ export const initEventListeners = () => {
   document.addEventListener("touchstart", handleTouchStart, { passive: true });
   document.addEventListener("touchmove", handleTouchMove, { passive: true });
   document.addEventListener("touchend", handleTouchEnd);
-  joystickContainerDOM.addEventListener("touchstart", handleTouchStart);
-  joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove);
+  joystickContainerDOM.addEventListener(
+    "touchstart",
+    handleJoystickTouchStart,
+    { passive: true }
+  );
+  joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove, {
+    passive: true,
+  });
   joystickContainerDOM.addEventListener("touchend", handleJoystickTouchEnd);
 
   //movimiento y camara en escritorio

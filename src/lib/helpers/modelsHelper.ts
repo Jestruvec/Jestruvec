@@ -53,7 +53,7 @@ export const getModel = (key: ModelKey): AnimatedModel => {
   const original = models[key];
   if (!original) throw new Error(`Model "${key}" not loaded`);
 
-  const modelClone = clone(original.model); // Mantiene esqueleto y animaciones
+  const modelClone = clone(original.model);
   const mixer = new THREE.AnimationMixer(modelClone);
 
   return {

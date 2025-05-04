@@ -3,9 +3,9 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Water } from "three/examples/jsm/objects/Water.js";
 import { SUN_ROTATION_SPEED } from "@/lib/constants";
 import WaterNormalTexture from "@/assets/textures/water.webp";
-import { sceneSetup } from "@/lib/scene/sceneSetup";
+import { sceneSetup } from "@/lib/game";
 
-const createMap = () => {
+const mapFabric = () => {
   const { scene } = sceneSetup();
 
   const floorGeometry = new THREE.PlaneGeometry(500, 500);
@@ -80,7 +80,8 @@ const createMap = () => {
   return { update };
 };
 
-export let map: ReturnType<typeof createMap>;
-export const initMap = () => {
-  map = createMap();
+export let map: ReturnType<typeof mapFabric>;
+export const createMap = () => {
+  map = mapFabric();
+  return { map };
 };

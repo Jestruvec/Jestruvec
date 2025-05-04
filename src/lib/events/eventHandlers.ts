@@ -1,4 +1,4 @@
-import { sceneSetup, setupAudio } from "@/lib/scene";
+import { sceneSetup, setupAudio } from "@/lib/game";
 import { getDOMElements } from "@/utils";
 import { validateContactForm } from "@/lib/helpers/formHelper";
 import { sendEmail } from "@/lib/services/email";
@@ -24,11 +24,9 @@ const {
   joystickContainerDOM,
 } = getDOMElements();
 
-const { camera, renderer } = sceneSetup();
-const { backgroundSound } = setupAudio();
-
 //Movimiento y camara
 const keysPressed = new Set<string>();
+const keysToSimulate = new Set<string>();
 
 //Escritorio
 export let mouseDeltaX = 0;
@@ -42,9 +40,9 @@ let lastTouchY = 0;
 
 let joystickTouchStartX = 0;
 let joystickTouchStartY = 0;
-const keysToSimulate = new Set<string>();
 
 export const handleResize = () => {
+  const { camera, renderer } = sceneSetup();
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -53,12 +51,10 @@ export const handleResize = () => {
 
   renderer.setSize(width, height);
 };
-
-export function handleLangSwitch() {
+export const handleLangSwitch = () => {
   const newLang = getCurrentLang() === "en" ? "es" : "en";
   loadLanguage(newLang);
-}
-
+};
 export const handleDialogContent = (event: MouseEvent) => {
   const clickedButton = event.target as HTMLElement;
 
@@ -100,7 +96,6 @@ export const handleDialogContent = (event: MouseEvent) => {
   joystickContainerDOM.classList.remove("show");
   dialogDOM.classList.add("show");
 };
-
 export const handleDialogClose = () => {
   [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
     button.classList.remove("font-bold");
@@ -113,7 +108,6 @@ export const handleDialogClose = () => {
   dialogDOM.classList.remove("show");
   joystickContainerDOM.classList.add("show");
 };
-
 export const handleEmailSend = async (e: SubmitEvent) => {
   e.preventDefault();
   submitBtnDOM.disabled = true;
@@ -152,23 +146,17 @@ export const handleEmailSend = async (e: SubmitEvent) => {
 
   form.reset();
 };
-
 export const handleAudioResume = () => {
+  const { backgroundSound } = setupAudio();
+
   if (!backgroundSound.isPlaying) {
     backgroundSound.play();
   }
 };
 
-//Movimiento y camara
-
-export const getEffectiveKeys = () => {
-  return new Set([...keysPressed, ...keysToSimulate]);
-};
-
-//Escritorio
-
+//camara en escritorio
 export const handleMouseMove = (e: MouseEvent) => {
-  if (document.pointerLockElement === renderer.domElement) {
+  if (document.pointerLockElement === canvasDOM) {
     mouseDeltaX = e.movementX;
     mouseDeltaY = e.movementY;
 
@@ -180,39 +168,16 @@ export const handleMouseMove = (e: MouseEvent) => {
   }
 };
 
-export const handleKeydown = (e: KeyboardEvent) => {
-  keysPressed.add(e.key.toLowerCase());
-};
-
-export const handleKeyup = (e: KeyboardEvent) => {
-  keysPressed.delete(e.key.toLowerCase());
-};
-
-//Moviles
-
+//camara en moviles
 export const handleTouchStart = (e: TouchEvent) => {
-  for (let i = 0; i < e.changedTouches.length; i++) {
-    const touch = e.changedTouches[i];
-    const touchTarget = document.elementFromPoint(
-      touch.clientX,
-      touch.clientY
-    ) as HTMLElement;
+  const touch = e.changedTouches[0];
 
-    if (touchTarget && joystickContainerDOM.contains(touchTarget)) {
-      // joystickTouchId = touch.identifier;
-      joystickTouchStartX = touch.clientX;
-      joystickTouchStartY = touch.clientY;
-    } else {
-      // cameraTouchId = touch.identifier;
-      isTouching = true;
-      lastTouchX = touch.clientX;
-      lastTouchY = touch.clientY;
-    }
-  }
+  isTouching = true;
+  lastTouchX = touch.clientX;
+  lastTouchY = touch.clientY;
 };
-
 export const handleTouchMove = (e: TouchEvent) => {
-  if (isTouching && e.touches.length === 1) {
+  if (isTouching && e.touches.length) {
     const touch = e.touches[0];
 
     mouseDeltaX = touch.clientX - lastTouchX;
@@ -228,33 +193,39 @@ export const handleTouchMove = (e: TouchEvent) => {
     }, 50);
   }
 };
-
 export const handleTouchEnd = () => {
   isTouching = false;
 };
 
+//funciones de movimiento
+export const getEffectiveKeys = () => {
+  return new Set([...keysPressed, ...keysToSimulate]);
+};
+
+//movimiento en escritorio
+export const handleKeydown = (e: KeyboardEvent) => {
+  keysPressed.add(e.key.toLowerCase());
+};
+export const handleKeyup = (e: KeyboardEvent) => {
+  keysPressed.delete(e.key.toLowerCase());
+};
+
+//movimiento en moviles
+export const handleJoystickTouchStart = (e: TouchEvent) => {
+  const touch = e.changedTouches[0];
+
+  joystickTouchStartX = touch.clientX;
+  joystickTouchStartY = touch.clientY;
+};
 export const handleJoystickTouchMove = (e: TouchEvent) => {
   const touch = e.touches[0];
   const dx = touch.clientX - joystickTouchStartX;
   const dy = touch.clientY - joystickTouchStartY;
   updateJoystick(dx, dy);
 };
-
 export const handleJoystickTouchEnd = () => {
   resetJoystick();
 };
-
-const getDirectionFromAngle = (angle: number) => {
-  const direction = new Set<string>();
-
-  if (angle >= 45 && angle < 135) direction.add("s"); // down
-  else if (angle >= 135 && angle < 225) direction.add("a"); // left
-  else if (angle >= 225 && angle < 315) direction.add("w"); // up
-  else direction.add("d"); // right
-
-  return direction;
-};
-
 const updateJoystick = (dx: number, dy: number) => {
   // const distance = Math.sqrt(dx * dx + dy * dy);
   const maxDistance = 40;
@@ -272,9 +243,18 @@ const updateJoystick = (dx: number, dy: number) => {
     keysToSimulate.add(dir);
   }
 };
-
 const resetJoystick = () => {
   joystickDOM.style.left = `40px`;
   joystickDOM.style.top = `40px`;
   keysToSimulate.clear();
+};
+const getDirectionFromAngle = (angle: number) => {
+  const direction = new Set<string>();
+
+  if (angle >= 45 && angle < 135) direction.add("s"); // down
+  else if (angle >= 135 && angle < 225) direction.add("a"); // left
+  else if (angle >= 225 && angle < 315) direction.add("w"); // up
+  else direction.add("d"); // right
+
+  return direction;
 };
