@@ -19,6 +19,11 @@ export class Interstellar extends Game {
     this.scene.add(this.astronaut.model, this.spaceship.model);
   }
 
+  static async create(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
+    await loadModels();
+    return new Interstellar(canvas, joystick);
+  }
+
   private animate = () => {
     const delta = this.clock.getDelta();
     const elapsed = this.clock.getElapsedTime();
@@ -42,7 +47,6 @@ export class Interstellar extends Game {
           this.backgroundSound.setBuffer(buffer);
           this.backgroundSound.setLoop(true);
           this.backgroundSound.setVolume(0.5);
-          this.backgroundSound.play();
         },
         undefined,
         (error) => {
@@ -52,11 +56,6 @@ export class Interstellar extends Game {
     } catch (error) {
       console.log("Error al obtener la URL pública del audio:", error);
     }
-  }
-
-  static async create(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
-    await loadModels();
-    return new Interstellar(canvas, joystick);
   }
 
   restart() {
