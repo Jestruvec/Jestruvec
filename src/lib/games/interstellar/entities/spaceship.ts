@@ -1,4 +1,4 @@
-import { BaseEntity } from "@/lib/game/gameEntities/baseEntity";
+import { BaseEntity } from "@/lib/games/baseEntity";
 
 export class Spaceship extends BaseEntity {
   constructor() {
@@ -8,6 +8,6 @@ export class Spaceship extends BaseEntity {
   }
 
   update(delta: number): void {
-    super.update(delta);
+    this.mixer.update(delta);
   }
 }

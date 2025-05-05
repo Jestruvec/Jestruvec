@@ -1,4 +1,3 @@
-import { sceneSetup, setupAudio } from "@/lib/game";
 import { getDOMElements } from "@/utils";
 import { validateContactForm } from "@/lib/helpers/formHelper";
 import { sendEmail } from "@/lib/services/email";
@@ -20,37 +19,9 @@ const {
   emailErrorDOM,
   messageErrorDOM,
   successMessageDOM,
-  joystickDOM,
   joystickContainerDOM,
 } = getDOMElements();
 
-//Movimiento y camara
-const keysPressed = new Set<string>();
-const keysToSimulate = new Set<string>();
-
-//Escritorio
-export let mouseDeltaX = 0;
-export let mouseDeltaY = 0;
-let mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
-
-//Moviles
-let isTouching = false;
-let lastTouchX = 0;
-let lastTouchY = 0;
-
-let joystickTouchStartX = 0;
-let joystickTouchStartY = 0;
-
-export const handleResize = () => {
-  const { camera, renderer } = sceneSetup();
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(width, height);
-};
 export const handleLangSwitch = () => {
   const newLang = getCurrentLang() === "en" ? "es" : "en";
   loadLanguage(newLang);
@@ -58,81 +29,97 @@ export const handleLangSwitch = () => {
 export const handleDialogContent = (event: MouseEvent) => {
   const clickedButton = event.target as HTMLElement;
 
-  const hideAllSections = () => {
-    const sections = [aboutSectionDOM, projectsSectionDOM, contactSectionDOM];
-    sections.forEach((section) => {
-      section.classList.remove("flex");
-      section.classList.add("hidden");
-    });
-  };
-
-  const showSection = (sectionDOM: HTMLElement) => {
-    sectionDOM.classList.remove("hidden");
-    sectionDOM.classList.add("flex");
-  };
-
-  hideAllSections();
-
-  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
+  //quitar el focus a todos los btns
+  [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
     button.classList.remove("font-bold");
   });
 
-  if (clickedButton === playBtnDOM) {
-    canvasDOM.requestPointerLock();
-    playBtnDOM.blur();
-    handleDialogClose();
-    return;
-  } else if (clickedButton === aboutBtnDOM) {
-    aboutBtnDOM.classList.add("font-bold");
-    showSection(aboutSectionDOM);
-  } else if (clickedButton === projectsBtnDOM) {
-    projectsBtnDOM.classList.add("font-bold");
-    showSection(projectsSectionDOM);
-  } else if (clickedButton === contactBtnDOM) {
-    contactBtnDOM.classList.add("font-bold");
-    showSection(contactSectionDOM);
+  //enfocar el btn clickeado
+  clickedButton.classList.add("font-bold");
+
+  //ocultar todas la secciones
+  [aboutSectionDOM, projectsSectionDOM, contactSectionDOM].forEach(
+    (section) => {
+      section.classList.remove("flex");
+      section.classList.add("hidden");
+    }
+  );
+
+  //mostrar la seccion correspondiente al btn clickeado
+  let section: HTMLElement;
+
+  switch (clickedButton) {
+    case aboutBtnDOM:
+      section = aboutSectionDOM;
+      break;
+    case projectsBtnDOM:
+      section = projectsSectionDOM;
+      break;
+    case contactBtnDOM:
+      section = contactSectionDOM;
+      break;
+    default:
+      console.log("No se encontro el btn clickeado");
+      return;
   }
 
+  section.classList.remove("hidden");
+  section.classList.add("flex");
+
+  //ocultar el joystick
   joystickContainerDOM.classList.remove("show");
+  //mostrar el dialog
   dialogDOM.classList.add("show");
 };
 export const handleDialogClose = () => {
-  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
+  //quitar focus a btns
+  [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
     button.classList.remove("font-bold");
   });
 
+  //ocultar msg de exito
+  successMessageDOM.classList.remove("show");
+  successMessageDOM.classList.add("hidden");
+
+  //ocultar msg de error
   [formErrorDOM, nameErrorDOM, emailErrorDOM, messageErrorDOM].forEach((elem) =>
     elem.classList.add("hidden")
   );
 
+  //ocultar dialog
   dialogDOM.classList.remove("show");
+
+  //mostrar joystick
   joystickContainerDOM.classList.add("show");
 };
 export const handleEmailSend = async (e: SubmitEvent) => {
+  //prevenir la recarga de la pagina
   e.preventDefault();
-  submitBtnDOM.disabled = true;
-  const form = e.target as HTMLFormElement;
 
+  //ocultar msg de exito
+  successMessageDOM.classList.remove("show");
+  successMessageDOM.classList.add("hidden");
+
+  //inhabilitar el btn de submit
+  submitBtnDOM.disabled = true;
+
+  //validar el formulario
+  const form = e.target as HTMLFormElement;
   if (!validateContactForm(form)) {
     submitBtnDOM.disabled = false;
     return;
   }
 
   try {
+    //enviar el form al service
     await sendEmail(form);
 
+    //mostrar el msg de exito
     successMessageDOM.classList.remove("hidden");
-    setTimeout(() => {
-      successMessageDOM.classList.add("show");
-    }, 15);
+    successMessageDOM.classList.add("show");
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    successMessageDOM.classList.remove("show");
-
-    setTimeout(() => {
-      successMessageDOM.classList.add("hidden");
-    }, 300);
+    //resetear el form
+    form.reset();
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
@@ -143,118 +130,12 @@ export const handleEmailSend = async (e: SubmitEvent) => {
   } finally {
     submitBtnDOM.disabled = false;
   }
-
-  form.reset();
 };
-export const handleAudioResume = () => {
-  const { backgroundSound } = setupAudio();
-
-  if (!backgroundSound.isPlaying) {
-    backgroundSound.play();
-  }
-};
-
-//camara en escritorio
-export const handleMouseMove = (e: MouseEvent) => {
-  if (document.pointerLockElement === canvasDOM) {
-    mouseDeltaX = e.movementX;
-    mouseDeltaY = e.movementY;
-
-    if (mouseMoveTimeout) clearTimeout(mouseMoveTimeout);
-    mouseMoveTimeout = setTimeout(() => {
-      mouseDeltaX = 0;
-      mouseDeltaY = 0;
-    }, 50);
-  }
-};
-
-//camara en moviles
-export const handleTouchStart = (e: TouchEvent) => {
-  const touch = e.changedTouches[0];
-
-  isTouching = true;
-  lastTouchX = touch.clientX;
-  lastTouchY = touch.clientY;
-};
-export const handleTouchMove = (e: TouchEvent) => {
-  if (isTouching && e.touches.length) {
-    const touch = e.touches[0];
-
-    mouseDeltaX = touch.clientX - lastTouchX;
-    mouseDeltaY = touch.clientY - lastTouchY;
-
-    lastTouchX = touch.clientX;
-    lastTouchY = touch.clientY;
-
-    if (mouseMoveTimeout) clearTimeout(mouseMoveTimeout);
-    mouseMoveTimeout = setTimeout(() => {
-      mouseDeltaX = 0;
-      mouseDeltaY = 0;
-    }, 50);
-  }
-};
-export const handleTouchEnd = () => {
-  isTouching = false;
-};
-
-//funciones de movimiento
-export const getEffectiveKeys = () => {
-  return new Set([...keysPressed, ...keysToSimulate]);
-};
-
-//movimiento en escritorio
-export const handleKeydown = (e: KeyboardEvent) => {
-  keysPressed.add(e.key.toLowerCase());
-};
-export const handleKeyup = (e: KeyboardEvent) => {
-  keysPressed.delete(e.key.toLowerCase());
-};
-
-//movimiento en moviles
-export const handleJoystickTouchStart = (e: TouchEvent) => {
-  const touch = e.changedTouches[0];
-
-  joystickTouchStartX = touch.clientX;
-  joystickTouchStartY = touch.clientY;
-};
-export const handleJoystickTouchMove = (e: TouchEvent) => {
-  const touch = e.touches[0];
-  const dx = touch.clientX - joystickTouchStartX;
-  const dy = touch.clientY - joystickTouchStartY;
-  updateJoystick(dx, dy);
-};
-export const handleJoystickTouchEnd = () => {
-  resetJoystick();
-};
-const updateJoystick = (dx: number, dy: number) => {
-  // const distance = Math.sqrt(dx * dx + dy * dy);
-  const maxDistance = 40;
-
-  const angle = (Math.atan2(-dy, -dx) * 180) / Math.PI + 180;
-
-  const clampedDx = Math.min(maxDistance, Math.max(-maxDistance, dx));
-  const clampedDy = Math.min(maxDistance, Math.max(-maxDistance, dy));
-
-  joystickDOM.style.left = `${40 + clampedDx}px`;
-  joystickDOM.style.top = `${40 + clampedDy}px`;
-
-  keysToSimulate.clear();
-  for (const dir of getDirectionFromAngle(angle)) {
-    keysToSimulate.add(dir);
-  }
-};
-const resetJoystick = () => {
-  joystickDOM.style.left = `40px`;
-  joystickDOM.style.top = `40px`;
-  keysToSimulate.clear();
-};
-const getDirectionFromAngle = (angle: number) => {
-  const direction = new Set<string>();
-
-  if (angle >= 45 && angle < 135) direction.add("s"); // down
-  else if (angle >= 135 && angle < 225) direction.add("a"); // left
-  else if (angle >= 225 && angle < 315) direction.add("w"); // up
-  else direction.add("d"); // right
-
-  return direction;
+export const handlePlay = () => {
+  //blockear el cursor
+  canvasDOM.requestPointerLock();
+  //quitar el focus al btn play
+  playBtnDOM.blur();
+  //cerrar el dialog
+  handleDialogClose();
 };

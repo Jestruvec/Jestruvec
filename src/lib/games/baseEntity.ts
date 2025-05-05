@@ -23,10 +23,6 @@ export class BaseEntity {
     });
   }
 
-  update(delta: number) {
-    this.mixer.update(delta);
-  }
-
   playAnimation(
     name: string,
     clamp: boolean = false,

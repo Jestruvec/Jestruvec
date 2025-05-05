@@ -1,7 +1,5 @@
 import * as THREE from "three";
-import { BaseEntity } from "@/lib/game/gameEntities/baseEntity";
-import { getEffectiveKeys } from "@/lib/events";
-import { sceneSetup } from "@/lib/game";
+import { BaseEntity } from "@/lib/games/baseEntity";
 import { CHARACTER_SPEED } from "@/lib/constants/character";
 
 export class Astronaut extends BaseEntity {
@@ -9,31 +7,33 @@ export class Astronaut extends BaseEntity {
   private forward = new THREE.Vector3();
   private right = new THREE.Vector3();
   private up = new THREE.Vector3(0, 1, 0);
+  private getEffectiveKeys: () => Set<string>;
 
-  constructor() {
+  constructor(getEffectiveKeys: () => Set<string>) {
     super("Astronaut", (rawName: string) =>
       rawName.replace("CharacterArmature|", "")
     );
+
+    this.getEffectiveKeys = getEffectiveKeys;
   }
 
-  update(delta: number): void {
-    this.updatePosition(delta);
-    super.update(delta);
+  update(delta: number, camera: THREE.Camera): void {
+    this.updatePosition(delta, camera);
+    this.mixer.update(delta);
   }
 
-  updatePosition = (delta: number) => {
+  updatePosition = (delta: number, camera: THREE.Camera) => {
     this.direction.set(0, 0, 0);
     this.forward.set(0, 0, 0);
     this.right.set(0, 0, 0);
 
-    const { camera } = sceneSetup();
     camera.getWorldDirection(this.forward);
     this.forward.y = 0;
     this.forward.normalize();
 
     this.right.crossVectors(this.forward, this.up).normalize();
 
-    const keysPressed = getEffectiveKeys();
+    const keysPressed = this.getEffectiveKeys();
 
     if (keysPressed.has("w") || keysPressed.has("arrowup"))
       this.direction.add(this.forward);

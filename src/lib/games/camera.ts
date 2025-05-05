@@ -1,12 +1,11 @@
 import * as THREE from "three";
 import { CAMERA_DISTANCE, CAMERA_HEIGHT } from "@/lib/constants";
-import { mouseDeltaX } from "@/lib/events";
 
 export class CustomCamera extends THREE.PerspectiveCamera {
   private horizontalAngle = Math.PI + 1;
   private sensitivity = 0.01;
 
-  update(position: THREE.Vector3) {
+  update(position: THREE.Vector3, mouseDeltaX: number) {
     this.horizontalAngle -= mouseDeltaX * this.sensitivity;
 
     const cameraX =

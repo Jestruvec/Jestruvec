@@ -1,96 +1,45 @@
+import { getDOMElements } from "@/utils";
 import {
-  handleResize,
-  handleMouseMove,
-  handleKeydown,
-  handleKeyup,
   handleDialogContent,
   handleDialogClose,
   handleEmailSend,
-  handleAudioResume,
-  handleTouchStart,
-  handleTouchMove,
-  handleTouchEnd,
-  handleJoystickTouchMove,
-  handleJoystickTouchEnd,
   handleLangSwitch,
-  handleJoystickTouchStart,
+  handlePlay,
 } from "@/lib/events";
-import { getDOMElements } from "@/utils";
-
-const {
-  playBtnDOM,
-  aboutBtnDOM,
-  projectsBtnDOM,
-  contactBtnDOM,
-  closeDialogBtnDOM,
-  contactFormDOM,
-  joystickContainerDOM,
-  dialogDOM,
-  langSwitcherDOM,
-} = getDOMElements();
 
 export const initEventListeners = () => {
-  //redimensionar
-  window.addEventListener("resize", handleResize);
+  const {
+    playBtnDOM,
+    aboutBtnDOM,
+    projectsBtnDOM,
+    contactBtnDOM,
+    closeDialogBtnDOM,
+    contactFormDOM,
+    dialogDOM,
+    langSwitcherDOM,
+  } = getDOMElements();
 
-  //idioma
+  //cambiar idioma
   langSwitcherDOM.addEventListener("click", handleLangSwitch);
-
-  //dialog
-  closeDialogBtnDOM.addEventListener("click", handleDialogClose);
+  //enviar email
   contactFormDOM.addEventListener("submit", handleEmailSend);
-
-  //navegacion
-  [playBtnDOM, aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach(
-    (element) => {
-      element.addEventListener("click", handleDialogContent);
-    }
-  );
-
-  //reanudar audio
-  window.addEventListener("click", handleAudioResume);
-
-  //movimiento y camara en moviles
-  document.addEventListener("touchstart", handleTouchStart, { passive: true });
-  document.addEventListener("touchmove", handleTouchMove, { passive: true });
-  document.addEventListener("touchend", handleTouchEnd);
-  joystickContainerDOM.addEventListener(
-    "touchstart",
-    handleJoystickTouchStart,
-    { passive: true }
-  );
-  joystickContainerDOM.addEventListener("touchmove", handleJoystickTouchMove, {
-    passive: true,
+  //bloquear cursor
+  playBtnDOM.addEventListener("click", handlePlay);
+  //abrir dialog
+  [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((element) => {
+    element.addEventListener("click", handleDialogContent);
   });
-  joystickContainerDOM.addEventListener("touchend", handleJoystickTouchEnd);
+  //cerrar dialog
+  closeDialogBtnDOM.addEventListener("click", handleDialogClose);
 
-  //movimiento y camara en escritorio
-  document.addEventListener("keydown", handleKeydown);
-  document.addEventListener("keyup", handleKeyup);
-  document.addEventListener("mousemove", handleMouseMove);
-
-  //no interactuar con el juego dentro del dialog
-  dialogDOM.addEventListener(
-    "touchstart",
-    (e) => {
-      e.stopPropagation();
-    },
-    { passive: false }
-  );
-
-  dialogDOM.addEventListener(
-    "touchmove",
-    (e) => {
-      e.stopPropagation();
-    },
-    { passive: false }
-  );
-
-  dialogDOM.addEventListener(
-    "touchend",
-    (e) => {
-      e.stopPropagation();
-    },
-    { passive: false }
-  );
+  //no interactuar con el juego dentro del dialog en moviles
+  dialogDOM.addEventListener("touchstart", (e) => {
+    e.stopPropagation();
+  });
+  dialogDOM.addEventListener("touchmove", (e) => {
+    e.stopPropagation();
+  });
+  dialogDOM.addEventListener("touchend", (e) => {
+    e.stopPropagation();
+  });
 };
