@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { Game } from "@/lib/games/game";
 import { Astronaut } from "./entities/astronaut";
 import { Spaceship } from "./entities/spaceship";
@@ -11,7 +12,8 @@ export class Interstellar extends Game {
   map = createMap(this.scene);
 
   private constructor(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
-    super(canvas, joystick);
+    const camInitialPosition = new THREE.Vector3(0, 0, 0);
+    super(canvas, joystick, camInitialPosition);
     this.setupAudio();
   }
 
