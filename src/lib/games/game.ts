@@ -32,6 +32,11 @@ export class Game {
     const height = window.innerHeight;
 
     this.camera = new CustomCamera(75, width / height, 0.1, 1000);
+    // esto es para la primera carga de interstellar, sacarlo de aqui, pasar parametro
+    this.camera.position.set(-6.8, 3, 4.32);
+    this.camera.lookAt(0, 0, 0);
+    //
+    this.camera.add(this.listener);
 
     this.renderer = new THREE.WebGLRenderer({ canvas });
     this.renderer.setSize(width, height);

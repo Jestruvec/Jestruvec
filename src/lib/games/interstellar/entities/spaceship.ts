@@ -2,9 +2,10 @@ import { BaseEntity } from "@/lib/games/baseEntity";
 
 export class Spaceship extends BaseEntity {
   constructor() {
-    super("Spaceship", (rawName: string) =>
-      rawName.replace("CharacterArmature|", "")
-    );
+    const cleanAnimationName = (rawName: string) =>
+      rawName.replace("CharacterArmature|", "");
+
+    super("Spaceship", cleanAnimationName);
   }
 
   update(delta: number): void {

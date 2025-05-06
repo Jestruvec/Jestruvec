@@ -10,9 +10,10 @@ export class Astronaut extends BaseEntity {
   private getEffectiveKeys: () => Set<string>;
 
   constructor(getEffectiveKeys: () => Set<string>) {
-    super("Astronaut", (rawName: string) =>
-      rawName.replace("CharacterArmature|", "")
-    );
+    const cleanAnimationName = (rawName: string) =>
+      rawName.replace("CharacterArmature|", "");
+
+    super("Astronaut", cleanAnimationName);
 
     this.getEffectiveKeys = getEffectiveKeys;
   }

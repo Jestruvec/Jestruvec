@@ -6,40 +6,52 @@ import { getPublicUrl } from "@/lib/services";
 import { loadModels } from "@/lib/helpers";
 
 export class Interstellar extends Game {
-  astronaut = new Astronaut(this.getEffectiveKeys);
-  spaceship = new Spaceship();
+  astronaut!: Astronaut;
+  spaceship!: Spaceship;
   map = createMap(this.scene);
 
   private constructor(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
     super(canvas, joystick);
-
     this.setupAudio();
-    this.spaceship.model.rotation.y = Math.PI;
-    this.spaceship.model.position.set(10, 5, 40);
-    this.scene.add(this.astronaut.model, this.spaceship.model);
   }
 
   static async create(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
-    await loadModels();
-    return new Interstellar(canvas, joystick);
+    const instance = new Interstellar(canvas, joystick);
+    instance.start(instance.animate);
+
+    loadModels().then(() => {
+      instance.astronaut = new Astronaut(instance.getEffectiveKeys);
+      instance.spaceship = new Spaceship();
+      instance.spaceship.model.rotation.y = Math.PI;
+      instance.spaceship.model.position.set(10, 5, 40);
+      instance.scene.add(instance.astronaut.model, instance.spaceship.model);
+    });
+
+    return instance;
   }
 
   private animate = () => {
     const delta = this.clock.getDelta();
     const elapsed = this.clock.getElapsedTime();
-    const characterPosition = this.astronaut.model.position;
 
     this.map.update(elapsed);
-    this.astronaut.update(delta, this.camera);
-    this.spaceship.update(delta);
-    this.camera.update(characterPosition, this.mouseDeltaX);
+
+    if (this.astronaut) {
+      const characterPosition = this.astronaut.model.position;
+      this.astronaut.update(delta, this.camera);
+      this.camera.update(characterPosition, this.mouseDeltaX);
+    }
+
+    if (this.spaceship) {
+      this.spaceship.update(delta);
+    }
 
     this.renderer.render(this.scene, this.camera);
   };
 
   private setupAudio() {
     try {
-      const backgroundMusic = getPublicUrl("music", "Background.mp3");
+      const backgroundMusic = getPublicUrl("music", "bg-interstellar.mp3");
 
       this.audioLoader.load(
         backgroundMusic,
@@ -56,9 +68,5 @@ export class Interstellar extends Game {
     } catch (error) {
       console.log("Error al obtener la URL pública del audio:", error);
     }
-  }
-
-  restart() {
-    this.start(this.animate);
   }
 }

@@ -7,8 +7,7 @@ const main = async () => {
   initEventListeners();
 
   const { canvasDOM, joystickDOM } = getDOMElements();
-  const game = await Interstellar.create(canvasDOM, joystickDOM);
-  game.restart();
+  Interstellar.create(canvasDOM, joystickDOM);
 };
 
 main();
