@@ -65,8 +65,8 @@ export const getModel = (key: ModelKey): AnimatedModel => {
 };
 
 export const loadModels = async () => {
-  const astronautUrl = getPublicUrl("models", "Astronaut.glb");
-  const spaceshipUrl = getPublicUrl("models", "Spaceship.glb");
+  const astronautUrl = getPublicUrl("interstellar", "glb/Astronaut.glb");
+  const spaceshipUrl = getPublicUrl("interstellar", "glb/Spaceship.glb");
 
   //nota: arreglar el uso de "!"
   const entries: [ModelKey, string][] = [

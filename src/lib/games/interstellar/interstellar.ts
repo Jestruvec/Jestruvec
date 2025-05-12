@@ -14,11 +14,11 @@ export class Interstellar extends Game {
   private constructor(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
     const camInitialPosition = new THREE.Vector3(0, 0, 0);
     super(canvas, joystick, camInitialPosition);
-    this.setupAudio();
   }
 
   static async create(canvas: HTMLCanvasElement, joystick: HTMLDivElement) {
     const instance = new Interstellar(canvas, joystick);
+    instance.setupAudio();
     instance.start(instance.animate);
 
     loadModels().then(() => {
@@ -26,7 +26,24 @@ export class Interstellar extends Game {
       instance.spaceship = new Spaceship();
       instance.spaceship.model.rotation.y = Math.PI;
       instance.spaceship.model.position.set(10, 5, 40);
+
       instance.scene.add(instance.astronaut.model, instance.spaceship.model);
+
+      // const collidableMeshes: THREE.Object3D[] = [];
+
+      // instance.spaceship.model.traverse((child) => {
+      //   if (child instanceof THREE.Mesh) {
+      //     collidableMeshes.push(child);
+      //     const boxHelper = new THREE.BoxHelper(child, 0xff0000);
+      //     instance.scene.add(boxHelper);
+      //   }
+      // });
+
+      // const collidableBoxes = collidableMeshes.map((obj) => {
+      //   return new THREE.Box3().setFromObject(obj);
+      // });
+
+      // instance.astronaut.setObstacles(collidableBoxes);
     });
 
     return instance;
@@ -53,7 +70,10 @@ export class Interstellar extends Game {
 
   private setupAudio() {
     try {
-      const backgroundMusic = getPublicUrl("music", "bg-interstellar.mp3");
+      const backgroundMusic = getPublicUrl(
+        "interstellar",
+        "mp3/bg-interstellar.mp3"
+      );
 
       this.audioLoader.load(
         backgroundMusic,
