@@ -9,13 +9,13 @@ export class Astronaut extends BaseEntity {
   private up = new THREE.Vector3(0, 1, 0);
   private getEffectiveKeys: () => Set<string>;
   // private obstacles: THREE.Box3[] = [];
-  private collider = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 4, 1),
-    new THREE.MeshBasicMaterial({
-      color: 0x00ff00,
-      wireframe: true,
-    })
-  );
+  // private collider = new THREE.Mesh(
+  //   new THREE.BoxGeometry(1, 4, 1),
+  //   new THREE.MeshBasicMaterial({
+  //     color: 0x00ff00,
+  //     wireframe: true,
+  //   })
+  // );
 
   constructor(getEffectiveKeys: () => Set<string>) {
     const cleanAnimationName = (rawName: string) => {
@@ -24,7 +24,7 @@ export class Astronaut extends BaseEntity {
 
     super("Astronaut", cleanAnimationName);
 
-    this.model.add(this.collider);
+    // this.model.add(this.collider);
     this.getEffectiveKeys = getEffectiveKeys;
   }
 
