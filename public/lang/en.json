@@ -37,6 +37,11 @@
       "title": "Pokemon app",
       "description": "The classic Pokémon web app where you can search for Pokémon by name and also filter them by type.",
       "technologies": "Technologies: React, Redux toolkit, Tailwind"
+    },
+    "dictionary": {
+      "title": "Dictionary",
+      "description": "This is a web application built with Next.js that allows you to look up English words using the Free Dictionary API. The application displays definitions, pronunciations, usage examples, and more.",
+      "technologies": "Technologies: Next.js, Redux toolkit, Vitest, Tailwind"
     }
   },
   "contact": {

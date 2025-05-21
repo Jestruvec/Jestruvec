@@ -42,6 +42,11 @@
       "imgAlt": "Foto de pokemon app",
       "description": "La clásica aplicación web de Pokémon donde puedes buscar Pokémon por nombre y también filtrarlos por tipo.",
       "technologies": "Tecnologías: React, Redux toolkit, Tailwind"
+    },
+    "dictionary": {
+      "title": "Dictionary",
+      "description": "Esta es una aplicación web desarrollada con Next.js que permite buscar palabras en inglés mediante la API de Free Dictionary. La aplicación muestra definiciones, pronunciaciones, ejemplos de uso y más.",
+      "technologies": "Tecnologías: Next.js, Redux toolkit, Vitest, Tailwind"
     }
   },
   "contact": {
