@@ -20,27 +20,32 @@
     "description": "These are a few of my personal projects. I've also worked on private corporate projects that I can't showcase, but I'd be happy to discuss them.",
     "cursed_waters": {
       "title": "Cursed waters",
-      "description": "A 3D game where you defend a floating gem on a tropical island from waves of enemies. The game increases in difficulty with each raid, and you can heal and upgrade by collecting loot.",
+      "description": "Just for fun - A 3D game where you defend a floating gem on a tropical island from waves of enemies. The game increases in difficulty with each raid, and you can heal and upgrade by collecting loot.",
       "technologies": "Technologies: TypeScript, Three.js"
+    },
+    "tesseract": {
+      "title": "Tesseract",
+      "description": "Freelance - A website where I offer my services as a web developer.",
+      "technologies": "Technologies: React, Typescript, Vitest, Tailwind CSS"
     },
     "strength_lab": {
       "title": "Strength lab",
-      "description": "A web app where users can create their account, log in, add friends, post, react to their friends' posts, create and edit their profile, and most importantly, create their gym workout routines.",
+      "description": "Just for fun - A web app where users can create their account, log in, add friends, post, react to their friends' posts, create and edit their profile, and most importantly, create their gym workout routines.",
       "technologies": "Technologies: React, Supabase, Tailwind"
     },
-    "my_crossy_road": {
+    "my_crossy_road_game": {
       "title": "My crossy road game",
-      "description": "In this game, the goal is to cross roads without getting hit, earning points for each successful move. Inspired by the classic Crossy Road, developed following Hunor Marton Borbely's tutorial.",
+      "description": "Just for fun - In this game, the goal is to cross roads without getting hit, earning points for each successful move. Inspired by the classic Crossy Road, developed following Hunor Marton Borbely's tutorial.",
       "technologies": "Technologies: React, Three.js"
     },
     "pokemons": {
       "title": "Pokemon app",
-      "description": "The classic Pokémon web app where you can search for Pokémon by name and also filter them by type.",
+      "description": "Technical test - The classic Pokémon web app where you can search for Pokémon by name and also filter them by type.",
       "technologies": "Technologies: React, Redux toolkit, Tailwind"
     },
     "dictionary": {
       "title": "Dictionary",
-      "description": "This is a web application built with Next.js that allows you to look up English words using the Free Dictionary API. The application displays definitions, pronunciations, usage examples, and more.",
+      "description": "Technical test - This is a web application built with Next.js that allows you to look up English words using the Free Dictionary API. The application displays definitions, pronunciations, usage examples, and more.",
       "technologies": "Technologies: Next.js, Redux toolkit, Vitest, Tailwind"
     }
   },
@@ -50,11 +55,17 @@
     "success": "Message sent!",
     "submit": "Send Message",
     "directly": "Or email me directly at",
+    "my_email": "jhonnyestruve@gmail.com",
     "error": {
       "name": "Please enter your name",
       "email": "Please enter a valid email",
       "message": "Please enter a message",
       "form": "Something went wrong, please try again later."
+    },
+    "label": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message"
     },
     "placeholder": {
       "name": "Your Name",
