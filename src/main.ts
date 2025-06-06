@@ -1,10 +1,15 @@
 import "@/assets/styles/index.css";
-import { Interstellar } from "@/lib/games/interstellar/interstellar";
+import "@/components/ProjectCard";
+import { Interstellar } from "@/games/interstellar/interstellar";
 import { getDOMElements } from "@/utils";
-import { initEventListeners } from "@/lib/events";
+import { initEventListeners } from "@/events";
+import { languageService } from "./services";
 
 const main = async () => {
+  await languageService.initLanguage();
   initEventListeners();
+
+  console.log("tuki");
 
   const { canvasDOM, joystickDOM } = getDOMElements();
   Interstellar.create(canvasDOM, joystickDOM);

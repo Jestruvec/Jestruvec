@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
-import { AnimatedModel } from "@/lib/types";
-import { getPublicUrl } from "@/lib/services";
+import { AnimatedModel } from "@/types";
+import { getPublicUrl } from "@/services";
 
 export type ModelKey = "Astronaut" | "Spaceship";
 
@@ -68,10 +68,9 @@ export const loadModels = async () => {
   const astronautUrl = getPublicUrl("interstellar", "glb/Astronaut.glb");
   const spaceshipUrl = getPublicUrl("interstellar", "glb/Spaceship.glb");
 
-  //nota: arreglar el uso de "!"
   const entries: [ModelKey, string][] = [
-    ["Astronaut", astronautUrl!],
-    ["Spaceship", spaceshipUrl!],
+    ["Astronaut", astronautUrl],
+    ["Spaceship", spaceshipUrl],
   ];
 
   for (const [key, path] of entries) {

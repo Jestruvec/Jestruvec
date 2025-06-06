@@ -1,4 +1,4 @@
-import { BaseEntity } from "@/lib/games/baseEntity";
+import { BaseEntity } from "@/games/baseEntity";
 
 export class Spaceship extends BaseEntity {
   constructor() {

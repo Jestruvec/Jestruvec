@@ -1,10 +1,10 @@
 import * as THREE from "three";
-import { Game } from "@/lib/games/game";
+import { Game } from "@/games/game";
 import { Astronaut } from "./entities/astronaut";
 import { Spaceship } from "./entities/spaceship";
 import { createMap } from "./map/map";
-import { getPublicUrl } from "@/lib/services";
-import { loadModels } from "@/lib/helpers";
+import { getPublicUrl } from "@/services";
+import { loadModels } from "@/helpers";
 
 export class Interstellar extends Game {
   astronaut!: Astronaut;
@@ -28,22 +28,6 @@ export class Interstellar extends Game {
       instance.spaceship.model.position.set(10, 5, 40);
 
       instance.scene.add(instance.astronaut.model, instance.spaceship.model);
-
-      // const collidableMeshes: THREE.Object3D[] = [];
-
-      // instance.spaceship.model.traverse((child) => {
-      //   if (child instanceof THREE.Mesh) {
-      //     collidableMeshes.push(child);
-      //     const boxHelper = new THREE.BoxHelper(child, 0xff0000);
-      //     instance.scene.add(boxHelper);
-      //   }
-      // });
-
-      // const collidableBoxes = collidableMeshes.map((obj) => {
-      //   return new THREE.Box3().setFromObject(obj);
-      // });
-
-      // instance.astronaut.setObstacles(collidableBoxes);
     });
 
     return instance;

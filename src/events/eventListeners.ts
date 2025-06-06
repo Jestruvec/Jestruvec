@@ -5,7 +5,7 @@ import {
   handleEmailSend,
   handleLangSwitch,
   handlePlay,
-} from "@/lib/events";
+} from "@/events";
 
 export const initEventListeners = () => {
   const {

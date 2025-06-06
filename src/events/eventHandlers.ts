@@ -1,7 +1,7 @@
 import { getDOMElements } from "@/utils";
-import { validateContactForm } from "@/lib/helpers/formHelper";
-import { sendEmail } from "@/lib/services/email";
-import { loadLanguage, getCurrentLang } from "@/lib/services";
+import { validateContactForm } from "@/helpers/formHelper";
+import { sendEmail } from "@/services/email";
+import { languageService } from "@/services";
 
 const {
   playBtnDOM,
@@ -23,6 +23,7 @@ const {
 } = getDOMElements();
 
 export const handleLangSwitch = () => {
+  const { getCurrentLang, loadLanguage } = languageService;
   const newLang = getCurrentLang() === "en" ? "es" : "en";
   loadLanguage(newLang);
 };

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { getModel, ModelKey } from "@/lib/helpers";
+import { getModel, ModelKey } from "@/helpers";
 
 export class BaseEntity {
   model: THREE.Group;

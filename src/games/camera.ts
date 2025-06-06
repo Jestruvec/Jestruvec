@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { CAMERA_DISTANCE, CAMERA_HEIGHT } from "@/lib/constants";
+import { CAMERA_DISTANCE, CAMERA_HEIGHT } from "@/constants";
 
 export class CustomCamera extends THREE.PerspectiveCamera {
   private horizontalAngle = Math.PI + 1;

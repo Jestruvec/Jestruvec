@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { BaseEntity } from "@/lib/games/baseEntity";
-import { CHARACTER_SPEED } from "@/lib/constants/character";
+import { BaseEntity } from "@/games/baseEntity";
+import { CHARACTER_SPEED } from "@/constants/character";
 
 export class Astronaut extends BaseEntity {
   private direction = new THREE.Vector3();
@@ -8,14 +8,6 @@ export class Astronaut extends BaseEntity {
   private right = new THREE.Vector3();
   private up = new THREE.Vector3(0, 1, 0);
   private getEffectiveKeys: () => Set<string>;
-  // private obstacles: THREE.Box3[] = [];
-  // private collider = new THREE.Mesh(
-  //   new THREE.BoxGeometry(1, 4, 1),
-  //   new THREE.MeshBasicMaterial({
-  //     color: 0x00ff00,
-  //     wireframe: true,
-  //   })
-  // );
 
   constructor(getEffectiveKeys: () => Set<string>) {
     const cleanAnimationName = (rawName: string) => {
@@ -24,7 +16,6 @@ export class Astronaut extends BaseEntity {
 
     super("Astronaut", cleanAnimationName);
 
-    // this.model.add(this.collider);
     this.getEffectiveKeys = getEffectiveKeys;
   }
 
@@ -33,24 +24,13 @@ export class Astronaut extends BaseEntity {
     this.mixer.update(delta);
   }
 
-  // setObstacles(obstacles: THREE.Box3[]) {
-  //   this.obstacles = obstacles;
-  // }
-
   updatePosition = (delta: number, camera: THREE.Camera) => {
     this.resetVectors();
     this.computeDirections(camera);
     this.handleInput();
-
     this.direction.normalize();
 
     const newPosition = this.getNextPosition(delta);
-    // const willCollide = this.checkCollision(newPosition);
-
-    // if (!willCollide) {
-    //   this.model.position.copy(newPosition);
-    // }
-
     this.model.position.copy(newPosition);
     this.updateAnimationAndRotation();
   };
@@ -87,23 +67,6 @@ export class Astronaut extends BaseEntity {
       .clone()
       .addScaledVector(this.direction, delta * CHARACTER_SPEED);
   }
-
-  // private checkCollision(newPosition: THREE.Vector3): boolean {
-  //   const characterBox = new THREE.Box3().setFromObject(this.collider);
-  //   const offset = new THREE.Vector3().subVectors(
-  //     newPosition,
-  //     this.model.position
-  //   );
-  //   const futureBox = characterBox.clone().translate(offset);
-
-  //   for (const obs of this.obstacles) {
-  //     if (futureBox.intersectsBox(obs)) {
-  //       return true;
-  //     }
-  //   }
-
-  //   return false;
-  // }
 
   private updateAnimationAndRotation() {
     const isMoving = this.direction.lengthSq() > 0;

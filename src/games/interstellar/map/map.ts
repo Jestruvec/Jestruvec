@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Water } from "three/examples/jsm/objects/Water.js";
-import { SUN_ROTATION_SPEED } from "@/lib/constants";
+import { SUN_ROTATION_SPEED } from "@/constants";
 import WaterNormalTexture from "@/assets/textures/water.webp";
 
 const mapFabric = (scene: THREE.Scene) => {
