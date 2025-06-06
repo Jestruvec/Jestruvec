@@ -9,8 +9,6 @@ const main = async () => {
   await languageService.initLanguage();
   initEventListeners();
 
-  console.log("tuki");
-
   const { canvasDOM, joystickDOM } = getDOMElements();
   Interstellar.create(canvasDOM, joystickDOM);
 };
