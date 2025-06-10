@@ -15,274 +15,294 @@
         opacity: 1;
       }
     </style>
-    <script type="module" crossorigin src="/Jestruvec/assets/index-Ckp0GALg.js"></script>
-    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-DNv18iJU.css">
+    <script type="module" crossorigin src="/Jestruvec/assets/index-C4uumQN9.js"></script>
+    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-c2l2Cxqp.css">
   </head>
   <body>
     <div id="app" class="h-screen w-full relative overflow-hidden">
-      <header class="fixed top-0 w-full">
-        <nav class="flex items-center justify-between py-3 px-6">
-          <div class="flex gap-2 items-center">
-            <h1 data-i18n="title" class="font-bold text-gray-800 text-2xl"></h1>
-            <button
-              id="lang-switcher"
-              class="px-2 py-1 cursor-pointer uppercase font-bold"
-              aria-label="Change lang"
-            >
-              🌐 <span data-i18n="lang"></span>
-            </button>
-          </div>
-
-          <ul class="flex gap-4 text-gray-600">
-            <li class="hidden sm:block">
-              <button
-                id="play-button"
-                data-i18n="nav.play"
-                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
-              ></button>
-            </li>
-            <li>
-              <button
-                id="about-button"
-                data-i18n="nav.about"
-                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none font-bold"
-              ></button>
-            </li>
-            <li>
-              <button
-                id="projects-button"
-                data-i18n="nav.projects"
-                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
-              ></button>
-            </li>
-            <li>
-              <button
-                id="contact-button"
-                data-i18n="nav.contact"
-                class="cursor-pointer hover:text-gray-900 transition-colors focus:outline-none"
-              ></button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
       <canvas id="canvas"></canvas>
 
-      <div
-        id="dialog"
-        class="w-96 sm:w-120 h-[75vh] flex flex-col justify-between items-center text-white text-center p-6 fixed top-1/2 left-1/2 rounded-lg transition-all ease-in-out duration-300 show transform translate-x-[-50%] translate-y-[-50%]"
-      >
-        <section id="about-section" class="flex flex-col flex-grow mb-4">
-          <h2 class="text-2xl font-bold" data-i18n="about.title"></h2>
-
-          <img
-            src="images/selfie-circle.webp"
-            alt="Photo of Jhonny"
-            data-i18n="about.imgAlt"
-            class="rounded-full m-auto w-32 h-32 object-cover shadow-md"
-          />
-
-          <div class="flex flex-col gap-4 overflow-auto mb-4 h-[50%]">
-            <p data-i18n="about.p1"></p>
-            <p data-i18n="about.p2"></p>
-            <p data-i18n="about.p3"></p>
-          </div>
-
-          <a
-            href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-i18n="about.resume"
-            class="cursor-pointer"
+      <div id="dialog" class="flex justify-center text-gray-800 fixed inset-0">
+        <div class="w-full h-screen max-w-7xl flex flex-col px-6">
+          <header
+            class="flex items-center justify-between sticky top-0 h-16 shrink-0"
           >
-          </a>
-        </section>
+            <div class="flex gap-2 items-center">
+              <h1 data-i18n="title" class="font-semibold text-2xl"></h1>
 
-        <section
-          id="projects-section"
-          class="hidden flex-col gap-4 mb-4 flex-grow overflow-auto"
-        >
-          <h2 class="text-2xl font-bold mb-4" data-i18n="projects.title"></h2>
-
-          <div class="flex flex-col gap-8 h-full overflow-auto">
-            <project-card
-              title-i18n-key="projects.cursed_waters.title"
-              description-i18n-key="projects.cursed_waters.description"
-              img-url="images/cursed-waters.webp"
-              img-alt="Cursed Waters Screenshot"
-              img-i18n-alt-key="projects.cursed_waters.img_alt"
-              technologies-i18n-key="projects.cursed_waters.technologies"
-              repo-url="https://github.com/Jestruvec/cursed-waters/"
-              live-url="https://jestruvec.github.io/cursed-waters/"
-            ></project-card>
-
-            <project-card
-              title-i18n-key="projects.tesseract.title"
-              description-i18n-key="projects.tesseract.description"
-              img-url="images/tesseract.webp"
-              img-alt="Tesseract Screenshot"
-              img-i18n-alt-key="projects.tesseract.img_alt"
-              technologies-i18n-key="projects.tesseract.technologies"
-              repo-url="https://github.com/Jestruvec/tesseract/"
-              live-url="https://jestruvec.github.io/tesseract/"
-            ></project-card>
-
-            <project-card
-              title-i18n-key="projects.dictionary.title"
-              description-i18n-key="projects.dictionary.description"
-              img-url="images/dictionary.webp"
-              img-alt="Cursed Waters Screenshot"
-              img-i18n-alt-key="projects.dictionary.img_alt"
-              technologies-i18n-key="projects.dictionary.technologies"
-              repo-url="https://github.com/Jestruvec/dictionary/"
-              live-url="https://dictionary-blush-five.vercel.app/"
-            ></project-card>
-
-            <project-card
-              title-i18n-key="projects.pokemons.title"
-              description-i18n-key="projects.pokemons.description"
-              img-url="images/pokemons.webp"
-              img-alt="Cursed Waters Screenshot"
-              img-i18n-alt-key="projects.pokemons.img_alt"
-              technologies-i18n-key="projects.pokemons.technologies"
-              repo-url="https://github.com/Jestruvec/pokemons/"
-              live-url="https://jestruvec.github.io/pokemons/"
-            ></project-card>
-
-            <project-card
-              title-i18n-key="projects.my_crossy_road_game.title"
-              description-i18n-key="projects.my_crossy_road_game.description"
-              img-url="images/my-crossy-road-game.webp"
-              img-alt="Cursed Waters Screenshot"
-              img-i18n-alt-key="projects.my_crossy_road_game.img_alt"
-              technologies-i18n-key="projects.my_crossy_road_game.technologies"
-              repo-url="https://github.com/Jestruvec/my-crossy-road-game/"
-              live-url="https://jestruvec.github.io/my-crossy-road-game/"
-            ></project-card>
-
-            <project-card
-              title-i18n-key="projects.strength_lab.title"
-              description-i18n-key="projects.strength_lab.description"
-              img-url="images/strength-lab.webp"
-              img-alt="Cursed Waters Screenshot"
-              img-i18n-alt-key="projects.strength_lab.img_alt"
-              technologies-i18n-key="projects.strength_lab.technologies"
-              repo-url="https://github.com/Jestruvec/strength-lab/"
-              live-url="https://jestruvec.github.io/strength-lab/"
-            ></project-card>
-          </div>
-        </section>
-
-        <section
-          id="contact-section"
-          class="hidden flex-col justify-between items-center gap-6 mb-4 h-full"
-        >
-          <h2 class="text-2xl font-bold mb-4" data-i18n="contact.title"></h2>
-
-          <p data-i18n="contact.description"></p>
-
-          <form
-            id="contact-form"
-            class="flex flex-col gap-4 mt-4 w-full text-left h-full overflow-auto"
-          >
-            <span
-              id="form-contact-success-message"
-              data-i18n="contact.success"
-              class="text-green-500 font-bold hidden text-center transition-all ease-in-out duration-300"
-            ></span>
-            <div class="w-full flex flex-col">
-              <label
-                html-for="user_name"
-                data-i18n="contact.label.name"
-              ></label>
-              <input
-                id="user_name"
-                name="user_name"
-                type="text"
-                placeholder="Your Name"
-                data-i18n="contact.placeholder.name"
-                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
-              />
-              <span
-                id="form-contact-name-error"
-                data-i18n="contact.error.name"
-                class="text-red-500 text-sm hidden"
-              ></span>
+              <button
+                id="lang-switcher"
+                aria-label="Change lang"
+                class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 hidden md:block"
+              >
+                🌐 <span data-i18n="lang"></span>
+              </button>
             </div>
 
-            <div class="w-full flex flex-col">
-              <label
-                html-for="user_email"
-                data-i18n="contact.label.email"
-              ></label>
-              <input
-                id="user_email"
-                name="user_email"
-                type="text"
-                placeholder="Your Email"
-                data-i18n="contact.placeholder.email"
-                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
-              />
-              <span
-                id="form-contact-email-error"
-                data-i18n="contact.error.email"
-                class="text-red-500 text-sm hidden"
-              ></span>
-            </div>
-
-            <div class="w-full flex flex-col">
-              <label
-                html-for="message"
-                data-i18n="contact.label.message"
-              ></label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Your Message"
-                data-i18n="contact.placeholder.message"
-                rows="4"
-                class="p-3 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-0"
-              ></textarea>
-              <span
-                id="form-contact-message-error"
-                data-i18n="contact.error.message"
-                class="text-red-500 text-sm hidden"
-              ></span>
-            </div>
-
-            <span
-              id="form-contact-error"
-              data-i18n="contact.error.form"
-              class="text-red-500 text-sm hidden"
-            >
-            </span>
+            <nav class="hidden md:block">
+              <ul class="flex gap-4">
+                <li class="hidden sm:block">
+                  <button
+                    id="play-button"
+                    data-i18n="nav.play"
+                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                  ></button>
+                </li>
+                <li>
+                  <button
+                    id="about-button"
+                    data-i18n="nav.about"
+                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-bold"
+                  ></button>
+                </li>
+                <li>
+                  <button
+                    id="projects-button"
+                    data-i18n="nav.projects"
+                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                  ></button>
+                </li>
+                <li>
+                  <button
+                    id="contact-button"
+                    data-i18n="nav.contact"
+                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                  ></button>
+                </li>
+              </ul>
+            </nav>
 
             <button
-              id="form-contact-submit-btn"
-              data-i18n="contact.submit"
-              type="submit"
-              class="bg-gray-600 cursor-pointer hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition-all"
-            ></button>
-          </form>
+              id="menu-hamburger"
+              aria-label=""
+              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 md:hidden"
+            >
+              <div class="h-full flex items-center justify-center">
+                <lord-icon
+                  trigger="hover"
+                  src="icons/code.json"
+                  colors="outline:#121331,primary:#ffffff"
+                  style="width: 25px; height: 25px"
+                ></lord-icon>
+              </div>
+            </button>
+          </header>
 
-          <div class="text-sm mt-4">
-            <span data-i18n="contact.directly"></span>
+          <main id="main-content" class="flex-grow overflow-auto py-10 show">
+            <section id="about-section" class="flex flex-col gap-4 h-full">
+              <h1 class="text-2xl font-bold" data-i18n="about.title"></h1>
+
+              <p data-i18n="about.p1" class="text-justify"></p>
+              <p data-i18n="about.p2" class="text-justify"></p>
+              <p data-i18n="about.p3" class="text-justify"></p>
+            </section>
+
+            <section
+              id="projects-section"
+              class="hidden flex-col gap-4 h-full overflow-auto"
+            >
+              <h1 class="text-2xl font-bold" data-i18n="projects.title"></h1>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <project-card
+                  title-i18n-key="projects.cursed_waters.title"
+                  description-i18n-key="projects.cursed_waters.description"
+                  img-url="images/cursed-waters.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.cursed_waters.img_alt"
+                  technologies-i18n-key="projects.cursed_waters.technologies"
+                  repo-url="https://github.com/Jestruvec/cursed-waters/"
+                  live-url="https://jestruvec.github.io/cursed-waters/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.tesseract.title"
+                  description-i18n-key="projects.tesseract.description"
+                  img-url="images/tesseract.webp"
+                  img-alt="Tesseract Screenshot"
+                  img-i18n-alt-key="projects.tesseract.img_alt"
+                  technologies-i18n-key="projects.tesseract.technologies"
+                  repo-url="https://github.com/Jestruvec/tesseract/"
+                  live-url="https://jestruvec.github.io/tesseract/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.dictionary.title"
+                  description-i18n-key="projects.dictionary.description"
+                  img-url="images/dictionary.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.dictionary.img_alt"
+                  technologies-i18n-key="projects.dictionary.technologies"
+                  repo-url="https://github.com/Jestruvec/dictionary/"
+                  live-url="https://dictionary-blush-five.vercel.app/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.pokemons.title"
+                  description-i18n-key="projects.pokemons.description"
+                  img-url="images/pokemons.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.pokemons.img_alt"
+                  technologies-i18n-key="projects.pokemons.technologies"
+                  repo-url="https://github.com/Jestruvec/pokemons/"
+                  live-url="https://jestruvec.github.io/pokemons/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.my_crossy_road_game.title"
+                  description-i18n-key="projects.my_crossy_road_game.description"
+                  img-url="images/my-crossy-road-game.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.my_crossy_road_game.img_alt"
+                  technologies-i18n-key="projects.my_crossy_road_game.technologies"
+                  repo-url="https://github.com/Jestruvec/my-crossy-road-game/"
+                  live-url="https://jestruvec.github.io/my-crossy-road-game/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.strength_lab.title"
+                  description-i18n-key="projects.strength_lab.description"
+                  img-url="images/strength-lab.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.strength_lab.img_alt"
+                  technologies-i18n-key="projects.strength_lab.technologies"
+                  repo-url="https://github.com/Jestruvec/strength-lab/"
+                  live-url="https://jestruvec.github.io/strength-lab/"
+                ></project-card>
+              </div>
+            </section>
+
+            <section
+              id="contact-section"
+              class="hidden flex-col gap-4 h-full justify-center items-center"
+            >
+              <h1 class="text-2xl font-bold" data-i18n="contact.title"></h1>
+              <p data-i18n="contact.description"></p>
+
+              <form
+                id="contact-form"
+                class="flex flex-col gap-4 w-full max-w-md"
+              >
+                <span
+                  id="form-contact-success-message"
+                  data-i18n="contact.success"
+                  class="text-green-500 font-bold hidden text-center transition-all ease-in-out duration-300"
+                ></span>
+
+                <span
+                  id="form-contact-error"
+                  data-i18n="contact.error.form"
+                  class="text-red-500 text-sm hidden"
+                >
+                </span>
+
+                <div class="w-full flex flex-col">
+                  <label
+                    html-for="user_name"
+                    data-i18n="contact.label.name"
+                  ></label>
+                  <input
+                    id="user_name"
+                    name="user_name"
+                    type="text"
+                    placeholder="Your Name"
+                    data-i18n="contact.placeholder.name"
+                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                  />
+                  <span
+                    id="form-contact-name-error"
+                    data-i18n="contact.error.name"
+                    class="text-red-500 text-sm hidden"
+                  ></span>
+                </div>
+
+                <div class="w-full flex flex-col">
+                  <label
+                    html-for="user_email"
+                    data-i18n="contact.label.email"
+                  ></label>
+                  <input
+                    id="user_email"
+                    name="user_email"
+                    type="text"
+                    placeholder="Your Email"
+                    data-i18n="contact.placeholder.email"
+                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                  />
+                  <span
+                    id="form-contact-email-error"
+                    data-i18n="contact.error.email"
+                    class="text-red-500 text-sm hidden"
+                  ></span>
+                </div>
+
+                <div class="w-full flex flex-col">
+                  <label
+                    html-for="message"
+                    data-i18n="contact.label.message"
+                  ></label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Your Message"
+                    data-i18n="contact.placeholder.message"
+                    rows="4"
+                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                  ></textarea>
+                  <span
+                    id="form-contact-message-error"
+                    data-i18n="contact.error.message"
+                    class="text-red-500 text-sm hidden"
+                  ></span>
+                </div>
+
+                <button
+                  id="form-contact-submit-btn"
+                  type="submit"
+                  data-i18n="contact.submit"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 border font-semibold"
+                ></button>
+              </form>
+
+              <div class="text-center">
+                <span data-i18n="contact.directly"></span>
+                <a
+                  href="mailto:jhonnyestruve@gmail.com"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                  data-i18n="contact.my_email"
+                >
+                </a>
+              </div>
+            </section>
+          </main>
+
+          <footer class="sticky bottom-0 h-16 shrink-0 flex gap-4 items-center">
             <a
-              href="mailto:jhonnyestruve@gmail.com"
-              class="underline"
-              data-i18n="contact.my_email"
+              href="https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="linkedin"
+              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
             >
             </a>
-          </div>
-        </section>
-
-        <footer>
-          <button
-            id="close-dialog-button"
-            data-i18n="close"
-            class="cursor-pointer text-white py-2 px-4 transition-all ease-in-out duration-500 hover:text-red-500 focus:outline-none"
-          ></button>
-        </footer>
+            <a
+              href="https://github.com/Jestruvec"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="github"
+              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+            >
+            </a>
+            <a
+              href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="resume"
+              class="cursor-pointer self-center hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+            >
+            </a>
+          </footer>
+        </div>
       </div>
 
       <div id="joystick-container" class="sm:hidden">

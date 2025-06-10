@@ -2,6 +2,9 @@
   "title": "Jestruvec",
   "lang": "ES",
   "close": "Cerrar",
+  "resume": "Curriculum",
+  "linkedin": "Linkedin",
+  "github": "Github",
   "nav": {
     "play": "Jugar",
     "about": "Sobre mí",
@@ -13,8 +16,7 @@
     "imgAlt": "Foto de Jhonny",
     "p1": "Hola, soy Jhonny, un desarrollador frontend. Me gusta crear excelentes experiencias web. Disfruto dar vida a las ideas construyendo productos digitales intuitivos.",
     "p2": "Tengo más de 3 años de experiencia creando interfaces de usuario geniales usando algunos de los frameworks y bibliotecas de JavaScript más populares.",
-    "p3": "Fuera del código, normalmente me encontrarás jugando videojuegos, haciendo ejercicio, explorando nuevas tecnologías o pasando tiempo al aire libre con mi familia.",
-    "resume": "Ver mi currículum"
+    "p3": "Fuera del código, normalmente me encontrarás jugando videojuegos, haciendo ejercicio, explorando nuevas tecnologías o pasando tiempo al aire libre con mi familia."
   },
   "projects": {
     "title": "Proyectos",
