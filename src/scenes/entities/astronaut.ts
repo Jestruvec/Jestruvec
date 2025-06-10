@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { BaseEntity } from "@/games/baseEntity";
+import { BaseEntity } from "@/scenes/baseEntity";
 import { CHARACTER_SPEED } from "@/constants/character";
 
 export class Astronaut extends BaseEntity {
@@ -19,7 +19,7 @@ export class Astronaut extends BaseEntity {
     this.getEffectiveKeys = getEffectiveKeys;
   }
 
-  update(delta: number, camera: THREE.Camera): void {
+  updateCharacter(delta: number, camera: THREE.Camera): void {
     this.updatePosition(delta, camera);
     this.mixer.update(delta);
   }

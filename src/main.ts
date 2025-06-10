@@ -1,7 +1,7 @@
 import "@/assets/styles/index.css";
 import "@/components/ProjectCard";
 import "@/components/LordIcon";
-import { Interstellar } from "@/games/interstellar/interstellar";
+import { Interstellar } from "@/scenes/interstellar/interstellar";
 import { getDOMElements } from "@/utils";
 import { initEventListeners } from "@/events";
 import { languageService } from "./services";

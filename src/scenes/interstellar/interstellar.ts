@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { Game } from "@/games/game";
-import { Astronaut } from "./entities/astronaut";
-import { Spaceship } from "./entities/spaceship";
+import { Game } from "@/scenes/game";
+import { Astronaut } from "../entities/astronaut";
+import { Spaceship } from "../entities/spaceship";
 import { createMap } from "./map/map";
 import { getPublicUrl } from "@/services";
 import { loadModels } from "@/helpers";
@@ -24,8 +24,7 @@ export class Interstellar extends Game {
     loadModels().then(() => {
       instance.astronaut = new Astronaut(instance.getEffectiveKeys);
       instance.spaceship = new Spaceship();
-      instance.spaceship.model.rotation.y = Math.PI;
-      instance.spaceship.model.position.set(10, 5, 40);
+      instance.spaceship.model.position.set(-10, 5, -10);
 
       instance.scene.add(instance.astronaut.model, instance.spaceship.model);
     });
@@ -41,7 +40,7 @@ export class Interstellar extends Game {
 
     if (this.astronaut) {
       const characterPosition = this.astronaut.model.position;
-      this.astronaut.update(delta, this.camera);
+      this.astronaut.updateCharacter(delta, this.camera);
       this.camera.update(characterPosition, this.mouseDeltaX);
     }
 
@@ -64,7 +63,7 @@ export class Interstellar extends Game {
         (buffer) => {
           this.backgroundSound.setBuffer(buffer);
           this.backgroundSound.setLoop(true);
-          this.backgroundSound.setVolume(0.5);
+          this.backgroundSound.setVolume(0.25);
         },
         undefined,
         (error) => {

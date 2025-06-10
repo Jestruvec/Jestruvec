@@ -9,18 +9,14 @@
   scrollbar-width: none;
 }
 
-#dialog {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
 #form-contact-success-message,
-#dialog {
+#main-content {
   opacity: 0;
   visibility: hidden;
 }
 
 #form-contact-success-message.show,
-#dialog.show,
+#main-content.show,
 #joystick-container.show {
   visibility: visible;
   opacity: 1;

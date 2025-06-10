@@ -1,4 +1,4 @@
-import { BaseEntity } from "@/games/baseEntity";
+import { BaseEntity } from "@/scenes/baseEntity";
 
 export class Spaceship extends BaseEntity {
   constructor() {
@@ -6,9 +6,5 @@ export class Spaceship extends BaseEntity {
       rawName.replace("CharacterArmature|", "");
 
     super("Spaceship", cleanAnimationName);
-  }
-
-  update(delta: number): void {
-    this.mixer.update(delta);
   }
 }

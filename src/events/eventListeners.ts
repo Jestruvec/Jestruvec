@@ -1,7 +1,6 @@
 import { getDOMElements } from "@/utils";
 import {
   handleDialogContent,
-  handleDialogClose,
   handleEmailSend,
   handleLangSwitch,
   handlePlay,
@@ -13,7 +12,6 @@ export const initEventListeners = () => {
     aboutBtnDOM,
     projectsBtnDOM,
     contactBtnDOM,
-    closeDialogBtnDOM,
     contactFormDOM,
     dialogDOM,
     langSwitcherDOM,
@@ -29,8 +27,6 @@ export const initEventListeners = () => {
   [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((element) => {
     element.addEventListener("click", handleDialogContent);
   });
-  //cerrar dialog
-  closeDialogBtnDOM.addEventListener("click", handleDialogClose);
 
   //no interactuar con el juego dentro del dialog en moviles
   dialogDOM.addEventListener("touchstart", (e) => {
