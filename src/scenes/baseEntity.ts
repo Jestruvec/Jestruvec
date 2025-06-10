@@ -8,19 +8,31 @@ export class BaseEntity {
   currentAction: THREE.AnimationAction | null = null;
 
   protected constructor(
-    key: ModelKey,
-    cleanAnimationName: (rawName: string) => string
+    modelKey: ModelKey,
+    parseAnimationNames: (rawName: string) => string
   ) {
-    const { model, animations, mixer } = getModel(key);
+    const { model, animations, mixer } = getModel(modelKey);
 
     this.model = model;
     this.mixer = mixer;
     this.animations = {};
 
     animations.forEach((clip) => {
-      const cleanName = cleanAnimationName(clip.name);
+      const cleanName = parseAnimationNames(clip.name);
       this.animations[cleanName] = this.mixer.clipAction(clip);
     });
+  }
+
+  static create(
+    modelKey: ModelKey,
+    parseAnimationNames: (rawName: string) => string
+  ) {
+    const instance = new BaseEntity(modelKey, parseAnimationNames);
+    return instance;
+  }
+
+  update(delta: number): void {
+    this.mixer.update(delta);
   }
 
   playAnimation(

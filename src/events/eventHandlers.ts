@@ -8,7 +8,6 @@ const {
   aboutBtnDOM,
   projectsBtnDOM,
   contactBtnDOM,
-  dialogDOM,
   canvasDOM,
   aboutSectionDOM,
   projectsSectionDOM,
@@ -20,6 +19,7 @@ const {
   messageErrorDOM,
   successMessageDOM,
   joystickContainerDOM,
+  mainDOM,
 } = getDOMElements();
 
 export const handleLangSwitch = () => {
@@ -52,15 +52,17 @@ export const handleDialogContent = (event: MouseEvent) => {
   switch (clickedButton) {
     case aboutBtnDOM:
       section = aboutSectionDOM;
+      aboutBtnDOM.blur();
       break;
     case projectsBtnDOM:
       section = projectsSectionDOM;
+      projectsBtnDOM.blur();
       break;
     case contactBtnDOM:
       section = contactSectionDOM;
+      contactBtnDOM.blur();
       break;
     default:
-      console.log("No se encontro el btn clickeado");
       return;
   }
 
@@ -70,7 +72,7 @@ export const handleDialogContent = (event: MouseEvent) => {
   //ocultar el joystick
   joystickContainerDOM.classList.remove("show");
   //mostrar el dialog
-  dialogDOM.classList.add("show");
+  mainDOM.classList.add("show");
 };
 export const handleDialogClose = () => {
   //quitar focus a btns
@@ -87,8 +89,8 @@ export const handleDialogClose = () => {
     elem.classList.add("hidden")
   );
 
-  //ocultar dialog
-  dialogDOM.classList.remove("show");
+  //ocultar contenido principal
+  mainDOM.classList.remove("show");
 
   //mostrar joystick
   joystickContainerDOM.classList.add("show");
@@ -133,10 +135,7 @@ export const handleEmailSend = async (e: SubmitEvent) => {
   }
 };
 export const handlePlay = () => {
-  //blockear el cursor
-  canvasDOM.requestPointerLock();
-  //quitar el focus al btn play
-  playBtnDOM.blur();
-  //cerrar el dialog
   handleDialogClose();
+  canvasDOM.requestPointerLock();
+  playBtnDOM.blur();
 };

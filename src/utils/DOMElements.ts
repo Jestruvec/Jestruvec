@@ -1,5 +1,6 @@
 export const getDOMElements = () => ({
   canvasDOM: document.querySelector("canvas") as HTMLCanvasElement,
+  mainDOM: document.getElementById("main-content") as HTMLElement,
   playBtnDOM: document.getElementById("play-button") as HTMLButtonElement,
   aboutBtnDOM: document.getElementById("about-button") as HTMLButtonElement,
   projectsBtnDOM: document.getElementById(
@@ -12,9 +13,6 @@ export const getDOMElements = () => ({
     "projects-section"
   ) as HTMLElement,
   contactSectionDOM: document.getElementById("contact-section") as HTMLElement,
-  closeDialogBtnDOM: document.getElementById(
-    "close-dialog-button"
-  ) as HTMLButtonElement,
   contactFormDOM: document.getElementById("contact-form") as HTMLFormElement,
   submitBtnDOM: document.getElementById(
     "form-contact-submit-btn"

@@ -10,43 +10,40 @@ export class ProjectCard extends HTMLElement {
     const liveUrl = this.getAttribute("live-url") || "#";
 
     this.innerHTML = `
-  <article class="flex flex-col gap-4">
+  <article class="h-full flex flex-col gap-4">
     <header>
-      <h3 class="text-xl font-semibold mb-4" data-i18n="${titleI18nKey}"></h3>
+      <h1 class="text-xl font-semibold mb-4" data-i18n="${titleI18nKey}"></h1>
       <img
       src="${imgUrl}"
       alt="${imgAlt}"
       data-i18n="${imgI18nAltKey}"
+      class="w-full max-w-xl"
       />
     </header>
 
-    <p data-i18n="${descriptionI18nKey}"></p>
+    <section class="flex flex-col flex-grow justify-between gap-4">
+      <p data-i18n="${descriptionI18nKey}"></p>
+      <p class="text-sm font-medium" data-i18n="${techI18nKey}"></p>
+    </section>
 
-    <footer class="flex flex-col gap-4 mt-2">
-      <span class="text-sm font-medium" data-i18n="${techI18nKey}"></span>
-      
-      <div class="flex items-center justify-center gap-2">
-        <lord-icon trigger="hover" src="icons/code.json" colors="outline:#121331,primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-
-        <a
-          href="${repoUrl}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm text-gray-300 hover:underline"
-        >
-          ${repoUrl}
-        </a>
-      </div>
-
+    <section class="flex flex-col">
+      <a
+        href="${repoUrl}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+      >
+        ${repoUrl}
+      </a>
       <a
         href="${liveUrl}"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-gray-300 hover:underline"
+        class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
       >
         ${liveUrl}
       </a>
-    </footer>
+    </section>
   </article>
 `;
   }

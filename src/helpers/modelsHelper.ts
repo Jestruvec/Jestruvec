@@ -4,7 +4,7 @@ import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 import { AnimatedModel } from "@/types";
 import { getPublicUrl } from "@/services";
 
-export type ModelKey = "Astronaut" | "Spaceship";
+export type ModelKey = "Astronaut" | "Spaceship" | "Spaceship_Interior";
 
 const loader = new GLTFLoader();
 const models: Record<string, AnimatedModel> = {};
@@ -65,12 +65,19 @@ export const getModel = (key: ModelKey): AnimatedModel => {
 };
 
 export const loadModels = async () => {
+  if (Object.keys(models).length) return;
+
   const astronautUrl = getPublicUrl("interstellar", "glb/Astronaut.glb");
   const spaceshipUrl = getPublicUrl("interstellar", "glb/Spaceship.glb");
+  const spaceshipInteriorUrl = getPublicUrl(
+    "interstellar",
+    "glb/spaceship-interior-alternative.glb"
+  );
 
   const entries: [ModelKey, string][] = [
     ["Astronaut", astronautUrl],
     ["Spaceship", spaceshipUrl],
+    ["Spaceship_Interior", spaceshipInteriorUrl],
   ];
 
   for (const [key, path] of entries) {
