@@ -13,7 +13,7 @@ export const initEventListeners = () => {
     projectsBtnDOM,
     contactBtnDOM,
     contactFormDOM,
-    dialogDOM,
+    mainDOM,
     langSwitcherDOM,
   } = getDOMElements();
 
@@ -29,13 +29,13 @@ export const initEventListeners = () => {
   });
 
   //no interactuar con el juego dentro del dialog en moviles
-  dialogDOM.addEventListener("touchstart", (e) => {
+  mainDOM.addEventListener("touchstart", (e) => {
     e.stopPropagation();
   });
-  dialogDOM.addEventListener("touchmove", (e) => {
+  mainDOM.addEventListener("touchmove", (e) => {
     e.stopPropagation();
   });
-  dialogDOM.addEventListener("touchend", (e) => {
+  mainDOM.addEventListener("touchend", (e) => {
     e.stopPropagation();
   });
 };

@@ -7,7 +7,6 @@
     <link rel="icon" type="image/svg+xml" href="/tesseract.png" />
     <style>
       body {
-        background-color: black;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
       }
@@ -20,79 +19,80 @@
     <div id="app" class="h-screen w-full relative overflow-hidden">
       <canvas id="canvas"></canvas>
 
-      <div id="dialog" class="flex justify-center text-gray-800 fixed inset-0">
-        <div class="w-full h-screen max-w-7xl flex flex-col px-6">
-          <header
-            class="flex items-center justify-between sticky top-0 h-16 shrink-0"
-          >
+      <div id="joystick-container" class="sm:hidden">
+        <div id="joystick"></div>
+      </div>
+
+      <div class="fixed inset-0">
+        <div
+          id="layout"
+          class="w-full h-screen max-w-7xl m-auto flex flex-col px-6"
+        >
+          <header class="flex items-center justify-between h-16 shrink-0">
             <div class="flex gap-2 items-center">
-              <h1 data-i18n="title" class="font-semibold text-2xl"></h1>
+              <h1
+                data-i18n="title"
+                class="font-semibold text-xl md:text-2xl"
+              ></h1>
 
               <button
                 id="lang-switcher"
                 aria-label="Change lang"
-                class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 hidden md:block"
+                class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 hidden md:block"
               >
                 🌐 <span data-i18n="lang"></span>
               </button>
             </div>
 
-            <nav class="hidden md:block">
-              <ul class="flex gap-4">
-                <li class="hidden sm:block">
+            <nav>
+              <ul class="flex">
+                <li class="text-sm md:text-base">
                   <button
                     id="play-button"
                     data-i18n="nav.play"
-                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                   ></button>
                 </li>
-                <li>
+                <li class="text-sm md:text-base">
                   <button
                     id="about-button"
                     data-i18n="nav.about"
-                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-bold"
+                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                   ></button>
                 </li>
-                <li>
+                <li class="text-sm md:text-base">
                   <button
                     id="projects-button"
                     data-i18n="nav.projects"
-                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                   ></button>
                 </li>
-                <li>
+                <li class="text-sm md:text-base">
                   <button
                     id="contact-button"
                     data-i18n="nav.contact"
-                    class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                   ></button>
                 </li>
               </ul>
             </nav>
-
-            <button
-              id="menu-hamburger"
-              aria-label=""
-              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 md:hidden"
-            >
-              <div class="h-full flex items-center justify-center">
-                <lord-icon
-                  trigger="hover"
-                  src="icons/code.json"
-                  colors="outline:#121331,primary:#ffffff"
-                  style="width: 25px; height: 25px"
-                ></lord-icon>
-              </div>
-            </button>
           </header>
 
           <main id="main-content" class="flex-grow overflow-auto py-10 show">
             <section id="about-section" class="flex flex-col gap-4 h-full">
               <h1 class="text-2xl font-bold" data-i18n="about.title"></h1>
 
-              <p data-i18n="about.p1" class="text-justify"></p>
-              <p data-i18n="about.p2" class="text-justify"></p>
-              <p data-i18n="about.p3" class="text-justify"></p>
+              <img
+                src="/images/selfie-circle.webp"
+                alt="Jhonny selfie"
+                class="my-10 w-40 h-40 bg-center bg-cover mx-auto"
+              />
+
+              <div class="max-w-lg space-y-4 mx-auto">
+                <p data-i18n="about.p1" class="text-center"></p>
+                <p data-i18n="about.p2" class="text-center"></p>
+                <p data-i18n="about.p3" class="text-center"></p>
+              </div>
             </section>
 
             <section
@@ -274,13 +274,13 @@
             </section>
           </main>
 
-          <footer class="sticky bottom-0 h-16 shrink-0 flex gap-4 items-center">
+          <footer class="h-16 shrink-0 flex items-center gap-4">
             <a
               href="https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/"
               target="_blank"
               rel="noopener noreferrer"
               data-i18n="linkedin"
-              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
             >
             </a>
             <a
@@ -288,7 +288,7 @@
               target="_blank"
               rel="noopener noreferrer"
               data-i18n="github"
-              class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
             >
             </a>
             <a
@@ -296,15 +296,11 @@
               target="_blank"
               rel="noopener noreferrer"
               data-i18n="resume"
-              class="cursor-pointer self-center hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              class="cursor-pointer font-semibold self-center hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
             >
             </a>
           </footer>
         </div>
-      </div>
-
-      <div id="joystick-container" class="sm:hidden">
-        <div id="joystick"></div>
       </div>
     </div>
 
