@@ -7,7 +7,7 @@ export const getDOMElements = () => ({
     "projects-button"
   ) as HTMLButtonElement,
   contactBtnDOM: document.getElementById("contact-button") as HTMLButtonElement,
-  dialogDOM: document.getElementById("dialog") as HTMLDivElement,
+  layoutDOM: document.getElementById("layout") as HTMLDivElement,
   aboutSectionDOM: document.getElementById("about-section") as HTMLElement,
   projectsSectionDOM: document.getElementById(
     "projects-section"
