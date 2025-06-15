@@ -20,33 +20,35 @@ const {
   successMessageDOM,
   joystickContainerDOM,
   mainDOM,
+  footerDOM,
 } = getDOMElements();
+
+const sections = [aboutSectionDOM, projectsSectionDOM, contactSectionDOM];
+
+const hideAllSections = () => {
+  sections.forEach((section) => {
+    section.classList.remove("flex");
+    section.classList.add("hidden");
+  });
+};
+
+const showSection = (section: HTMLElement) => {
+  section.classList.remove("hidden");
+  section.classList.add("flex");
+};
 
 export const handleLangSwitch = () => {
   const { getCurrentLang, loadLanguage } = languageService;
   const newLang = getCurrentLang() === "en" ? "es" : "en";
   loadLanguage(newLang);
 };
+
 export const handleDialogContent = (event: MouseEvent) => {
   const clickedButton = event.target as HTMLElement;
 
-  //quitar el focus a todos los btns
-  [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
-    button.classList.remove("font-bold");
-  });
+  hideAllSections();
 
-  //enfocar el btn clickeado
-  clickedButton.classList.add("font-bold");
-
-  //ocultar todas la secciones
-  [aboutSectionDOM, projectsSectionDOM, contactSectionDOM].forEach(
-    (section) => {
-      section.classList.remove("flex");
-      section.classList.add("hidden");
-    }
-  );
-
-  //mostrar la seccion correspondiente al btn clickeado
+  //show clicked section btn
   let section: HTMLElement;
 
   switch (clickedButton) {
@@ -66,42 +68,26 @@ export const handleDialogContent = (event: MouseEvent) => {
       return;
   }
 
-  section.classList.remove("hidden");
-  section.classList.add("flex");
+  showSection(section);
 
-  //ocultar el joystick
+  //hide joystick
   joystickContainerDOM.classList.remove("show");
-  //mostrar el dialog
+  //show footer and main content
   mainDOM.classList.add("show");
+  footerDOM.classList.add("show");
 };
-export const handleDialogClose = () => {
-  //quitar focus a btns
-  [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((button) => {
-    button.classList.remove("font-bold");
-  });
 
-  //ocultar msg de exito
+export const handleSendEmail = async (e: SubmitEvent) => {
+  e.preventDefault();
+
+  //hide success message
   successMessageDOM.classList.remove("show");
   successMessageDOM.classList.add("hidden");
 
-  //ocultar msg de error
+  //hide error messages
   [formErrorDOM, nameErrorDOM, emailErrorDOM, messageErrorDOM].forEach((elem) =>
     elem.classList.add("hidden")
   );
-
-  //ocultar contenido principal
-  mainDOM.classList.remove("show");
-
-  //mostrar joystick
-  joystickContainerDOM.classList.add("show");
-};
-export const handleEmailSend = async (e: SubmitEvent) => {
-  //prevenir la recarga de la pagina
-  e.preventDefault();
-
-  //ocultar msg de exito
-  successMessageDOM.classList.remove("show");
-  successMessageDOM.classList.add("hidden");
 
   //inhabilitar el btn de submit
   submitBtnDOM.disabled = true;
@@ -114,7 +100,6 @@ export const handleEmailSend = async (e: SubmitEvent) => {
   }
 
   try {
-    //enviar el form al service
     await sendEmail(form);
 
     //mostrar el msg de exito
@@ -124,9 +109,10 @@ export const handleEmailSend = async (e: SubmitEvent) => {
     //resetear el form
     form.reset();
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       formErrorDOM.innerText = error.message;
+    } else {
+      formErrorDOM.innerText = "Unknown error";
     }
 
     formErrorDOM.classList.remove("hidden");
@@ -134,8 +120,37 @@ export const handleEmailSend = async (e: SubmitEvent) => {
     submitBtnDOM.disabled = false;
   }
 };
+
 export const handlePlay = () => {
-  handleDialogClose();
-  canvasDOM.requestPointerLock();
+  mainDOM.classList.toggle("show");
+  footerDOM.classList.toggle("show");
+  joystickContainerDOM.classList.toggle("show");
+
+  if (!mainDOM.classList.contains("show")) {
+    canvasDOM.requestPointerLock();
+  }
+
   playBtnDOM.blur();
+};
+
+export const handleNextSection = () => {
+  const currentSection = sections.find((section) =>
+    section.classList.contains("flex")
+  );
+
+  hideAllSections();
+
+  switch (currentSection) {
+    case aboutSectionDOM:
+      showSection(projectsSectionDOM);
+      break;
+    case projectsSectionDOM:
+      showSection(contactSectionDOM);
+      break;
+    case contactSectionDOM:
+      showSection(aboutSectionDOM);
+      break;
+    default:
+      break;
+  }
 };

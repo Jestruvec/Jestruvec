@@ -1,6 +1,16 @@
 export const getDOMElements = () => ({
   canvasDOM: document.querySelector("canvas") as HTMLCanvasElement,
   mainDOM: document.getElementById("main-content") as HTMLElement,
+  footerDOM: document.getElementById("footer") as HTMLElement,
+  aboutNextBtnDOM: document.getElementById(
+    "about-next-button"
+  ) as HTMLButtonElement,
+  projectsNextBtnDOM: document.getElementById(
+    "projects-next-button"
+  ) as HTMLButtonElement,
+  contactNextBtnDOM: document.getElementById(
+    "contact-next-button"
+  ) as HTMLButtonElement,
   playBtnDOM: document.getElementById("play-button") as HTMLButtonElement,
   aboutBtnDOM: document.getElementById("about-button") as HTMLButtonElement,
   projectsBtnDOM: document.getElementById(
