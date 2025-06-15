@@ -14,8 +14,8 @@
         opacity: 1;
       }
     </style>
-    <script type="module" crossorigin src="/Jestruvec/assets/index-Bu670M7z.js"></script>
-    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-BRSeKjih.css">
+    <script type="module" crossorigin src="/Jestruvec/assets/index-D7fKCyLR.js"></script>
+    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-Bluec3Io.css">
   </head>
   <body>
     <div id="app" class="h-[100dvh] w-full relative overflow-hidden">
@@ -40,49 +40,82 @@
               <button
                 id="lang-switcher"
                 aria-label="Change lang"
-                class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 hidden md:block"
+                class="cursor-pointer flex gap-2 items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
               >
-                🌐 <span data-i18n="lang"></span>
+                <lord-icon
+                  src="/Jestruvec/icons/globe.json"
+                  trigger="hover"
+                  stroke="bold"
+                  state="hover-pinch"
+                  colors="primary:#000,secondary:#000"
+                  style="width: 25px; height: 25px"
+                >
+                </lord-icon>
+                <span data-i18n="lang"></span>
               </button>
             </div>
 
-            <nav>
-              <ul class="flex">
-                <li class="text-sm md:text-base">
-                  <button
-                    id="play-button"
-                    data-i18n="nav.play"
-                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-                  ></button>
-                </li>
-                <li class="text-sm md:text-base">
-                  <button
-                    id="about-button"
-                    data-i18n="nav.about"
-                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-                  ></button>
-                </li>
-                <li class="text-sm md:text-base">
-                  <button
-                    id="projects-button"
-                    data-i18n="nav.projects"
-                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-                  ></button>
-                </li>
-                <li class="text-sm md:text-base">
-                  <button
-                    id="contact-button"
-                    data-i18n="nav.contact"
-                    class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-                  ></button>
-                </li>
-              </ul>
-            </nav>
+            <div class="flex items-center gap-2">
+              <button
+                id="play-button"
+                class="cursor-pointer flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              >
+                <lord-icon
+                  src="/Jestruvec/icons/joystick.json"
+                  trigger="hover"
+                  stroke="bold"
+                  state="hover-pinch"
+                  style="width: 25px; height: 25px"
+                >
+                </lord-icon>
+              </button>
+
+              <nav class="hidden md:block">
+                <ul class="flex">
+                  <li class="text-sm md:text-base">
+                    <a
+                      href="#"
+                      id="about-button"
+                      data-i18n="nav.about"
+                      class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    ></a>
+                  </li>
+                  <li class="text-sm md:text-base">
+                    <a
+                      href="#"
+                      id="projects-button"
+                      data-i18n="nav.projects"
+                      class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    ></a>
+                  </li>
+                  <li class="text-sm md:text-base">
+                    <a
+                      href="#"
+                      id="contact-button"
+                      data-i18n="nav.contact"
+                      class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+                    ></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </header>
 
           <main id="main-content" class="flex-grow overflow-auto py-10 show">
             <section id="about-section" class="flex flex-col gap-4 h-full">
-              <h1 class="text-2xl font-bold" data-i18n="about.title"></h1>
+              <header class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold" data-i18n="about.title"></h1>
+                <button
+                  id="about-next-button"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-semibold"
+                >
+                  <img
+                    src="/Jestruvec/icons/chevron-right.svg"
+                    alt="Chevron right"
+                    class="w-5 h-5"
+                  />
+                </button>
+              </header>
 
               <img
                 src="/Jestruvec/images/selfie-circle.webp"
@@ -101,7 +134,19 @@
               id="projects-section"
               class="hidden flex-col gap-4 h-full overflow-auto"
             >
-              <h1 class="text-2xl font-bold" data-i18n="projects.title"></h1>
+              <header class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold" data-i18n="projects.title"></h1>
+                <button
+                  id="projects-next-button"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-semibold"
+                >
+                  <img
+                    src="/Jestruvec/icons/chevron-right.svg"
+                    alt="Chevron right"
+                    class="w-5 h-5"
+                  />
+                </button>
+              </header>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <project-card
@@ -176,7 +221,20 @@
               id="contact-section"
               class="hidden flex-col gap-4 h-full justify-center items-center"
             >
-              <h1 class="text-2xl font-bold" data-i18n="contact.title"></h1>
+              <header class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold" data-i18n="contact.title"></h1>
+                <button
+                  id="contact-next-button"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-semibold"
+                >
+                  <img
+                    src="/Jestruvec/icons/chevron-right.svg"
+                    alt="Chevron right"
+                    class="w-5 h-5"
+                  />
+                </button>
+              </header>
+
               <p data-i18n="contact.description"></p>
 
               <form
@@ -276,31 +334,36 @@
             </section>
           </main>
 
-          <footer class="h-16 shrink-0 flex items-center gap-4">
-            <a
-              href="https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-i18n="linkedin"
-              class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-            >
-            </a>
-            <a
-              href="https://github.com/Jestruvec"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-i18n="github"
-              class="cursor-pointer font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-            >
-            </a>
-            <a
-              href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-i18n="resume"
-              class="cursor-pointer font-semibold self-center hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
-            >
-            </a>
+          <footer
+            id="footer"
+            class="h-16 shrink-0 flex items-center gap-4 show"
+          >
+            <section>
+              <a
+                href="https://www.linkedin.com/in/jhonny-estruve-35ba4b1b2/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="linkedin"
+                class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              >
+              </a>
+              <a
+                href="https://github.com/Jestruvec"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="github"
+                class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              >
+              </a>
+              <a
+                href="https://drive.google.com/drive/folders/1ibrxFaLtx6o35RmAspa_ejJZhlBu1xkG?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="resume"
+                class="cursor-pointer inline-flex items-center font-semibold self-center hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+              >
+              </a>
+            </section>
           </footer>
         </div>
       </div>
