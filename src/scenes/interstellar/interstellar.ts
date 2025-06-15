@@ -63,7 +63,7 @@ export class Interstellar extends Game {
         (buffer) => {
           this.backgroundSound.setBuffer(buffer);
           this.backgroundSound.setLoop(true);
-          this.backgroundSound.setVolume(0.25);
+          this.backgroundSound.setVolume(0);
         },
         undefined,
         (error) => {

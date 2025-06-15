@@ -1,9 +1,10 @@
 import { getDOMElements } from "@/utils";
 import {
   handleDialogContent,
-  handleEmailSend,
+  handleSendEmail,
   handleLangSwitch,
   handlePlay,
+  handleNextSection,
 } from "@/events";
 
 export const initEventListeners = () => {
@@ -15,18 +16,25 @@ export const initEventListeners = () => {
     contactFormDOM,
     mainDOM,
     langSwitcherDOM,
+    aboutNextBtnDOM,
+    projectsNextBtnDOM,
+    contactNextBtnDOM,
   } = getDOMElements();
 
   //cambiar idioma
   langSwitcherDOM.addEventListener("click", handleLangSwitch);
   //enviar email
-  contactFormDOM.addEventListener("submit", handleEmailSend);
+  contactFormDOM.addEventListener("submit", handleSendEmail);
   //bloquear cursor
   playBtnDOM.addEventListener("click", handlePlay);
   //abrir dialog
   [aboutBtnDOM, projectsBtnDOM, contactBtnDOM].forEach((element) => {
     element.addEventListener("click", handleDialogContent);
   });
+
+  [aboutNextBtnDOM, projectsNextBtnDOM, contactNextBtnDOM].forEach((element) =>
+    element.addEventListener("click", handleNextSection)
+  );
 
   //no interactuar con el juego dentro del dialog en moviles
   mainDOM.addEventListener("touchstart", (e) => {
