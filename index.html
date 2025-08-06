@@ -14,8 +14,8 @@
         opacity: 1;
       }
     </style>
-    <script type="module" crossorigin src="/Jestruvec/assets/index-Co22N3g8.js"></script>
-    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-De0Arjx3.css">
+    <script type="module" crossorigin src="/Jestruvec/assets/index-DUA-jDQ0.js"></script>
+    <link rel="stylesheet" crossorigin href="/Jestruvec/assets/index-_Q_0CE6y.css">
   </head>
   <body>
     <div id="app" class="h-[100dvh] w-full relative overflow-hidden">
@@ -83,16 +83,16 @@
                   <li class="text-sm md:text-base">
                     <a
                       href="#"
-                      id="projects-button"
-                      data-i18n="nav.projects"
+                      id="contact-button"
+                      data-i18n="nav.contact"
                       class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                     ></a>
                   </li>
                   <li class="text-sm md:text-base">
                     <a
                       href="#"
-                      id="contact-button"
-                      data-i18n="nav.contact"
+                      id="projects-button"
+                      data-i18n="nav.projects"
                       class="cursor-pointer inline-flex items-center font-semibold hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
                     ></a>
                   </li>
@@ -101,8 +101,11 @@
             </div>
           </header>
 
-          <main id="main-content" class="flex-grow overflow-auto py-10 show">
-            <section id="about-section" class="flex flex-col gap-4 h-full">
+          <main id="main-content" class="flex-grow overflow-auto show">
+            <section
+              id="about-section"
+              class="flex flex-col gap-4 h-full justify-center items-center"
+            >
               <header class="flex items-center gap-2">
                 <h1 class="text-2xl font-bold" data-i18n="about.title"></h1>
                 <button
@@ -127,93 +130,6 @@
                 <p data-i18n="about.p1" class="text-center"></p>
                 <p data-i18n="about.p2" class="text-center"></p>
                 <p data-i18n="about.p3" class="text-center"></p>
-              </div>
-            </section>
-
-            <section
-              id="projects-section"
-              class="hidden flex-col gap-4 h-full overflow-auto"
-            >
-              <header class="flex items-center gap-2">
-                <h1 class="text-2xl font-bold" data-i18n="projects.title"></h1>
-                <button
-                  id="projects-next-button"
-                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-semibold md:hidden"
-                >
-                  <img
-                    src="/Jestruvec/icons/chevron-right.svg"
-                    alt="Chevron right"
-                    class="w-5 h-5"
-                  />
-                </button>
-              </header>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <project-card
-                  title-i18n-key="projects.cursed_waters.title"
-                  description-i18n-key="projects.cursed_waters.description"
-                  img-url="images/cursed-waters.webp"
-                  img-alt="Cursed Waters Screenshot"
-                  img-i18n-alt-key="projects.cursed_waters.img_alt"
-                  technologies-i18n-key="projects.cursed_waters.technologies"
-                  repo-url="https://github.com/Jestruvec/cursed-waters/"
-                  live-url="https://jestruvec.github.io/cursed-waters/"
-                ></project-card>
-
-                <project-card
-                  title-i18n-key="projects.tesseract.title"
-                  description-i18n-key="projects.tesseract.description"
-                  img-url="images/tesseract.webp"
-                  img-alt="Tesseract Screenshot"
-                  img-i18n-alt-key="projects.tesseract.img_alt"
-                  technologies-i18n-key="projects.tesseract.technologies"
-                  repo-url="https://github.com/Jestruvec/tesseract/"
-                  live-url="https://jestruvec.github.io/tesseract/"
-                ></project-card>
-
-                <project-card
-                  title-i18n-key="projects.dictionary.title"
-                  description-i18n-key="projects.dictionary.description"
-                  img-url="images/dictionary.webp"
-                  img-alt="Cursed Waters Screenshot"
-                  img-i18n-alt-key="projects.dictionary.img_alt"
-                  technologies-i18n-key="projects.dictionary.technologies"
-                  repo-url="https://github.com/Jestruvec/dictionary/"
-                  live-url="https://dictionary-blush-five.vercel.app/"
-                ></project-card>
-
-                <project-card
-                  title-i18n-key="projects.pokemons.title"
-                  description-i18n-key="projects.pokemons.description"
-                  img-url="images/pokemons.webp"
-                  img-alt="Cursed Waters Screenshot"
-                  img-i18n-alt-key="projects.pokemons.img_alt"
-                  technologies-i18n-key="projects.pokemons.technologies"
-                  repo-url="https://github.com/Jestruvec/pokemons/"
-                  live-url="https://jestruvec.github.io/pokemons/"
-                ></project-card>
-
-                <project-card
-                  title-i18n-key="projects.my_crossy_road_game.title"
-                  description-i18n-key="projects.my_crossy_road_game.description"
-                  img-url="images/my-crossy-road-game.webp"
-                  img-alt="Cursed Waters Screenshot"
-                  img-i18n-alt-key="projects.my_crossy_road_game.img_alt"
-                  technologies-i18n-key="projects.my_crossy_road_game.technologies"
-                  repo-url="https://github.com/Jestruvec/my-crossy-road-game/"
-                  live-url="https://jestruvec.github.io/my-crossy-road-game/"
-                ></project-card>
-
-                <project-card
-                  title-i18n-key="projects.strength_lab.title"
-                  description-i18n-key="projects.strength_lab.description"
-                  img-url="images/strength-lab.webp"
-                  img-alt="Cursed Waters Screenshot"
-                  img-i18n-alt-key="projects.strength_lab.img_alt"
-                  technologies-i18n-key="projects.strength_lab.technologies"
-                  repo-url="https://github.com/Jestruvec/strength-lab/"
-                  live-url="https://jestruvec.github.io/strength-lab/"
-                ></project-card>
               </div>
             </section>
 
@@ -265,7 +181,7 @@
                     type="text"
                     placeholder="Your Name"
                     data-i18n="contact.placeholder.name"
-                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                    class="p-2 rounded-lg border border-gray-900 focus:outline-none focus:ring-1"
                   />
                   <span
                     id="form-contact-name-error"
@@ -285,7 +201,7 @@
                     type="text"
                     placeholder="Your Email"
                     data-i18n="contact.placeholder.email"
-                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                    class="p-2 rounded-lg border border-gray-900 focus:outline-none focus:ring-1"
                   />
                   <span
                     id="form-contact-email-error"
@@ -305,7 +221,7 @@
                     placeholder="Your Message"
                     data-i18n="contact.placeholder.message"
                     rows="4"
-                    class="p-2 rounded-lg border border-gray-800 focus:outline-none focus:ring-1"
+                    class="p-2 rounded-lg border border-gray-900 focus:outline-none focus:ring-1"
                   ></textarea>
                   <span
                     id="form-contact-message-error"
@@ -330,6 +246,82 @@
                   data-i18n="contact.my_email"
                 >
                 </a>
+              </div>
+            </section>
+
+            <section
+              id="projects-section"
+              class="hidden flex-col gap-4 h-full overflow-auto"
+            >
+              <header class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold" data-i18n="projects.title"></h1>
+                <button
+                  id="projects-next-button"
+                  class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 font-semibold md:hidden"
+                >
+                  <img
+                    src="/Jestruvec/icons/chevron-right.svg"
+                    alt="Chevron right"
+                    class="w-5 h-5"
+                  />
+                </button>
+              </header>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <project-card
+                  title-i18n-key="projects.darkMatterStudio.title"
+                  description-i18n-key="projects.darkMatterStudio.description"
+                  img-url="images/dark-matter-studio.webp"
+                  img-alt="DarkMatter Studio Website Screenshot"
+                  img-i18n-alt-key="projects.darkMatterStudio.img_alt"
+                  technologies-i18n-key="projects.darkMatterStudio.technologies"
+                  repo-url=""
+                  live-url="https://www.darkmatter-studio.com/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.cursed_waters.title"
+                  description-i18n-key="projects.cursed_waters.description"
+                  img-url="images/cursed-waters.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.cursed_waters.img_alt"
+                  technologies-i18n-key="projects.cursed_waters.technologies"
+                  repo-url="https://github.com/Jestruvec/cursed-waters/"
+                  live-url="https://jestruvec.github.io/cursed-waters/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.dictionary.title"
+                  description-i18n-key="projects.dictionary.description"
+                  img-url="images/dictionary.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.dictionary.img_alt"
+                  technologies-i18n-key="projects.dictionary.technologies"
+                  repo-url="https://github.com/Jestruvec/dictionary/"
+                  live-url="https://dictionary-blush-five.vercel.app/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.pokemons.title"
+                  description-i18n-key="projects.pokemons.description"
+                  img-url="images/pokemons.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.pokemons.img_alt"
+                  technologies-i18n-key="projects.pokemons.technologies"
+                  repo-url="https://github.com/Jestruvec/pokemons/"
+                  live-url="https://jestruvec.github.io/pokemons/"
+                ></project-card>
+
+                <project-card
+                  title-i18n-key="projects.my_crossy_road_game.title"
+                  description-i18n-key="projects.my_crossy_road_game.description"
+                  img-url="images/my-crossy-road-game.webp"
+                  img-alt="Cursed Waters Screenshot"
+                  img-i18n-alt-key="projects.my_crossy_road_game.img_alt"
+                  technologies-i18n-key="projects.my_crossy_road_game.technologies"
+                  repo-url="https://github.com/Jestruvec/my-crossy-road-game/"
+                  live-url="https://jestruvec.github.io/my-crossy-road-game/"
+                ></project-card>
               </div>
             </section>
           </main>

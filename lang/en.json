@@ -26,11 +26,11 @@
       "description": "Just for fun - A 3D game where you defend a floating gem on a tropical island from waves of enemies. The game increases in difficulty with each raid, and you can heal and upgrade by collecting loot.",
       "technologies": "Technologies: TypeScript, Three.js"
     },
-    "tesseract": {
-      "title": "Tesseract",
-      "img_alt": "Tesseract website screenshot",
+    "darkMatterStudio": {
+      "title": "DarkMatter Studio",
+      "img_alt": "DarkMatter Studio website screenshot",
       "description": "Freelance - A website where I offer my services as a web developer.",
-      "technologies": "Technologies: React, Typescript, Vitest, Tailwind CSS"
+      "technologies": "Technologies: Astro, Typescript, Tailwind CSS"
     },
     "strength_lab": {
       "title": "Strength lab",
