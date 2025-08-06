@@ -6,8 +6,8 @@ export class ProjectCard extends HTMLElement {
     const techI18nKey = this.getAttribute("technologies-i18n-key") || "";
     const imgUrl = this.getAttribute("img-url") || "";
     const imgAlt = this.getAttribute("img-alt") || "";
-    const repoUrl = this.getAttribute("repo-url") || "#";
-    const liveUrl = this.getAttribute("live-url") || "#";
+    const repoUrl = this.getAttribute("repo-url") || "";
+    const liveUrl = this.getAttribute("live-url") || "";
 
     this.innerHTML = `
   <article class="h-full flex flex-col gap-4">
@@ -31,7 +31,9 @@ export class ProjectCard extends HTMLElement {
         href="${repoUrl}"
         target="_blank"
         rel="noopener noreferrer"
-        class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2"
+        class="cursor-pointer hover:bg-[rgba(0,0,0,0.05)] focus:outline-none focus:ring rounded-lg py-1 px-2 ${
+          !repoUrl && "hidden"
+        }"
       >
         ${repoUrl}
       </a>

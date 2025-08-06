@@ -28,11 +28,11 @@
       "description": "Un juego 3D donde defiendes una gema flotante en una isla tropical de oleadas de enemigos. El juego aumenta de dificultad con cada oleada, y puedes curarte y mejorar recogiendo botín.",
       "technologies": "Tecnologías: TypeScript, Three.js"
     },
-    "tesseract": {
-      "title": "Tesseract",
-      "img_alt": "Captura de pantalla de Tesseract",
-      "description": "Emprendimiento - Un sitio web donde ofrezco mis servicios como desarrollador web.",
-      "technologies": "Tecnologias: React, Typescript, Vitest, Tailwind CSS"
+    "darkMatterStudio": {
+      "title": "DarkMatter Studio",
+      "img_alt": "Captura de pantalla de  DarkMatter Studio",
+      "description": "Emprendimiento - Un sitio web donde ofrezco servicios de desarrollo web, como: paginas de aterrizaje, comercios electronicos, plataformas administrativas, entre otros.",
+      "technologies": "Tecnologías: Astro, Typescript, Tailwind CSS"
     },
     "strength_lab": {
       "title": "Strength lab",
