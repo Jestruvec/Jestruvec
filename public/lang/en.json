@@ -19,41 +19,22 @@
   },
   "projects": {
     "title": "Projects",
-    "description": "These are a few of my personal projects. I've also worked on private corporate projects that I can't showcase, but I'd be happy to discuss them.",
     "cursed_waters": {
       "title": "Cursed waters",
       "img_alt": "Cursed waters website screenshot",
-      "description": "Just for fun - A 3D game where you defend a floating gem on a tropical island from waves of enemies. The game increases in difficulty with each raid, and you can heal and upgrade by collecting loot.",
+      "description": "A 3D game where you defend a floating gem on a tropical island from waves of enemies. The game increases in difficulty with each raid, and you can heal and upgrade by collecting loot.",
       "technologies": "Technologies: TypeScript, Three.js"
     },
     "darkMatterStudio": {
       "title": "DarkMatter Studio",
       "img_alt": "DarkMatter Studio website screenshot",
-      "description": "Freelance - A website where I offer my services as a web developer.",
+      "description": "A website where I offer my services as a web developer.",
       "technologies": "Technologies: Astro, Typescript, Tailwind CSS"
-    },
-    "strength_lab": {
-      "title": "Strength lab",
-      "img_alt": "Strength lab website screenshot",
-      "description": "Just for fun - A web app where users can create their account, log in, add friends, post, react to their friends' posts, create and edit their profile, and most importantly, create their gym workout routines.",
-      "technologies": "Technologies: React, Supabase, Tailwind"
-    },
-    "my_crossy_road_game": {
-      "title": "My crossy road game",
-      "img_alt": "My crossy road game website screenshot",
-      "description": "Just for fun - In this game, the goal is to cross roads without getting hit, earning points for each successful move. Inspired by the classic Crossy Road, developed following Hunor Marton Borbely's tutorial.",
-      "technologies": "Technologies: React, Three.js"
-    },
-    "pokemons": {
-      "title": "Pokemon app",
-      "img_alt": "Pokemon app website screenshot",
-      "description": "Technical test - The classic Pokémon web app where you can search for Pokémon by name and also filter them by type.",
-      "technologies": "Technologies: React, Redux toolkit, Tailwind"
     },
     "dictionary": {
       "title": "Dictionary",
       "img_alt": "Dictionary website screenshot",
-      "description": "Technical test - This is a web application built with Next.js that allows you to look up English words using the Free Dictionary API. The application displays definitions, pronunciations, usage examples, and more.",
+      "description": "A web application that allows you to look up English words using the Free Dictionary API. The application displays definitions, pronunciations, usage examples, and more.",
       "technologies": "Technologies: Next.js, Redux toolkit, Vitest, Tailwind"
     }
   },

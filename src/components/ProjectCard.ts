@@ -13,19 +13,21 @@ export class ProjectCard extends HTMLElement {
         href="${liveUrl}"
         target="_blank"
         rel="noopener noreferrer"
-        class="block overflow-hidden rounded-lg transition bg-white h-full"
+        class="block overflow-hidden rounded-lg transition bg-white shadow hover:shadow-lg h-full"
         aria-label="Proyecto"
       >
-        <figure class="h-full">
-          <img
-            src="${imgUrl}"
-            alt="${imgAlt}"
-            data-i18n="${imgI18nAltKey}"
-            class="w-full h-64 object-cover"
-          />
-          <figcaption class="p-4 bg-gray-50 h-full">
+        <figure class="flex flex-col h-full">
+          <div class="aspect-video overflow-hidden">
+            <img
+              src="${imgUrl}"
+              alt="${imgAlt}"
+              data-i18n="${imgI18nAltKey}"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <figcaption class="p-4 flex flex-col flex-1">
             <h3 class="text-lg font-semibold text-gray-800" data-i18n="${titleI18nKey}"></h3>
-            <p class="text-sm text-gray-600 mt-2" data-i18n="${descriptionI18nKey}"></p>
+            <p class="text-sm text-gray-600 mt-2 flex-1" data-i18n="${descriptionI18nKey}"></p>
             <p class="text-xs text-gray-500 mt-2" data-i18n="${techI18nKey}"></p>
           </figcaption>
         </figure>
