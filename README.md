@@ -5,7 +5,6 @@
 
 ### 👨‍💻 About me
 
-- 🧠 Currently looking for a job
 - 🛠️ Main stack: **React, Vue, Astro, TypeScript, Vite, TailwindCSS**
 - 🌐 Also: **Next.js, Nuxt, WebSockets, Bootstrap**
 - 🎯 Always focused on user experience, performance and good practices
